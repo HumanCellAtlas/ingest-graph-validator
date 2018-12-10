@@ -1,0 +1,38 @@
+{
+    "describedBy": "https://schema.humancellatlas.org/type/biomaterial/10.1.2/donor_organism",
+    "schema_type": "biomaterial",
+    "biomaterial_core": {
+        "biomaterial_id": "donor_WAe001-A",
+        "biomaterial_name": "human embryo",
+        "biomaterial_description": "human embryo",
+        "ncbi_taxon_id": [
+            9606
+        ]
+    },
+    "genus_species": [
+        {
+            "text": "Homo sapiens",
+            "ontology": "NCBITaxon:9606",
+            "ontology_label": "Homo sapiens"
+        }
+    ],
+    "development_stage": {
+        "text": "embryo",
+        "ontology": "UBERON:0000068",
+        "ontology_label": "embryo stage"
+    },
+    "diseases": [
+        {
+            "text": "normal",
+            "ontology": "PATO:0000461",
+            "ontology_label": "normal"
+        }
+    ],
+    "is_living": "yes",
+    "sex": "male",
+    "provenance": {
+        "document_id": "20aed87b-366c-4c1d-8d92-628ce910cbf5",
+        "submission_date": "2018-11-21T10:58:59.307Z",
+        "update_date": "2018-11-21T11:02:02.568Z"
+    }
+}

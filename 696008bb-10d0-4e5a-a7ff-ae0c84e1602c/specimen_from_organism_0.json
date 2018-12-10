@@ -1,0 +1,34 @@
+{
+    "describedBy": "http://schema.staging.data.humancellatlas.org/type/biomaterial/6.3.3/specimen_from_organism",
+    "schema_type": "biomaterial",
+    "biomaterial_core": {
+        "biomaterial_id": "H1_pancreas",
+        "biomaterial_name": "Pancreas from donor H1",
+        "biomaterial_description": "Pancreas from normal donor H1",
+        "ncbi_taxon_id": [
+            9606
+        ]
+    },
+    "genus_species": [
+        {
+            "text": "Homo sapiens",
+            "ontology": "NCBITaxon:9606"
+        }
+    ],
+    "organ": {
+        "text": "pancreas",
+        "ontology": "UBERON:0001264"
+    },
+    "organ_part": {
+        "text": "islet of Langerhans",
+        "ontology": "UBERON:0000006"
+    },
+    "purchased_specimen": {
+        "manufacturer": "Prodo Laboratories Inc (Irvine, CA, USA) "
+    },
+    "provenance": {
+        "document_id": "9af4803f-9108-44a5-8f82-ba5592f79802",
+        "submission_date": "2018-10-11T19:59:11.215Z",
+        "update_date": "2018-10-11T20:05:10.977Z"
+    }
+}

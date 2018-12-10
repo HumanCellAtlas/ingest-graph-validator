@@ -1,0 +1,50 @@
+{
+    "describedBy": "https://schema.humancellatlas.org/type/biomaterial/9.0.0/cell_line",
+    "schema_type": "biomaterial",
+    "biomaterial_core": {
+        "biomaterial_id": "cell_line_WAe001-A",
+        "biomaterial_name": "embryo_WAe001-A",
+        "biomaterial_description": "Human Embryonic Stem Cell",
+        "ncbi_taxon_id": [
+            9606
+        ],
+        "genotype": "DCX-Citrine"
+    },
+    "cell_line_type": "stem cell",
+    "cell_type": {
+        "text": "embryonic stem cell",
+        "ontology": "CL:0002322",
+        "ontology_label": "embryonic stem cell"
+    },
+    "disease": {
+        "text": "normal",
+        "ontology": "PATO:0000461",
+        "ontology_label": "normal"
+    },
+    "genus_species": [
+        {
+            "text": "Homo sapiens",
+            "ontology": "NCBITaxon:9606",
+            "ontology_label": "Homo sapiens"
+        }
+    ],
+    "publication": {
+        "authors": [
+            "Thomson JA",
+            "Itskovitz-Eldor J",
+            "Shapiro SS",
+            "Waknitz MA",
+            "Swiergiel JJ",
+            "Marshall VS",
+            "Jones JM"
+        ],
+        "publication_title": "Embryonic stem cell lines derived from human blastocysts.",
+        "pmid": 9804556,
+        "publication_url": "https://www.ncbi.nlm.nih.gov/pubmed/9804556"
+    },
+    "provenance": {
+        "document_id": "a8366e82-7b6f-49b4-b268-db097427c320",
+        "submission_date": "2018-11-21T10:58:59.331Z",
+        "update_date": "2018-11-21T11:07:40.692Z"
+    }
+}

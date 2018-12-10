@@ -1,0 +1,31 @@
+{
+    "describedBy": "http://schema.staging.data.humancellatlas.org/type/biomaterial/8.6.1/cell_suspension",
+    "schema_type": "biomaterial",
+    "biomaterial_core": {
+        "biomaterial_id": "AZ_A7",
+        "biomaterial_name": "AZ_A7 cell",
+        "biomaterial_description": "AZ_A7 cell",
+        "ncbi_taxon_id": [
+            9606
+        ],
+        "insdc_biomaterial": "ERS1348479",
+        "biosd_biomaterial": "SAMEA4437030"
+    },
+    "genus_species": [
+        {
+            "text": "Homo sapiens",
+            "ontology": "NCBITaxon:9606"
+        }
+    ],
+    "total_estimated_cells": 1,
+    "plate_based_sequencing": {
+        "plate_id": "AZ",
+        "well_id": "A7",
+        "cell_quality": "OK"
+    },
+    "provenance": {
+        "document_id": "d31b02ae-2348-414b-aa8d-bf1e31eebaa9",
+        "submission_date": "2018-10-11T19:59:11.390Z",
+        "update_date": "2018-10-11T20:08:20.072Z"
+    }
+}

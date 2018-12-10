@@ -1,0 +1,15 @@
+{
+    "describedBy": "https://schema.humancellatlas.org/type/protocol/biomaterial_collection/1.3.0/differentiation_protocol",
+    "schema_type": "protocol",
+    "protocol_core": {
+        "protocol_id": "P-GSE93593-1",
+        "protocol_name": "growth protocol",
+        "protocol_description": "We constructed an hESC line with Citrine (Cit) fused to the endogenous copy of the DCX gene in the H1 parent line (WAe001-A RRID:CVCL_9771) to allow us to profile neurons (Cit+) and progenitors (Cit\u2212) (Yao et al., 2017). hESCs were seeded for a 10-day cortical induction phase in NIMX media with SMAD inhibitors; reseeded for the ventralization phase at D10 in culture media containing Shh and purmorphamine, and finally at D24 for neural differentiation with neurogenic/neurotrophic factors BDNF, GDNF, NT3, and cAMP. The protocol was ended at D125."
+    },
+    "differentiation_method": "cell suspension",
+    "provenance": {
+        "document_id": "51bb8e67-8ad8-4feb-b1a8-f4dd9d18b670",
+        "submission_date": "2018-11-21T10:59:30.284Z",
+        "update_date": "2018-11-21T10:59:37.014Z"
+    }
+}
