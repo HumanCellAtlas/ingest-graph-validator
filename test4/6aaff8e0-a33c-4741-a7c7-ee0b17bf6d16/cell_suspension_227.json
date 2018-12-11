@@ -1,0 +1,34 @@
+{
+    "describedBy": "https://schema.humancellatlas.org/type/biomaterial/8.6.1/cell_suspension",
+    "schema_type": "biomaterial",
+    "biomaterial_core": {
+        "biomaterial_id": "Hip15_well_7140",
+        "biomaterial_name": "CD38+ CD138+ bone marrow cells",
+        "ncbi_taxon_id": [
+            9606
+        ]
+    },
+    "cell_morphology": {
+        "cell_size": "15-20",
+        "cell_size_unit": {
+            "text": "micrometer",
+            "ontology": "UO:0000017"
+        }
+    },
+    "selected_cell_type": [
+        {
+            "text": "Plasma cells",
+            "ontology": "CL:0000786"
+        }
+    ],
+    "total_estimated_cells": 1,
+    "plate_based_sequencing": {
+        "plate_id": "AB3065",
+        "well_id": "G10"
+    },
+    "provenance": {
+        "document_id": "e9023e56-8a80-45c3-87fb-b1541e6951da",
+        "submission_date": "2018-11-28T08:11:59.539Z",
+        "update_date": "2018-11-28T08:36:25.161Z"
+    }
+}

@@ -1,0 +1,27 @@
+{
+    "describedBy": "https://schema.humancellatlas.org/type/protocol/biomaterial_collection/8.2.6/collection_protocol",
+    "schema_type": "protocol",
+    "protocol_core": {
+        "protocol_id": "BM_hip_rep",
+        "protocol_name": "BM_hip_rep",
+        "protocol_description": "harvesting cells from bone marrow aspirate during hip replacement surgery",
+        "publication_doi": "10.1155/2016/3152065",
+        "protocols_io_doi": "10.17504/protocols.io.qxydxpw",
+        "document": "BM_Hip_Rep.pdf"
+    },
+    "collection_method": {
+        "text": "Ficoll-Hypaque method",
+        "ontology": "EFO:0009110"
+    },
+    "protocol_reagents": [
+        {
+            "catalog_number": "GE17-1440-02",
+            "manufacturer": "GE healthcare"
+        }
+    ],
+    "provenance": {
+        "document_id": "cc074b80-982b-463e-a4b4-204ab6604681",
+        "submission_date": "2018-11-28T08:12:51.898Z",
+        "update_date": "2018-11-28T08:12:59.381Z"
+    }
+}

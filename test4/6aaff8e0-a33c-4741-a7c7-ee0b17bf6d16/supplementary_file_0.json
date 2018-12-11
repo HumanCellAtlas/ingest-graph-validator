@@ -1,0 +1,14 @@
+{
+    "describedBy": "https://schema.humancellatlas.org/type/file/1.1.5/supplementary_file",
+    "schema_type": "file",
+    "file_core": {
+        "file_name": "BM_Ficoll.pdf",
+        "file_format": "pdf"
+    },
+    "file_description": "enrichment protocol",
+    "provenance": {
+        "document_id": "7f2745ca-caa7-4d2c-b2ae-51127b7b33a9",
+        "submission_date": "2018-11-28T08:09:40.632Z",
+        "update_date": "2018-11-28T08:26:05.224Z"
+    }
+}

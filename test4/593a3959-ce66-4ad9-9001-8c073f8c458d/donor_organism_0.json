@@ -1,0 +1,46 @@
+{
+    "describedBy": "https://schema.humancellatlas.org/type/biomaterial/10.1.2/donor_organism",
+    "schema_type": "biomaterial",
+    "biomaterial_core": {
+        "biomaterial_id": "Hip5",
+        "biomaterial_description": "Bone marrow aspirate during surgery for hip replacement",
+        "ncbi_taxon_id": [
+            9606
+        ]
+    },
+    "medical_history": {
+        "alcohol_history": "No alcoholism reported",
+        "medication": "No chronic meds",
+        "nutritional_state": "normal",
+        "smoking_history": "non-smoker"
+    },
+    "genus_species": [
+        {
+            "text": "Homo sapiens",
+            "ontology": "NCBITaxon:9606"
+        }
+    ],
+    "organism_age": "69",
+    "organism_age_unit": {
+        "text": "year",
+        "ontology_label": "year",
+        "ontology": "UO:0000036"
+    },
+    "development_stage": {
+        "text": "adult",
+        "ontology_label": "adult",
+        "ontology": "EFO:0001272"
+    },
+    "diseases": [
+        {
+            "text": "isolated hip osteoarthritis"
+        }
+    ],
+    "is_living": "yes",
+    "sex": "female",
+    "provenance": {
+        "document_id": "cf3eda73-263b-48a9-b47b-a4ecabef8cb0",
+        "submission_date": "2018-11-28T08:09:41.218Z",
+        "update_date": "2018-11-28T08:16:33.817Z"
+    }
+}

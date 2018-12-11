@@ -1,0 +1,17 @@
+{
+    "describedBy": "https://schema.humancellatlas.org/type/file/6.5.2/sequence_file",
+    "schema_type": "file",
+    "file_core": {
+        "file_name": "AB-HE0202B-CZI-day3-DroNc_S4_R2_001.fastq.gz",
+        "file_format": "fastq.gz",
+        "checksum": "6c701e02b80e47d359807b3c41e05337"
+    },
+    "read_index": "read2",
+    "lane_index": 1,
+    "read_length": 62,
+    "provenance": {
+        "document_id": "caa70bab-05e2-4b25-b166-6567cdb99d94",
+        "submission_date": "2018-12-04T16:22:46.357Z",
+        "update_date": "2018-12-04T16:36:25.940Z"
+    }
+}

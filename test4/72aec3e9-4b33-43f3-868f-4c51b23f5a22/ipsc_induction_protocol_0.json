@@ -1,0 +1,22 @@
+{
+    "describedBy": "https://schema.humancellatlas.org/type/protocol/biomaterial_collection/2.0.1/ipsc_induction_protocol",
+    "schema_type": "protocol",
+    "protocol_core": {
+        "protocol_id": "iPSC_induction_protcol_1",
+        "protocol_name": "iPSC Induction Protocol",
+        "protocol_description": "Reprogramming by Episomal Transfection using  a plasmids contain genes POU5F1, SOX2, KLF4, MYCL, LIN28, and an shRNA against TP53"
+    },
+    "ipsc_induction_method": "plasmid",
+    "ipsc_induction_kit": {
+        "retail_name": "AMAXA Cell Line Nucleofector Kit V",
+        "catalog_number": "VCA-1003",
+        "manufacturer": "Lonza"
+    },
+    "pluripotency_vector_removed": "no",
+    "ipsc_induction_produced_in_house": true,
+    "provenance": {
+        "document_id": "de1be240-5ac5-4b6d-8294-ae0c58e0e289",
+        "submission_date": "2018-12-04T16:22:45.824Z",
+        "update_date": "2018-12-04T16:22:50.382Z"
+    }
+}

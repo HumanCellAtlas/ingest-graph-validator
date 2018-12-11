@@ -1,0 +1,63 @@
+{
+    "describedBy": "https://schema.humancellatlas.org/type/biomaterial/8.6.1/cell_suspension",
+    "schema_type": "biomaterial",
+    "biomaterial_core": {
+        "biomaterial_id": "BxA14_tube4",
+        "biomaterial_name": "Kidney transplant",
+        "biomaterial_description": "Cells from transplanted Human kidney allograft 16 gauge biopsy taken on 9-21-17",
+        "ncbi_taxon_id": [
+            9606
+        ]
+    },
+    "cell_morphology": {
+        "cell_size": "0.01-0.06",
+        "cell_size_unit": {
+            "text": "millimeter",
+            "ontology": "UO:0000016",
+            "ontology_label": "millimeter"
+        },
+        "percent_cell_viability": 91,
+        "cell_viability_method": "trypan blue stain",
+        "cell_viability_result": "pass"
+    },
+    "genus_species": [
+        {
+            "text": "Homo sapiens",
+            "ontology": "NCBITaxon:9606",
+            "ontology_label": "Homo sapiens"
+        }
+    ],
+    "selected_cell_type": [
+        {
+            "text": "endothelial cells",
+            "ontology": "CL:0000115",
+            "ontology_label": "endothelial cell"
+        },
+        {
+            "text": "epithelial cells",
+            "ontology": "CL:0000066",
+            "ontology_label": "epithelial cell"
+        },
+        {
+            "text": "monocytes",
+            "ontology": "CL:0000576",
+            "ontology_label": "monocyte"
+        },
+        {
+            "text": "fibroblasts",
+            "ontology": "CL:0000057",
+            "ontology_label": "fibroblast"
+        },
+        {
+            "text": "myofibroblasts",
+            "ontology": "CL:0000186",
+            "ontology_label": "myofibroblast cell"
+        }
+    ],
+    "total_estimated_cells": 1000,
+    "provenance": {
+        "document_id": "733ea63a-71cd-4d5f-bf2b-8da2c1dc2964",
+        "submission_date": "2018-12-04T18:25:52.460Z",
+        "update_date": "2018-12-04T18:26:00.271Z"
+    }
+}

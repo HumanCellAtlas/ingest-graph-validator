@@ -1,0 +1,26 @@
+{
+    "describedBy": "https://schema.humancellatlas.org/type/protocol/sequencing/9.0.3/sequencing_protocol",
+    "schema_type": "protocol",
+    "protocol_core": {
+        "protocol_id": "sequencing_protocol_1",
+        "protocol_name": "Drop-seq Protocol",
+        "protocol_description": "droplet based, high throughput,  single-cell RNA-seq"
+    },
+    "instrument_manufacturer_model": {
+        "text": "Illumina NextSeq 500",
+        "ontology": "EFO:0009173",
+        "ontology_label": "Illumina NextSeq 500"
+    },
+    "local_machine_name": "NextSeq500",
+    "paired_end": true,
+    "sequencing_approach": {
+        "text": "Drop-seq",
+        "ontology": "EFO:0008722",
+        "ontology_label": "Drop-Seq"
+    },
+    "provenance": {
+        "document_id": "136b0087-5d19-471c-8272-9f6128008409",
+        "submission_date": "2018-12-04T16:22:45.897Z",
+        "update_date": "2018-12-04T16:22:50.648Z"
+    }
+}

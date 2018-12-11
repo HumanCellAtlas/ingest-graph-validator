@@ -1,0 +1,16 @@
+{
+    "describedBy": "https://schema.humancellatlas.org/type/file/6.5.2/sequence_file",
+    "schema_type": "file",
+    "file_core": {
+        "file_name": "Biopsy.NextSeq4_L002_R1.fastq.gz",
+        "file_format": "fastq.gz",
+        "checksum": "b62124452a0badd0c5e94471e07b270c"
+    },
+    "read_index": "read1",
+    "read_length": 36,
+    "provenance": {
+        "document_id": "8579d669-3e50-4d9d-8f18-3947d956366d",
+        "submission_date": "2018-12-04T18:25:52.598Z",
+        "update_date": "2018-12-04T18:30:59.278Z"
+    }
+}
