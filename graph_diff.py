@@ -1,14 +1,15 @@
 # maybe scrap
-import sys
-import graphviz
-from py2neo import Node, Graph, Relationship
+
+# import graphviz
+# from py2neo import Node, Graph, Relationship
 
 # keep
+import sys
 import json
 import os
 import networkx as nx
-import matplotlib.pyplot as plt
 import pandas
+# import matplotlib.pyplot as plt
 
 def load_graph_networkx(data):
 	G=nx.DiGraph()
@@ -146,12 +147,12 @@ def plot_graph(G, node_names, outfile_name, layout_option=2, save_fig=False):
 		# print(A)
 
 def graph_stats(G):
+	total_nodes = G.number_of_nodes()
+	print('Total nodes is %d' % total_nodes)
 	total_edges = G.number_of_edges()
+	print('Total edges is %d' % total_edges)
 	max_depth= nx.dag_longest_path_length(G)
-	print('Max depth is {}'.format(max_depth))
-
-	
-
+	print('Max depth is {}\n'.format(max_depth))
 
 if __name__ == '__main__':
 	
@@ -166,9 +167,9 @@ if __name__ == '__main__':
 	for infile in infiles:
 		with open(infile) as f:
 			data = json.load(f)
-			# graph = load_graph_networkx(data)
-			# G = graph[0]
-			# node_names = graph[1]
+			graph = load_graph_networkx(data)
+			G = graph[0]
+			node_names = graph[1]
 			# # plot_graph(G, node_names, infile, save_fig=False)
 			graph_stats(G)
 
