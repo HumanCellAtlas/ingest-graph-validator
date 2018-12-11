@@ -1,5 +1,6 @@
 import json
 import sys
+import os
 import networkx as nx
 import matplotlib.pyplot as plt
 import graphviz
@@ -29,7 +30,7 @@ def load_graph(data):
 
 	return G, node_names
 
-def plot_graph(G, node_names, layout_option=2):
+def plot_graph(G, node_names, outfile_name, layout_option=2, save_fig=False):
 
 	node_color = []
 	for node in G.nodes(data=True):
@@ -58,14 +59,16 @@ def plot_graph(G, node_names, layout_option=2):
 			width=2)
 
 	elif layout_option == 2:
-		A = G.to_undirected()
+		A = G.to_undirected() # can only get edges to size correctly with an undirected graph for some reason
 		nx.draw(A, with_labels=True, labels=node_names, node_color=node_color, node_size=800, font_size=8)
-		plt.show()
+		# plt.show()
+		if save_fig is True:
+			plt.savefig(outfile_name + '.png')
+
 
 	elif layout_option == 3:
 		A = nx.nx_agraph.to_agraph(G)        # convert to a graphviz graph
-		print(A)
-
+		# print(A)
 
 def graph_stats(G):
 	# total_edges = G.number_of_edges()
@@ -81,16 +84,21 @@ def graph_stats(G):
 
 if __name__ == '__main__':
 	
-	# Get bundle
 
-	with open('9e385fa3-4af5-4847-8576-2d5fd1549da4/links.json') as f:
+	indir = 'test2/'
+	metadata_file = '/links.json'
+	l = os.listdir(indir)
+	infiles = [indir + x + metadata_file for x in l]
+	print('Processing {} bundles'.format(len(infiles)))
 
-		data = json.load(f)
-		graph = load_graph(data)
-		G = graph[0]
-		node_names = graph[1]
-		plot_graph(G, node_names)
-		graph_stats(G)
+	for infile in infiles:
+		with open(infile) as f:
+			data = json.load(f)
+			graph = load_graph(data)
+			G = graph[0]
+			node_names = graph[1]
+			# plot_graph(G, node_names, infile, save_fig=False)
+			graph_stats(G)
 
 
 
