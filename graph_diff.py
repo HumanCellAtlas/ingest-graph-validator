@@ -187,7 +187,7 @@ def graph_stats(G):
 		 'maxDepth': pd.Series(max_depth)
 		 })
 
-	print(feature_list)
+	# print(feature_list)
 
 if __name__ == '__main__':
 	
