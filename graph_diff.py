@@ -2,10 +2,10 @@ import json
 import sys
 import networkx as nx
 import matplotlib.pyplot as plt
+import graphviz
 
 def load_graph(data):
-	# G=nx.DiGraph()
-	G=nx.Graph()
+	G=nx.DiGraph()
 	links = data['links']
 	node_names ={}
 	for process in links:
@@ -29,7 +29,7 @@ def load_graph(data):
 
 	return G, node_names
 
-def plot_graph(G, node_names):
+def plot_graph(G, node_names, layout_option=2):
 
 	node_color = []
 	for node in G.nodes(data=True):
@@ -43,8 +43,29 @@ def plot_graph(G, node_names):
 		else:
 			node_color.append('olive')
 
-	nx.draw(G, with_labels=True, labels=node_names, node_color=node_color, node_size=800, font_size=8)
-	plt.show()
+
+	if layout_option == 1:
+		# pos = nx.spectral_layout(G)
+		pos = nx.spring_layout(G)
+		nodes = nx.draw_networkx_nodes(G, pos, node_size=100,
+			node_color=node_color,
+			font_size=8,
+			labels=node_names,
+			with_labels=True)
+		edges = nx.draw_networkx_edges(G, pos,
+			arrowstyle='->',
+			arrowsize=10,
+			width=2)
+
+	elif layout_option == 2:
+		A = G.to_undirected()
+		nx.draw(A, with_labels=True, labels=node_names, node_color=node_color, node_size=800, font_size=8)
+		plt.show()
+
+	elif layout_option == 3:
+		A = nx.nx_agraph.to_agraph(G)        # convert to a graphviz graph
+		print(A)
+
 
 def graph_stats(G):
 	# total_edges = G.number_of_edges()
@@ -74,6 +95,14 @@ if __name__ == '__main__':
 
 
 		
+
+
+
+
+
+
+
+
 
 
 
