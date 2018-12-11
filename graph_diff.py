@@ -175,17 +175,17 @@ def graph_stats(G):
 
 	print('\n')
 
-	features = pd.DataFrame(
-		{'totalNodes': pd.Series(total_nodes),
-		 'totalEdges': pd.Series(total_edges),
-		 'biomaterialOutdegrees': pd.Series(biomaterial_out_degrees),
-		 'biomaterialIndegrees': pd.Series(biomaterial_in_degrees),
-		 'processOutdegrees': pd.Series(process_out_degrees),
-		 'processIndegrees': pd.Series(process_in_degrees),
-		 'fileOutdegrees': pd.Series(file_out_degrees),
-		 'fileIndegrees': pd.Series(file_in_degrees),
-		 'maxDepth': pd.Series(max_depth)
-		 })
+	features = {
+		'totalNodes': total_nodes,
+		'totalEdges': total_edges,
+		'biomaterialOutdegrees': biomaterial_out_degrees,
+		'biomaterialIndegrees': biomaterial_in_degrees,
+		'processOutdegrees': process_out_degrees,
+		'processIndegrees': process_in_degrees,
+		'fileOutdegrees': file_out_degrees,
+		'fileIndegrees': file_in_degrees,
+		'maxDepth': max_depth
+	}
 
 	# print(features)
 	return features
@@ -198,7 +198,7 @@ if __name__ == '__main__':
 	infiles = [indir + x + metadata_file for x in l]
 	print('Processing {} bundles'.format(len(infiles)))
 
-	feature_list = list()
+	feature_list = []
 
 	for infile in infiles:
 		with open(infile) as f:
@@ -212,6 +212,7 @@ if __name__ == '__main__':
 
 			# load_graph_neo4j(data)
 
-	# assert_frame_equal(feature_list[0], feature_list[3], check_dtype=False)
-	# assert_frame_equal(feature_list[0], feature_list[2], check_dtype=False)
-	# print(feature_list)
+	feature_frame = pd.DataFrame(feature_list)
+	# assert_frame_equal(feature_frame[0], feature_frame[3], check_dtype=False)
+	# assert_frame_equal(feature_frame[0], feature_frame[2], check_dtype=False)
+	print(feature_frame)
