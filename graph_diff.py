@@ -4,12 +4,15 @@
 # from py2neo import Node, Graph, Relationship
 
 # keep
+
 import sys
 import json
 import os
 import networkx as nx
 import pandas as pd
-import matplotlib.pyplot as plt
+from pandas.testing import assert_frame_equal
+import numpy as np
+# import matplotlib.pyplot as plt
 
 def load_graph_networkx(data):
 	G=nx.DiGraph()
@@ -46,7 +49,6 @@ def load_graph_neo4j(data): # not working on hold
 	graph = Graph('http://localhost:7474/db/data/', user='neo4j', password='neo5j')  # initialising graph
 	links = data['links']
 
-
 	# def make_node(node_type, uuid):
 	# 	graph.merge(Node(node_type, name=str(uuid)), node_type, 'name')
 	# 	return Node(node_type, name=str(uuid))
@@ -59,7 +61,6 @@ def load_graph_neo4j(data): # not working on hold
 		ab = Relationship(in_node, "LINK", out_node)
 		# tx.create(ab)
 		tx.merge(ab)
-
 
 	for process in links:
 		process_uuid = process['process']
@@ -181,22 +182,23 @@ def graph_stats(G):
 
 	print('\n')
 
-	feature_list = pd.DataFrame(
-		{'totalNodes': pd.Series(total_nodes),
-		 'totalEdges': pd.Series(total_edges),
-		 'biomaterialOutdegrees': pd.Series(biomaterial_out_degrees),
-		 'biomaterialIndegrees': pd.Series(biomaterial_in_degrees),
-		 'processOutdegrees': pd.Series(process_out_degrees),
-		 'processIndegrees': pd.Series(process_in_degrees),
-		 'fileOutdegrees': pd.Series(file_out_degrees),
-		 'fileIndegrees': pd.Series(file_in_degrees),
-		 'maxDepth': pd.Series(max_depth)
-		 })
+	features = {
+		# 	'totalNodes': total_nodes,
+		# 	'totalEdges': total_edges,
+		# 	'maxDepth': max_depth,
+		'nodesEdgesDepth': [total_nodes, total_edges, max_depth],
+		'biomaterialOutdegrees': biomaterial_out_degrees,
+		'biomaterialIndegrees': biomaterial_in_degrees,
+		'processOutdegrees': process_out_degrees,
+		'processIndegrees': process_in_degrees,
+		'fileOutdegrees': file_out_degrees,
+		'fileIndegrees': file_in_degrees
+	}
 
-	# print(feature_list)
+	# print(features)
+	return features
 
 if __name__ == '__main__':
-	
 
 	indir = 'test5/'
 	# metadata_file = '/links.json'
@@ -205,6 +207,7 @@ if __name__ == '__main__':
 	infiles = [indir + x for x in l]
 	print('Processing {} bundles'.format(len(infiles)))
 
+	feature_list = []
 
 	for infile in infiles:
 		with open(infile) as f:
@@ -212,25 +215,28 @@ if __name__ == '__main__':
 			graph = load_graph_networkx(data)
 			G = graph[0]
 			node_names = graph[1]
-			plot_graph(G, node_names, infile, save_fig=False)
-			graph_stats(G)
+			# plot_graph(G, node_names, infile, save_fig=False)
+			G_features = graph_stats(G)
+			feature_list.append(G_features)
 
 			# load_graph_neo4j(data)
 
+	feature_frame = pd.DataFrame(feature_list)
+	print(feature_frame)
+	print("length of dataFrame: %d" % len(feature_frame))
 
+	# Find unique rows
+	# feature_frame_unique = feature_frame.drop_duplicates()
+	# print(feature_frame_unique)
 
-		
+	# Convert to int
+	# feature_frame.radius = feature_frame.radius.astype(int)
+	# feature_frame_unique = feature_frame.drop_duplicates()
+	# print(feature_frame_unique)
 
+	# Subset on columns that are no lists
+	# feature_frame_unique = feature_frame.drop_duplicates(subset=("totalEdges","totalNodes","maxDepth"))
+	# print(feature_frame_unique)
 
-
-
-
-
-
-
-
-
-
-
-
-
+	# feature_frame_unique = pd.DataFrame(np.unique(feature_frame))
+	# print(feature_frame_unique)
