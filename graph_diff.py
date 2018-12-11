@@ -182,19 +182,10 @@ def graph_stats(G):
 
 	print('\n')
 
-	# features = {
-	# 	'totalNodes': total_nodes,
-	# 	'totalEdges': total_edges,
-	# 	'biomaterialOutdegrees': biomaterial_out_degrees,
-	# 	'biomaterialIndegrees': biomaterial_in_degrees,
-	# 	'processOutdegrees': process_out_degrees,
-	# 	'processIndegrees': process_in_degrees,
-	# 	'fileOutdegrees': file_out_degrees,
-	# 	'fileIndegrees': file_in_degrees,
-	# 	'maxDepth': max_depth
-	# }
-
 	features = {
+		# 	'totalNodes': total_nodes,
+		# 	'totalEdges': total_edges,
+		# 	'maxDepth': max_depth,
 		'nodesEdgesDepth': [total_nodes, total_edges, max_depth],
 		'biomaterialOutdegrees': biomaterial_out_degrees,
 		'biomaterialIndegrees': biomaterial_in_degrees,
@@ -231,8 +222,6 @@ if __name__ == '__main__':
 			# load_graph_neo4j(data)
 
 	feature_frame = pd.DataFrame(feature_list)
-	# assert_frame_equal(feature_frame[0], feature_frame[3], check_dtype=False)
-	# assert_frame_equal(feature_frame[0], feature_frame[2], check_dtype=False)
 	print(feature_frame)
 	print("length of dataFrame: %d" % len(feature_frame))
 
