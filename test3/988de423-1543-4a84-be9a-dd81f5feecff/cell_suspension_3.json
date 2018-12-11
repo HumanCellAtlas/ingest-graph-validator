@@ -1,0 +1,31 @@
+{
+    "describedBy": "https://schema.humancellatlas.org/type/biomaterial/8.6.1/cell_suspension",
+    "schema_type": "biomaterial",
+    "biomaterial_core": {
+        "biomaterial_id": "cell_suspension4",
+        "biomaterial_name": "peripheral blood mononuclear cells",
+        "ncbi_taxon_id": [
+            9606
+        ]
+    },
+    "genus_species": [
+        {
+            "text": "Homo sapiens",
+            "ontology": "NCBITaxon:9606",
+            "ontology_label": "Homo sapiens"
+        }
+    ],
+    "selected_cell_type": [
+        {
+            "text": "peripheral blood mononuclear cells",
+            "ontology": "CL:2000001",
+            "ontology_label": "peripheral blood mononuclear cell"
+        }
+    ],
+    "total_estimated_cells": 2500,
+    "provenance": {
+        "document_id": "195dab6a-f772-463c-93a7-c17f6b682a76",
+        "submission_date": "2018-12-04T18:11:31.462Z",
+        "update_date": "2018-12-04T18:11:35.599Z"
+    }
+}

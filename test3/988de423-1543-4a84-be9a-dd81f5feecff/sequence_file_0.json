@@ -1,0 +1,16 @@
+{
+    "describedBy": "https://schema.humancellatlas.org/type/file/6.5.2/sequence_file",
+    "schema_type": "file",
+    "file_core": {
+        "file_name": "PBMC_ADT_R1.fastq.gz",
+        "file_format": "fastq.gz"
+    },
+    "read_index": "read1",
+    "lane_index": 1,
+    "read_length": 30,
+    "provenance": {
+        "document_id": "4579fb3e-63a2-4f85-a509-35fabba4d0c9",
+        "submission_date": "2018-12-04T18:11:31.529Z",
+        "update_date": "2018-12-04T18:39:29.655Z"
+    }
+}

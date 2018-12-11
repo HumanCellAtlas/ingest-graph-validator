@@ -1,0 +1,66 @@
+{
+    "describedBy": "https://schema.humancellatlas.org/type/biomaterial/10.1.2/donor_organism",
+    "schema_type": "biomaterial",
+    "biomaterial_core": {
+        "biomaterial_id": "284C-A1",
+        "biomaterial_name": "Spleen donor",
+        "biomaterial_description": "Spleen donor",
+        "ncbi_taxon_id": [
+            9606
+        ]
+    },
+    "death": {
+        "cause_of_death": "Hypoxic brain damage",
+        "cold_perfused": true,
+        "organ_donation_death_type": "Donation after circulatory death (DCD)"
+    },
+    "genus_species": [
+        {
+            "text": "Homo sapiens",
+            "ontology": "NCBITaxon:9606",
+            "ontology_label": "Homo sapiens"
+        }
+    ],
+    "is_living": "no",
+    "sex": "male",
+    "organism_age": "55-60",
+    "organism_age_unit": {
+        "text": "year",
+        "ontology": "UO:0000036",
+        "ontology_label": "year"
+    },
+    "development_stage": {
+        "text": "adult",
+        "ontology": "EFO:0001272",
+        "ontology_label": "adult"
+    },
+    "diseases": [
+        {
+            "text": "normal",
+            "ontology": "PATO:0000461",
+            "ontology_label": "normal"
+        }
+    ],
+    "height": "1.75-1.8",
+    "height_unit": {
+        "text": "meter",
+        "ontology": "UO:0000008",
+        "ontology_label": "meter"
+    },
+    "weight": "80-85",
+    "weight_unit": {
+        "text": "kilogram",
+        "ontology": "UO:0000009",
+        "ontology_label": "kilogram"
+    },
+    "medical_history": {
+        "alcohol_history": "3-6 units/day",
+        "smoking_history": "Smoker, 20/day for 25 years, stopped 2000"
+    },
+    "normothermic_regional_perfusion": "yes",
+    "provenance": {
+        "document_id": "a33328c5-3b5f-432b-9a00-ef7aa0f7d73e",
+        "submission_date": "2018-12-05T14:34:46.823Z",
+        "update_date": "2018-12-05T14:34:54.247Z"
+    }
+}

@@ -1,0 +1,14 @@
+{
+    "describedBy": "https://schema.humancellatlas.org/type/file/1.1.5/supplementary_file",
+    "schema_type": "file",
+    "file_core": {
+        "file_name": "10x_sequencing_protocol.pdf",
+        "file_format": "pdf"
+    },
+    "file_description": "Sequencing and library preparation protocol.",
+    "provenance": {
+        "document_id": "ef39e40a-2d30-4ca2-bf7c-1d3945e1991b",
+        "submission_date": "2018-12-05T14:34:46.474Z",
+        "update_date": "2018-12-05T14:36:55.334Z"
+    }
+}
