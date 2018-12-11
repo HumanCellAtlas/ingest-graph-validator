@@ -223,7 +223,7 @@ if __name__ == '__main__':
 
 	feature_frame = pd.DataFrame(feature_list)
 	print(feature_frame)
-	print("length of dataFrame: %d" % len(feature_frame))
+	print("Number of unique features sets (graphs): %d" % len(feature_frame))
 
 	# Find unique rows
 	# feature_frame_unique = feature_frame.drop_duplicates()
