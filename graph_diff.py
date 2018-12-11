@@ -11,6 +11,7 @@ import os
 import networkx as nx
 import pandas as pd
 from pandas.testing import assert_frame_equal
+import numpy as np
 # import matplotlib.pyplot as plt
 
 def load_graph_networkx(data):
@@ -175,16 +176,26 @@ def graph_stats(G):
 
 	print('\n')
 
+	# features = {
+	# 	'totalNodes': total_nodes,
+	# 	'totalEdges': total_edges,
+	# 	'biomaterialOutdegrees': biomaterial_out_degrees,
+	# 	'biomaterialIndegrees': biomaterial_in_degrees,
+	# 	'processOutdegrees': process_out_degrees,
+	# 	'processIndegrees': process_in_degrees,
+	# 	'fileOutdegrees': file_out_degrees,
+	# 	'fileIndegrees': file_in_degrees,
+	# 	'maxDepth': max_depth
+	# }
+
 	features = {
-		'totalNodes': total_nodes,
-		'totalEdges': total_edges,
+		'nodesEdgesDepth': [total_nodes, total_edges, max_depth],
 		'biomaterialOutdegrees': biomaterial_out_degrees,
 		'biomaterialIndegrees': biomaterial_in_degrees,
 		'processOutdegrees': process_out_degrees,
 		'processIndegrees': process_in_degrees,
 		'fileOutdegrees': file_out_degrees,
-		'fileIndegrees': file_in_degrees,
-		'maxDepth': max_depth
+		'fileIndegrees': file_in_degrees
 	}
 
 	# print(features)
@@ -216,3 +227,10 @@ if __name__ == '__main__':
 	# assert_frame_equal(feature_frame[0], feature_frame[3], check_dtype=False)
 	# assert_frame_equal(feature_frame[0], feature_frame[2], check_dtype=False)
 	print(feature_frame)
+
+	# Subset on columns that are no lists
+	# feature_frame_unique = feature_frame.drop_duplicates(subset=("totalEdges","totalNodes","maxDepth"))
+	# print(feature_frame_unique)
+
+	feature_frame_unique = pd.DataFrame(np.unique(feature_frame))
+	print(feature_frame_unique)
