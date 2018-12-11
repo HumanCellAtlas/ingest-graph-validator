@@ -12,7 +12,7 @@ import networkx as nx
 import pandas as pd
 from pandas.testing import assert_frame_equal
 import numpy as np
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 
 def load_graph_networkx(data):
 	G=nx.DiGraph()
@@ -224,7 +224,7 @@ if __name__ == '__main__':
 			graph = load_graph_networkx(data)
 			G = graph[0]
 			node_names = graph[1]
-			plot_graph(G, node_names, infile, save_fig=False)
+			# plot_graph(G, node_names, infile, save_fig=False)
 			G_features = graph_stats(G)
 			feature_list.append(G_features)
 
@@ -234,10 +234,20 @@ if __name__ == '__main__':
 	# assert_frame_equal(feature_frame[0], feature_frame[3], check_dtype=False)
 	# assert_frame_equal(feature_frame[0], feature_frame[2], check_dtype=False)
 	print(feature_frame)
+	print("length of dataFrame: %d" % len(feature_frame))
+
+	# Find unique rows
+	# feature_frame_unique = feature_frame.drop_duplicates()
+	# print(feature_frame_unique)
+
+	# Convert to int
+	# feature_frame.radius = feature_frame.radius.astype(int)
+	# feature_frame_unique = feature_frame.drop_duplicates()
+	# print(feature_frame_unique)
 
 	# Subset on columns that are no lists
 	# feature_frame_unique = feature_frame.drop_duplicates(subset=("totalEdges","totalNodes","maxDepth"))
 	# print(feature_frame_unique)
 
-	feature_frame_unique = pd.DataFrame(np.unique(feature_frame))
-	print(feature_frame_unique)
+	# feature_frame_unique = pd.DataFrame(np.unique(feature_frame))
+	# print(feature_frame_unique)
