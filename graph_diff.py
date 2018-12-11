@@ -1,11 +1,15 @@
-import json
+# maybe scrap
 import sys
+import graphviz
+from py2neo import Node, Graph, Relationship
+
+# keep
+import json
 import os
 import networkx as nx
 import matplotlib.pyplot as plt
-import graphviz
 
-def load_graph(data):
+def load_graph_networkx(data):
 	G=nx.DiGraph()
 	links = data['links']
 	node_names ={}
@@ -29,6 +33,76 @@ def load_graph(data):
 	nx.set_node_attributes(G, node_names, 'entity_type')
 
 	return G, node_names
+
+def load_graph_neo4j(data): # not working on hold
+	graph = Graph('http://localhost:7474/db/data/', user='neo4j', password='neo5j')  # initialising graph
+	links = data['links']
+
+
+	# def make_node(node_type, uuid):
+	# 	graph.merge(Node(node_type, name=str(uuid)), node_type, 'name')
+	# 	return Node(node_type, name=str(uuid))
+
+	def make_relationship(graph, in_node_type, in_uuid, out_node_type, out_uuid):
+		tx = graph.begin()
+		in_node = Node(in_node_type, name=str(in_uuid))
+		tx.create(in_node)
+		out_node = Node(out_node_type, name=str(out_uuid))
+		ab = Relationship(in_node, "LINK", out_node)
+		# tx.create(ab)
+		tx.merge(ab)
+
+
+	for process in links:
+		process_uuid = process['process']
+		input_node_uuids = process['inputs']
+		output_node_uuids = process['outputs']
+		protocols = process['protocols']
+		# rel_type = 'LINK'
+
+		# neo4j_relationships = []
+		# neo4j_nodes = []
+
+
+		# neo4j_process_node = make_node('process', process_uuid)
+		# neo4j_nodes.append(neo4j_process_node)
+
+		# convert links.json in to neo relationships
+
+		for in_node in input_node_uuids:
+
+			make_relationship(graph, process['input_type'], in_node, 'process', process_uuid)
+
+
+			# neo4j_in_node = make_node(process['input_type'], in_node)
+			# neo4j_relationships.append(Relationship(neo4j_in_node, rel_type, neo4j_process_node))
+			# neo4j_nodes.append(neo4j_in_node) # temp for test remove
+
+		for out_node in output_node_uuids:
+
+			make_relationship(graph, 'process', process_uuid, process['output_type'], out_node)
+
+
+			# neo4j_out_node = make_node(process['output_type'], out_node)
+			# neo4j_relationships.append(Relationship(neo4j_process_node, rel_type, neo4j_out_node))
+			# neo4j_nodes.append(neo4j_out_node) # temp for test remove
+
+		for protocol in protocols:
+
+			make_relationship(graph, 'process', process_uuid, protocol['protocol_id'], protocol)
+
+
+			# neo4j_protocol_node = make_node(protocol['protocol_id'], protocol)
+			# neo4j_relationships.append(Relationship(neo4j_process_node, rel_type, neo4j_protocol_node))
+			# neo4j_nodes.append(neo4j_protocol_node) # temp for test remove
+
+		# merge relationships into main graph
+
+		# for neo4j_node in neo4j_nodes: # temp for test remove
+		# 	graph.merge(neo4j_node) # temp for test remove
+
+		# for neo_relationship in neo4j_relationships:
+		# 	graph.merge(neo_relationship, "name") # merge is important to prevent duplicates
 
 def plot_graph(G, node_names, outfile_name, layout_option=2, save_fig=False):
 
@@ -94,11 +168,13 @@ if __name__ == '__main__':
 	for infile in infiles:
 		with open(infile) as f:
 			data = json.load(f)
-			graph = load_graph(data)
-			G = graph[0]
-			node_names = graph[1]
-			# plot_graph(G, node_names, infile, save_fig=False)
-			graph_stats(G)
+			# graph = load_graph_networkx(data)
+			# G = graph[0]
+			# node_names = graph[1]
+			# # plot_graph(G, node_names, infile, save_fig=False)
+			# graph_stats(G)
+
+			load_graph_neo4j(data)
 
 
 
