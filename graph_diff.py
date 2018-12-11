@@ -10,6 +10,7 @@ import json
 import os
 import networkx as nx
 import pandas as pd
+from pandas.testing import assert_frame_equal
 # import matplotlib.pyplot as plt
 
 def load_graph_networkx(data):
@@ -174,7 +175,7 @@ def graph_stats(G):
 
 	print('\n')
 
-	feature_list = pd.DataFrame(
+	features = pd.DataFrame(
 		{'totalNodes': pd.Series(total_nodes),
 		 'totalEdges': pd.Series(total_edges),
 		 'biomaterialOutdegrees': pd.Series(biomaterial_out_degrees),
@@ -186,8 +187,8 @@ def graph_stats(G):
 		 'maxDepth': pd.Series(max_depth)
 		 })
 
-	# print(feature_list)
-	return feature_list
+	# print(features)
+	return features
 
 if __name__ == '__main__':
 
@@ -197,6 +198,8 @@ if __name__ == '__main__':
 	infiles = [indir + x + metadata_file for x in l]
 	print('Processing {} bundles'.format(len(infiles)))
 
+	feature_list = list()
+
 	for infile in infiles:
 		with open(infile) as f:
 			data = json.load(f)
@@ -204,6 +207,11 @@ if __name__ == '__main__':
 			G = graph[0]
 			node_names = graph[1]
 			# # plot_graph(G, node_names, infile, save_fig=False)
-			G_feature_list = graph_stats(G)
+			G_features = graph_stats(G)
+			feature_list.append(G_features)
 
 			# load_graph_neo4j(data)
+
+	# assert_frame_equal(feature_list[0], feature_list[3], check_dtype=False)
+	# assert_frame_equal(feature_list[0], feature_list[2], check_dtype=False)
+	# print(feature_list)
