@@ -152,7 +152,29 @@ def graph_stats(G):
 	total_edges = G.number_of_edges()
 	print('Total edges is %d' % total_edges)
 	max_depth= nx.dag_longest_path_length(G)
-	print('Max depth is {}\n'.format(max_depth))
+	print('Max depth is %d' % max_depth)
+
+	biomaterialNodes = [x for x, y in G.nodes(data=True) if y['entity_type'] == "biomaterial"]
+	# biomaterial_out_degrees = G.out_degree(biomaterialNodes)
+	# new_biomaterial_out_degrees = [x[1] for x in biomaterial_out_degrees]
+	biomaterial_out_degrees = [x[1] for x in G.out_degree(biomaterialNodes)]
+	print('Biomaterial node out degrees are: ', *biomaterial_out_degrees)
+
+	processNodes = [x for x, y in G.nodes(data=True) if y['entity_type'] == "process"]
+	process_out_degrees = [x[1] for x in G.out_degree(processNodes)]
+	print('Process node out degrees are: ', *process_out_degrees)
+
+	fileNodes = [x for x, y in G.nodes(data=True) if y['entity_type'] == "file"]
+	file_out_degrees = [x[1] for x in G.out_degree(fileNodes)]
+	print('File node out degrees are: ', *file_out_degrees)
+
+# Number of outdegree per file node (should be 0).
+
+# Number of indegree per biomaterial (could be any number).
+# Number of indegree per file node (should be only 1).
+# Number of indegree per process node (should be 1 or more).
+
+	print('\n')
 
 if __name__ == '__main__':
 	
