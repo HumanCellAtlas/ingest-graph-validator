@@ -4,6 +4,7 @@
 # from py2neo import Node, Graph, Relationship
 
 # keep
+
 import sys
 import json
 import os
@@ -40,7 +41,6 @@ def load_graph_neo4j(data): # not working on hold
 	graph = Graph('http://localhost:7474/db/data/', user='neo4j', password='neo5j')  # initialising graph
 	links = data['links']
 
-
 	# def make_node(node_type, uuid):
 	# 	graph.merge(Node(node_type, name=str(uuid)), node_type, 'name')
 	# 	return Node(node_type, name=str(uuid))
@@ -53,7 +53,6 @@ def load_graph_neo4j(data): # not working on hold
 		ab = Relationship(in_node, "LINK", out_node)
 		# tx.create(ab)
 		tx.merge(ab)
-
 
 	for process in links:
 		process_uuid = process['process']
@@ -191,14 +190,12 @@ def graph_stats(G):
 	return feature_list
 
 if __name__ == '__main__':
-	
 
 	indir = 'test2/'
 	metadata_file = '/links.json'
 	l = os.listdir(indir)
 	infiles = [indir + x + metadata_file for x in l]
 	print('Processing {} bundles'.format(len(infiles)))
-
 
 	for infile in infiles:
 		with open(infile) as f:
@@ -207,24 +204,6 @@ if __name__ == '__main__':
 			G = graph[0]
 			node_names = graph[1]
 			# # plot_graph(G, node_names, infile, save_fig=False)
-			graph_stats(G)
+			G_feature_list = graph_stats(G)
 
 			# load_graph_neo4j(data)
-
-
-
-		
-
-
-
-
-
-
-
-
-
-
-
-
-
-
