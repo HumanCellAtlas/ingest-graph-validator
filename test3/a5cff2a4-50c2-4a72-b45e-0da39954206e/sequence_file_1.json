@@ -1,0 +1,17 @@
+{
+    "describedBy": "https://schema.humancellatlas.org/type/file/6.5.2/sequence_file",
+    "schema_type": "file",
+    "file_core": {
+        "file_name": "BoneMarrow_CD34_4_IGO_07861_4_S4_L002_R2_001.fastq.gz",
+        "file_format": "fastq.gz",
+        "checksum": "6e56f4c2f498e03246c20357f503d150"
+    },
+    "read_index": "read2",
+    "lane_index": 2,
+    "read_length": 98,
+    "provenance": {
+        "document_id": "e5a25a3a-0f81-47be-b8e0-65e6294116ed",
+        "submission_date": "2018-12-04T19:02:14.118Z",
+        "update_date": "2018-12-04T20:08:04.379Z"
+    }
+}

@@ -1,0 +1,16 @@
+{
+    "describedBy": "https://schema.humancellatlas.org/type/protocol/biomaterial_collection/1.3.0/differentiation_protocol",
+    "schema_type": "protocol",
+    "protocol_core": {
+        "protocol_id": "differentiation_protocol_2",
+        "protocol_name": "Cardiomyocyte Differentiation Protocol ",
+        "protocol_description": "Directed differentiation of iPSC to cardiomyocytes using B27 insulin, Glutamax and Pennicillin/Streptomycin"
+    },
+    "differentiation_method": "monolayer",
+    "target_pathway": "Wnt Pathway",
+    "provenance": {
+        "document_id": "944f1bef-a1af-4a88-a6af-e8eec48172a3",
+        "submission_date": "2018-12-04T16:22:45.843Z",
+        "update_date": "2018-12-04T16:22:50.482Z"
+    }
+}

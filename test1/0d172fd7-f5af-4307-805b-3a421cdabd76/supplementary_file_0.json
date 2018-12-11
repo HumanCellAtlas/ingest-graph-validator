@@ -1,0 +1,14 @@
+{
+    "describedBy": "https://schema.humancellatlas.org/type/file/1.1.5/supplementary_file",
+    "schema_type": "file",
+    "file_core": {
+        "file_name": "hipsci-ipsc-pipeline.pdf",
+        "file_format": "pdf"
+    },
+    "file_description": "iPSC induction by Sendai virus protocol.",
+    "provenance": {
+        "document_id": "fafd80ce-fcff-4e41-b81b-3b5415566540",
+        "submission_date": "2018-10-30T15:29:07.055Z",
+        "update_date": "2018-10-30T15:38:50.582Z"
+    }
+}

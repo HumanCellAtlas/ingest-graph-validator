@@ -1,0 +1,41 @@
+{
+    "describedBy": "https://schema.humancellatlas.org/type/biomaterial/8.6.1/cell_suspension",
+    "schema_type": "biomaterial",
+    "biomaterial_core": {
+        "biomaterial_id": "E18_20160930_Neurons_Sample_68",
+        "biomaterial_name": "E18 Mouse Combined Cortex, Hippocampus and Ventricular zone",
+        "biomaterial_description": "E18 Mouse Combined Cortex, Hippocampus and Ventricular zone",
+        "ncbi_taxon_id": [
+            10090
+        ],
+        "biosd_biomaterial": "SAMN06216892",
+        "insdc_biomaterial": "SRS1915189"
+    },
+    "cell_morphology": {
+        "percent_cell_viability": 85,
+        "cell_viability_method": " Thermo Fisher Live/Dead\u00ae Viability/Cytotoxicity Kit"
+    },
+    "growth_conditions": {
+        "growth_medium": "NbActiv1"
+    },
+    "genus_species": [
+        {
+            "text": "Mus musculus",
+            "ontology": "NCBITaxon:10090",
+            "ontology_label": "Mus musculus"
+        }
+    ],
+    "selected_cell_type": [
+        {
+            "text": "neuron",
+            "ontology": "CL:0000540",
+            "ontology_label": "neuron"
+        }
+    ],
+    "total_estimated_cells": 10000,
+    "provenance": {
+        "document_id": "96675b59-7e72-49de-99e7-5a5f24d48bcc",
+        "submission_date": "2018-12-04T18:52:20.942Z",
+        "update_date": "2018-12-04T19:03:39.608Z"
+    }
+}

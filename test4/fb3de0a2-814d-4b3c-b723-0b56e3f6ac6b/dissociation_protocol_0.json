@@ -1,0 +1,43 @@
+{
+    "describedBy": "https://schema.humancellatlas.org/type/protocol/biomaterial_collection/5.0.3/dissociation_protocol",
+    "schema_type": "protocol",
+    "protocol_core": {
+        "protocol_id": "single_cell_dissociation_1",
+        "protocol_name": "Adult Kidney Dissociation Protocol ",
+        "protocol_description": "30 minute, 37C enzymatic dissociation using DNAse1 and Liberase. The renal biopsy was minced into small pieces with a razor blade and incubated at 37 \u02daC in freshly prepared dissociation buffer containing 0.25% trypsin and 40 U/ml DNase I. Dissociated cells were harvested every 10 min by filtering the cell suspension through a 70 \u00b5m cell strainer (pluriSelect) into 10% FBS buffer on ice. The residual biopsy tissue trapped on the cell strainer was dissociated once again with 1 mL dissociation buffer for 10 min, passed through cell strainer into the same FBS buffer from the first collection. We repeated this dissociation procedure three times until most of the tissue had been dissociated into single cells (total dissociation time was 30 min). Finally, cells were collected by centrifugation at 400 g for 5 min, resuspended in inDrops cell suspension buffer (9% Optiprep) and strained through a 40 \u00b5m cell mesh (pluriSelect) to further remove cell clumps and large fragments.",
+        "document": "Adult_Kidney_Dissociation_Protocol.pdf"
+    },
+    "dissociation_method": {
+        "text": "enzymatic dissociation using DNAse1 and Liberase",
+        "ontology": "EFO:0009128",
+        "ontology_label": "enzymatic dissociation"
+    },
+    "protocol_reagents": [
+        {
+            "retail_name": "DNase I",
+            "catalog_number": "A3778",
+            "manufacturer": "ITW Reagents",
+            "lot_number": "6U014165",
+            "expiry_date": "2020-06-01"
+        },
+        {
+            "retail_name": "Liberase TL Research Grade",
+            "catalog_number": "05401020001",
+            "manufacturer": "Roche",
+            "lot_number": "24679400",
+            "expiry_date": "2018-08-01"
+        },
+        {
+            "retail_name": "0.25% Trypsin-EDTA (1x)",
+            "catalog_number": "25200-056",
+            "manufacturer": "Gibco by Life Technologies",
+            "lot_number": "1846496",
+            "expiry_date": "2018-11-30"
+        }
+    ],
+    "provenance": {
+        "document_id": "4711dc7a-2a3f-465b-b1fb-ce5ff5199869",
+        "submission_date": "2018-12-04T18:25:52.663Z",
+        "update_date": "2018-12-04T18:26:02.275Z"
+    }
+}

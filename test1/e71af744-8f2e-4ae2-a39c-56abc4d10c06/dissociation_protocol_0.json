@@ -1,0 +1,20 @@
+{
+    "describedBy": "https://schema.humancellatlas.org/type/protocol/biomaterial_collection/5.0.3/dissociation_protocol",
+    "schema_type": "protocol",
+    "protocol_core": {
+        "protocol_id": "dissociation_process_1",
+        "protocol_name": "Dissociation of Mouse Embryonic Neural Tissue for Single Cell RNA Sequencing",
+        "protocol_description": "The Demonstrated Protocol showing how to obtain a single cell suspension from embryonic mouse brain tissue in preparation for use in 10x Genomics\u00ae Single Cell Protocols which can be downloaded from https://assets.ctfassets.net/an68im79xiti/3clmEF115Ku420KaAuYUOe/ba22dcdfd8150f5f77ded1f500af01b4/CG00055_SamplePrepDemonstratedProtocol_-_MouseNeuralTissue_RevB.pdf",
+        "document": "CG00055_SamplePrepDemonstratedProtocol_-_MouseNeuralTissue_RevB.pdf"
+    },
+    "dissociation_method": {
+        "text": "enzymatic dissociation",
+        "ontology": "EFO:0009128",
+        "ontology_label": "enzymatic dissociation"
+    },
+    "provenance": {
+        "document_id": "516829d4-62b6-4053-b670-650b8b56c4e1",
+        "submission_date": "2018-12-04T18:58:24.536Z",
+        "update_date": "2018-12-04T18:58:30.979Z"
+    }
+}

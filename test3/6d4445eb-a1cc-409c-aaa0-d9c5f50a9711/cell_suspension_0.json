@@ -1,0 +1,30 @@
+{
+    "describedBy": "https://schema.humancellatlas.org/type/biomaterial/8.6.1/cell_suspension",
+    "schema_type": "biomaterial",
+    "biomaterial_core": {
+        "biomaterial_id": "3_CB6_cells",
+        "ncbi_taxon_id": [
+            9606
+        ]
+    },
+    "genus_species": [
+        {
+            "text": "Homo sapiens",
+            "ontology": "NCBITaxon:9606",
+            "ontology_label": "Homo sapiens"
+        }
+    ],
+    "selected_cell_type": [
+        {
+            "text": "umbilical cord blood cell",
+            "ontology": "CL:2000095",
+            "ontology_label": "cord blood hematopoietic stem cell"
+        }
+    ],
+    "total_estimated_cells": 4245,
+    "provenance": {
+        "document_id": "6876f14d-c4ec-4212-a9d9-f9e95250ec07",
+        "submission_date": "2018-11-29T09:15:52.097Z",
+        "update_date": "2018-11-29T09:16:34.371Z"
+    }
+}

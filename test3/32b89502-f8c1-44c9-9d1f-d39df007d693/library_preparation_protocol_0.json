@@ -1,0 +1,37 @@
+{
+    "describedBy": "https://schema.humancellatlas.org/type/protocol/sequencing/4.3.3/library_preparation_protocol",
+    "schema_type": "protocol",
+    "protocol_core": {
+        "protocol_id": "library_preparation_protocol_1",
+        "protocol_name": "Chromium\u2122 Single Cell 3\u2019 Reagent Kits v2 User Guide"
+    },
+    "cell_barcode": {
+        "barcode_read": "Read 1",
+        "barcode_offset": 0,
+        "barcode_length": 16,
+        "white_list_file": "737k-bc.txt"
+    },
+    "input_nucleic_acid_molecule": {
+        "text": "polyA RNA",
+        "ontology": "OBI:0000869",
+        "ontology_label": "polyA RNA"
+    },
+    "library_construction_approach": {
+        "text": "10x_v2",
+        "ontology": "EFO:0009310",
+        "ontology_label": "10X v2 sequencing"
+    },
+    "end_bias": "3 prime tag",
+    "primer": "poly-dT",
+    "strand": "unstranded",
+    "umi_barcode": {
+        "barcode_read": "Read 1",
+        "barcode_offset": 16,
+        "barcode_length": 10
+    },
+    "provenance": {
+        "document_id": "3c2d6162-f086-4cf4-bd01-fb46c1b04990",
+        "submission_date": "2018-12-04T18:58:24.544Z",
+        "update_date": "2018-12-04T18:58:29.682Z"
+    }
+}

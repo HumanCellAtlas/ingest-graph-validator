@@ -1,0 +1,22 @@
+{
+    "describedBy": "https://schema.humancellatlas.org/type/biomaterial/8.6.1/cell_suspension",
+    "schema_type": "biomaterial",
+    "biomaterial_core": {
+        "biomaterial_id": "Day1_Drop_BioRep1",
+        "ncbi_taxon_id": [
+            9606
+        ]
+    },
+    "genus_species": [
+        {
+            "text": "Homo sapiens",
+            "ontology": "NCBITaxon:9606",
+            "ontology_label": "Homo sapiens"
+        }
+    ],
+    "provenance": {
+        "document_id": "438a1269-50af-42d6-94bd-a4bd00e999cb",
+        "submission_date": "2018-12-04T16:22:45.677Z",
+        "update_date": "2018-12-04T16:22:50.642Z"
+    }
+}

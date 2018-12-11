@@ -1,0 +1,53 @@
+{
+    "describedBy": "https://schema.humancellatlas.org/type/protocol/sequencing/4.3.3/library_preparation_protocol",
+    "schema_type": "protocol",
+    "protocol_core": {
+        "protocol_id": "library_prep_1 ",
+        "protocol_name": "Indrop Library Preparation",
+        "protocol_description": "preparation of single cell rnaseq libraries according to 1CellBio's published protocol",
+        "document": "1CellBio_InDrop_Library_Preparation.pdf"
+    },
+    "nucleic_acid_source": "single cell",
+    "cell_barcode": {
+        "barcode_read": "Read 2",
+        "barcode_offset": 0,
+        "barcode_length": 50
+    },
+    "input_nucleic_acid_molecule": {
+        "text": "mRNA",
+        "ontology": "CHEBI:33699",
+        "ontology_label": "messenger RNA"
+    },
+    "library_construction_approach": {
+        "text": "High-throughput single-cell labeling with indexing droplets",
+        "ontology": "EFO:0008780",
+        "ontology_label": "inDrop"
+    },
+    "library_construction_kit": {
+        "retail_name": "inDrop\u2122 Single Cell RNA Seq Kit",
+        "catalog_number": "10196",
+        "manufacturer": "1Cellbio",
+        "lot_number": "0317SRK10004X",
+        "expiry_date": "2018-07-01"
+    },
+    "nucleic_acid_conversion_kit": {
+        "retail_name": "SuperScript III Reverse Transcriptase",
+        "catalog_number": "18080044",
+        "manufacturer": "ThermoFisher",
+        "lot_number": "1893563",
+        "expiry_date": "2018-11-01"
+    },
+    "end_bias": "3 prime end bias",
+    "primer": "random",
+    "strand": "second",
+    "umi_barcode": {
+        "barcode_read": "Read 2",
+        "barcode_offset": 0,
+        "barcode_length": 50
+    },
+    "provenance": {
+        "document_id": "5b3454e6-d183-4ce2-b40b-d16874019964",
+        "submission_date": "2018-12-04T18:25:52.674Z",
+        "update_date": "2018-12-04T18:26:02.286Z"
+    }
+}

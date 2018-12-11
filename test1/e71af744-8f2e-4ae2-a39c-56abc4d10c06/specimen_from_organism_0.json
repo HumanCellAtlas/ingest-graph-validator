@@ -1,0 +1,56 @@
+{
+    "describedBy": "https://schema.humancellatlas.org/type/biomaterial/6.3.3/specimen_from_organism",
+    "schema_type": "biomaterial",
+    "biomaterial_core": {
+        "biomaterial_id": "E18_20160930_Brain",
+        "biomaterial_name": "E18 Mouse Cortex",
+        "biomaterial_description": "Sample prepared 2 days after dissection, from the first E18 mouse",
+        "ncbi_taxon_id": [
+            10090
+        ],
+        "biosd_biomaterial": "SAMN06216805",
+        "insdc_biomaterial": "SRS1915124"
+    },
+    "genus_species": [
+        {
+            "text": "Mus musculus",
+            "ontology": "NCBITaxon:10090",
+            "ontology_label": "Mus musculus"
+        }
+    ],
+    "organ": {
+        "text": "Brain",
+        "ontology": "UBERON:0000955",
+        "ontology_label": "brain"
+    },
+    "organ_part": {
+        "text": "cortex",
+        "ontology": "UBERON:0001851",
+        "ontology_label": "cortex"
+    },
+    "preservation_storage": {
+        "storage_time": 2,
+        "storage_time_unit": {
+            "text": "day",
+            "ontology": "UO:0000033",
+            "ontology_label": "day"
+        },
+        "preservation_method": "fresh"
+    },
+    "collection_time": "2016-09-30T12:00:00Z",
+    "diseases": [
+        {
+            "text": "normal",
+            "ontology": "PATO:0000461",
+            "ontology_label": "normal"
+        }
+    ],
+    "state_of_specimen": {
+        "autolysis_score": "none"
+    },
+    "provenance": {
+        "document_id": "3a04d7b0-105b-457b-9a5e-a6b2ab4d3225",
+        "submission_date": "2018-12-04T18:52:20.196Z",
+        "update_date": "2018-12-04T19:01:16.949Z"
+    }
+}

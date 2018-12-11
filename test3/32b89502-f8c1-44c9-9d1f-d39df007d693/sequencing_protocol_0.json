@@ -1,0 +1,26 @@
+{
+    "describedBy": "https://schema.humancellatlas.org/type/protocol/sequencing/9.0.3/sequencing_protocol",
+    "schema_type": "protocol",
+    "protocol_core": {
+        "protocol_id": "sequencing_protocol_1",
+        "protocol_name": "Sequencing the single cell RNA v2 libraries",
+        "protocol_description": "Single cell sequencing of cDNAs by 10x"
+    },
+    "instrument_manufacturer_model": {
+        "text": "Illumina HiSeq 4000",
+        "ontology": "EFO:0008563",
+        "ontology_label": "Illumina HiSeq 4000"
+    },
+    "local_machine_name": "K00126",
+    "paired_end": false,
+    "sequencing_approach": {
+        "text": "tag based single cell RNA sequencing",
+        "ontology": "EFO:0008440",
+        "ontology_label": "tag based single cell RNA sequencing"
+    },
+    "provenance": {
+        "document_id": "3decd8d5-5990-43cd-84cc-6c7796b8a76d",
+        "submission_date": "2018-12-04T18:58:24.552Z",
+        "update_date": "2018-12-04T18:58:30.949Z"
+    }
+}

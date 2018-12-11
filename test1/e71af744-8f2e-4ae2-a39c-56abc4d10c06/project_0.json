@@ -1,0 +1,83 @@
+{
+    "describedBy": "https://schema.humancellatlas.org/type/project/9.0.3/project",
+    "schema_type": "project",
+    "project_core": {
+        "project_short_name": "1M Neurons",
+        "project_title": "1.3 Million Brain Cells from E18 Mice",
+        "project_description": "Cortex, hippocampus, and subventricular zone were purchased from BrainBits (C57EHCV). They were from 2 E18 C57BL/6 mice dissected on the same day, shipped overnight on ice, and stored at 4C until being prepared for scRNA-Seq. Brain tissues were dissociated following the Demonstrated Protocol for Mouse Embryonic Neural Tissue (https://support.10xgenomics.com/single-cell/sample-prep/doc/demonstrated-protocol-dissociation-of-mouse-embryonic-neural-tissue-for-single-cell-rna-sequencing). 69 scRNA-Seq libraries were made from first mouse brain 2 days after the dissection. Another 64 scRNA-Seq libraries were made from second mouse brain 6 days after the dissection."
+    },
+    "insdc_project": "SRP096558",
+    "geo_series": "GSE93421",
+    "insdc_study": "PRJNA360949",
+    "supplementary_links": [
+        "https://support.10xgenomics.com/single-cell-gene-expression/datasets/1.3.0/1M_neurons"
+    ],
+    "contributors": [
+        {
+            "contact_name": "Jens,,Durruthy",
+            "email": "jens.durruthy@10xgenomics.com",
+            "phone": "925-401-7300",
+            "institution": "10x Genomics, Inc.",
+            "address": "7068 Koll Center Parkway, Suite 401, Pleasanton, CA 94566",
+            "country": "USA",
+            "corresponding_contributor": true,
+            "project_role": "other"
+        },
+        {
+            "contact_name": "Elliott,,Meer",
+            "email": "elliott.meer@10xgenomics.com",
+            "phone": "925-401-7300",
+            "institution": "10x Genomics, Inc.",
+            "address": "7068 Koll Center Parkway, Suite 401, Pleasanton, CA 94566",
+            "country": "USA",
+            "corresponding_contributor": false,
+            "project_role": "experimental scientist"
+        },
+        {
+            "contact_name": "Solongo,,Ziraldo",
+            "email": "solongo@10xgenomics.com",
+            "phone": "925-401-7300",
+            "institution": "10x Genomics, Inc.",
+            "address": "7068 Koll Center Parkway, Suite 401, Pleasanton, CA 94566",
+            "country": "USA",
+            "corresponding_contributor": false,
+            "project_role": "experimental scientist"
+        },
+        {
+            "contact_name": "Bruce,,Charles",
+            "email": "charles.bruce@10xgenomics.com",
+            "phone": "925-401-7300",
+            "institution": "10x Genomics, Inc.",
+            "address": "7068 Koll Center Parkway, Suite 401, Pleasanton, CA 94566",
+            "country": "USA",
+            "corresponding_contributor": false,
+            "project_role": "experimental scientist"
+        },
+        {
+            "contact_name": "Qiang,,Gong",
+            "email": "qiang.gong@10xgenomics.com",
+            "phone": "925-401-7300",
+            "institution": "10x Genomics, Inc.",
+            "address": "7068 Koll Center Parkway, Suite 401, Pleasanton, CA 94566",
+            "country": "USA",
+            "corresponding_contributor": false,
+            "project_role": "computational scientist"
+        },
+        {
+            "contact_name": "William,G,Sullivan",
+            "email": "wisulliv@ucsc.edu",
+            "institution": "University of California Santa Cruz",
+            "laboratory": "Human Cell Atlas Data Coordination Platform",
+            "address": "1156 High St, Santa Cruz, CA 95064",
+            "country": "USA",
+            "corresponding_contributor": false,
+            "project_role": "Human Cell Atlas wrangler"
+        }
+    ],
+    "publications": [],
+    "provenance": {
+        "document_id": "ff481f29-3d0b-4533-9de2-a760c61c162d",
+        "submission_date": "2018-12-04T18:52:20.164Z",
+        "update_date": "2018-12-04T19:01:15.532Z"
+    }
+}

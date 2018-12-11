@@ -1,0 +1,26 @@
+{
+    "describedBy": "https://schema.humancellatlas.org/type/protocol/sequencing/9.0.3/sequencing_protocol",
+    "schema_type": "protocol",
+    "protocol_core": {
+        "protocol_id": "MARS_seq",
+        "protocol_name": "MARS_sequencing_instructions",
+        "protocol_description": "Sequencing MARS-seq libraries on Illumina's Nextseq500 (Illumina's document # 15046563 v04)",
+        "publication_doi": "10.1126/science.1247651",
+        "protocols_io_doi": "DOI: 10.1126/science.1247651"
+    },
+    "instrument_manufacturer_model": {
+        "text": "Illumina NextSeq500",
+        "ontology": "EFO:0009173"
+    },
+    "local_machine_name": "NB501277",
+    "paired_end": true,
+    "sequencing_approach": {
+        "text": "tag based single cell RNA sequencing",
+        "ontology": "EFO:0008440"
+    },
+    "provenance": {
+        "document_id": "77cba830-86bf-4d6e-98c2-0684067e5eb4",
+        "submission_date": "2018-11-28T08:12:51.919Z",
+        "update_date": "2018-11-28T08:13:02.366Z"
+    }
+}

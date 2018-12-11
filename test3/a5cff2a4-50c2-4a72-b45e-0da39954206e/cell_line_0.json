@@ -1,0 +1,31 @@
+{
+    "describedBy": "https://schema.humancellatlas.org/type/biomaterial/9.0.0/cell_line",
+    "schema_type": "biomaterial",
+    "biomaterial_core": {
+        "biomaterial_id": "HS_BM_3_cell_line",
+        "biomaterial_name": "Bone Marrow CD34+ stem/progenitor cells",
+        "ncbi_taxon_id": [
+            9606
+        ]
+    },
+    "supplier": "AllCells, LLC",
+    "catalog_number": "ABM022F",
+    "catalog_url": "https://www.allcells.com/products/bone-marrow-cd34-stem-progenitor-cells",
+    "cell_line_type": "stem cell",
+    "cell_type": {
+        "text": "CD34-positive, CD38-negative hematopoietic stem cell",
+        "ontology": "CL:0001024"
+    },
+    "date_established": "2017-06-22T00:00:00Z",
+    "genus_species": [
+        {
+            "text": "Homo sapiens",
+            "ontology": "NCBITaxon:9606"
+        }
+    ],
+    "provenance": {
+        "document_id": "eed8fdd9-63d1-4480-a693-bab5c3c05e0d",
+        "submission_date": "2018-12-04T19:02:13.676Z",
+        "update_date": "2018-12-04T19:02:25.142Z"
+    }
+}

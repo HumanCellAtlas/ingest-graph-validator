@@ -1,0 +1,17 @@
+{
+    "describedBy": "https://schema.humancellatlas.org/type/file/6.5.2/sequence_file",
+    "schema_type": "file",
+    "file_core": {
+        "file_name": "MantonCB6_HiSeq_3_S11_L004_R1_001.fastq.gz",
+        "file_format": "fastq.gz"
+    },
+    "read_index": "read1",
+    "lane_index": 4,
+    "read_length": 26,
+    "technical_replicate_group": "3_CB6_cells",
+    "provenance": {
+        "document_id": "c685731c-2f92-4133-a757-51d24bb84132",
+        "submission_date": "2018-11-29T09:16:04.778Z",
+        "update_date": "2018-11-29T11:09:03.864Z"
+    }
+}

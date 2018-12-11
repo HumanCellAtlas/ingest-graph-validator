@@ -1,0 +1,53 @@
+{
+    "describedBy": "https://schema.humancellatlas.org/type/biomaterial/10.1.2/donor_organism",
+    "schema_type": "biomaterial",
+    "biomaterial_core": {
+        "biomaterial_id": "E18_20160930",
+        "biomaterial_name": "E18 Mouse",
+        "biomaterial_description": "A healthy E18 mouse",
+        "ncbi_taxon_id": [
+            10090
+        ]
+    },
+    "mouse_specific": {
+        "strain": [
+            {
+                "text": "C57BL/6",
+                "ontology": "EFO:0004472",
+                "ontology_label": "C57BL/6"
+            }
+        ]
+    },
+    "genus_species": [
+        {
+            "text": "Mus musculus",
+            "ontology": "NCBITaxon:10090",
+            "ontology_label": "Mus musculus"
+        }
+    ],
+    "organism_age": "18",
+    "organism_age_unit": {
+        "text": "day",
+        "ontology": "UO:0000033",
+        "ontology_label": "day"
+    },
+    "development_stage": {
+        "text": "Embryo stage",
+        "ontology": "EFO:0007725",
+        "ontology_label": "embryo stage"
+    },
+    "diseases": [
+        {
+            "text": "normal",
+            "ontology": "PATO:0000461",
+            "ontology_label": "normal"
+        }
+    ],
+    "is_living": "no",
+    "sex": "unknown",
+    "provenance": {
+        "document_id": "c489c2bb-54c2-4d51-bdd9-3499e291e367",
+        "submission_date": "2018-12-04T18:52:20.171Z",
+        "update_date": "2018-12-04T19:01:15.557Z"
+    }
+}

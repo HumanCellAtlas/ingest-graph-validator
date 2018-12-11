@@ -1,0 +1,19 @@
+{
+    "describedBy": "https://schema.humancellatlas.org/type/protocol/biomaterial_collection/5.0.3/dissociation_protocol",
+    "schema_type": "protocol",
+    "protocol_core": {
+        "protocol_id": "dissociation_protocol_1",
+        "protocol_name": "Nuclei Isolation Protocol ",
+        "protocol_description": "Mechanical sheering using the EZ lysis kit"
+    },
+    "dissociation_method": {
+        "text": "mechanical dissociation",
+        "ontology": "EFO:0009129",
+        "ontology_label": "mechanical dissociation"
+    },
+    "provenance": {
+        "document_id": "028e8015-e9b6-4593-8cb8-59357085a746",
+        "submission_date": "2018-12-04T16:22:45.860Z",
+        "update_date": "2018-12-04T16:22:50.457Z"
+    }
+}
