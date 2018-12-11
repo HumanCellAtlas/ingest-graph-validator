@@ -188,6 +188,7 @@ def graph_stats(G):
 		 })
 
 	# print(feature_list)
+	return feature_list
 
 if __name__ == '__main__':
 	
