@@ -8,7 +8,7 @@ import sys
 import json
 import os
 import networkx as nx
-import pandas
+import pandas as pd
 # import matplotlib.pyplot as plt
 
 def load_graph_networkx(data):
@@ -174,6 +174,20 @@ def graph_stats(G):
 	print('Max depth is %d' % max_depth)
 
 	print('\n')
+
+	feature_list = pd.DataFrame(
+		{'totalNodes': total_nodes,
+		 'totalEdges': total_edges,
+		 'biomaterialOutdegrees': biomaterial_out_degrees,
+		 'biomaterialIndegrees': biomaterial_in_degrees,
+		 'processOutdegrees': process_out_degrees,
+		 'processIndegrees': process_in_degrees,
+		 'fileOutdegrees': file_out_degrees,
+		 'fileIndegrees': file_in_degrees,
+		 'maxDepth': max_depth
+		 })
+
+	print(feature_list)
 
 if __name__ == '__main__':
 	
