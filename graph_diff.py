@@ -151,8 +151,6 @@ def graph_stats(G):
 	print('Total nodes is %d' % total_nodes)
 	total_edges = G.number_of_edges()
 	print('Total edges is %d' % total_edges)
-	max_depth= nx.dag_longest_path_length(G)
-	print('Max depth is %d' % max_depth)
 
 	biomaterialNodes = [x for x, y in G.nodes(data=True) if y['entity_type'] == "biomaterial"]
 	biomaterial_out_degrees = [x[1] for x in G.out_degree(biomaterialNodes)]
@@ -172,11 +170,8 @@ def graph_stats(G):
 	file_in_degrees = [x[1] for x in G.in_degree(fileNodes)]
 	print('File node indegrees are: ', *file_in_degrees)
 
-# Number of outdegree per file node (should be 0).
-
-# Number of indegree per biomaterial (could be any number).
-# Number of indegree per file node (should be only 1).
-# Number of indegree per process node (should be 1 or more).
+	max_depth= nx.dag_longest_path_length(G)
+	print('Max depth is %d' % max_depth)
 
 	print('\n')
 
