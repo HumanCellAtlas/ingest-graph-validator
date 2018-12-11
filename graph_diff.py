@@ -1,14 +1,15 @@
 # maybe scrap
-import sys
-import graphviz
-from py2neo import Node, Graph, Relationship
+
+# import graphviz
+# from py2neo import Node, Graph, Relationship
 
 # keep
+import sys
 import json
 import os
 import networkx as nx
-import matplotlib.pyplot as plt
-import pandas
+import pandas as pd
+# import matplotlib.pyplot as plt
 
 def load_graph_networkx(data):
 	G=nx.DiGraph()
@@ -146,12 +147,47 @@ def plot_graph(G, node_names, outfile_name, layout_option=2, save_fig=False):
 		# print(A)
 
 def graph_stats(G):
+	total_nodes = G.number_of_nodes()
+	print('Total nodes is %d' % total_nodes)
 	total_edges = G.number_of_edges()
+	print('Total edges is %d' % total_edges)
+
+	biomaterialNodes = [x for x, y in G.nodes(data=True) if y['entity_type'] == "biomaterial"]
+	biomaterial_out_degrees = [x[1] for x in G.out_degree(biomaterialNodes)]
+	print('Biomaterial node outdegrees are: ', *biomaterial_out_degrees)
+	biomaterial_in_degrees = [x[1] for x in G.in_degree(biomaterialNodes)]
+	print('Biomaterial node indegrees are: ', *biomaterial_in_degrees)
+
+	processNodes = [x for x, y in G.nodes(data=True) if y['entity_type'] == "process"]
+	process_out_degrees = [x[1] for x in G.out_degree(processNodes)]
+	print('Process node outdegrees are: ', *process_out_degrees)
+	process_in_degrees = [x[1] for x in G.in_degree(processNodes)]
+	print('Process node indegrees are: ', *process_in_degrees)
+
+	fileNodes = [x for x, y in G.nodes(data=True) if y['entity_type'] == "file"]
+	file_out_degrees = [x[1] for x in G.out_degree(fileNodes)]
+	print('File node outdegrees are: ', *file_out_degrees)
+	file_in_degrees = [x[1] for x in G.in_degree(fileNodes)]
+	print('File node indegrees are: ', *file_in_degrees)
+
 	max_depth= nx.dag_longest_path_length(G)
-	print('Max depth is {}'.format(max_depth))
+	print('Max depth is %d' % max_depth)
 
-	
+	print('\n')
 
+	feature_list = pd.DataFrame(
+		{'totalNodes': pd.Series(total_nodes),
+		 'totalEdges': pd.Series(total_edges),
+		 'biomaterialOutdegrees': pd.Series(biomaterial_out_degrees),
+		 'biomaterialIndegrees': pd.Series(biomaterial_in_degrees),
+		 'processOutdegrees': pd.Series(process_out_degrees),
+		 'processIndegrees': pd.Series(process_in_degrees),
+		 'fileOutdegrees': pd.Series(file_out_degrees),
+		 'fileIndegrees': pd.Series(file_in_degrees),
+		 'maxDepth': pd.Series(max_depth)
+		 })
+
+	# print(feature_list)
 
 if __name__ == '__main__':
 	
@@ -166,9 +202,9 @@ if __name__ == '__main__':
 	for infile in infiles:
 		with open(infile) as f:
 			data = json.load(f)
-			# graph = load_graph_networkx(data)
-			# G = graph[0]
-			# node_names = graph[1]
+			graph = load_graph_networkx(data)
+			G = graph[0]
+			node_names = graph[1]
 			# # plot_graph(G, node_names, infile, save_fig=False)
 			graph_stats(G)
 
