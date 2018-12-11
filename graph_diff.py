@@ -8,6 +8,7 @@ import json
 import os
 import networkx as nx
 import matplotlib.pyplot as plt
+import pandas
 
 def load_graph_networkx(data):
 	G=nx.DiGraph()
@@ -145,15 +146,11 @@ def plot_graph(G, node_names, outfile_name, layout_option=2, save_fig=False):
 		# print(A)
 
 def graph_stats(G):
-	# total_edges = G.number_of_edges()
+	total_edges = G.number_of_edges()
 	max_depth= nx.dag_longest_path_length(G)
 	print('Max depth is {}'.format(max_depth))
 
-
-	# no_of_nodes=
-	# no_biomaterials=
-	# no_files=
-	# no_processes=
+	
 
 
 if __name__ == '__main__':
@@ -165,6 +162,7 @@ if __name__ == '__main__':
 	infiles = [indir + x + metadata_file for x in l]
 	print('Processing {} bundles'.format(len(infiles)))
 
+
 	for infile in infiles:
 		with open(infile) as f:
 			data = json.load(f)
@@ -172,9 +170,9 @@ if __name__ == '__main__':
 			# G = graph[0]
 			# node_names = graph[1]
 			# # plot_graph(G, node_names, infile, save_fig=False)
-			# graph_stats(G)
+			graph_stats(G)
 
-			load_graph_neo4j(data)
+			# load_graph_neo4j(data)
 
 
 
