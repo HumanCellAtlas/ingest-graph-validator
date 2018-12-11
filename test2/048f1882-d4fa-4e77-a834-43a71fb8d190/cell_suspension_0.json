@@ -1,0 +1,32 @@
+{
+    "describedBy": "https://schema.humancellatlas.org/type/biomaterial/8.6.1/cell_suspension",
+    "schema_type": "biomaterial",
+    "biomaterial_core": {
+        "biomaterial_id": "HP1526901T2D_K11",
+        "biomaterial_name": "HP1526901T2D_K11 cell",
+        "biomaterial_description": "HP1526901T2D_K11 cell",
+        "ncbi_taxon_id": [
+            9606
+        ],
+        "insdc_biomaterial": "ERS1351842",
+        "biosd_biomaterial": "SAMEA4440393"
+    },
+    "genus_species": [
+        {
+            "text": "Homo sapiens",
+            "ontology": "NCBITaxon:9606",
+            "ontology_label": "Homo sapiens"
+        }
+    ],
+    "total_estimated_cells": 1,
+    "plate_based_sequencing": {
+        "plate_id": "HP1526901T2D",
+        "well_id": "K11",
+        "cell_quality": "OK"
+    },
+    "provenance": {
+        "document_id": "0a35b9ef-7ea0-4ead-b0f2-d8e1ce66efa0",
+        "submission_date": "2018-12-03T15:23:49.820Z",
+        "update_date": "2018-12-03T15:32:37.191Z"
+    }
+}

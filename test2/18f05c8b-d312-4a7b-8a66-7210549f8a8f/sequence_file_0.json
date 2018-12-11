@@ -1,0 +1,14 @@
+{
+    "describedBy": "https://schema.humancellatlas.org/type/file/6.5.2/sequence_file",
+    "schema_type": "file",
+    "file_core": {
+        "file_name": "SRR5174391_2.fastq.gz",
+        "file_format": "fastq.gz"
+    },
+    "read_index": "read2",
+    "provenance": {
+        "document_id": "bdd1a708-4d1a-4ff1-b1f5-03004876a738",
+        "submission_date": "2018-11-21T11:00:13.163Z",
+        "update_date": "2018-11-21T11:21:07.645Z"
+    }
+}

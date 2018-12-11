@@ -1,0 +1,27 @@
+{
+    "describedBy": "https://schema.humancellatlas.org/type/protocol/sequencing/4.3.3/library_preparation_protocol",
+    "schema_type": "protocol",
+    "protocol_core": {
+        "protocol_id": "P-GSE93593-3",
+        "protocol_name": "single cell library construction protocol",
+        "protocol_description": "Cells were prepared for single-cell transcriptomics using SmartSeq2 (Picelli et al., 2014). After reverse transcription and template switching, we amplified cDNA with KAPA HotStart HIFI 2\u00d7 ReadyMix (Kapa Biosystems) for 22 cycles for RNA from single primary cortical cells. We purified PCR products using Ampure XP beads (Beckman Coulter). We quantified cDNA using a High Sensitivity DNA Chip (Agilent) on a Bioanalyzer 2100 or with the Quant-iT PicoGreen dsDNA Assay Kit (Thermo Fisher) on an Enspire plate reader (PerkinElmer)."
+    },
+    "input_nucleic_acid_molecule": {
+        "text": "polyA RNA",
+        "ontology": "OBI:0000869",
+        "ontology_label": "polyA RNA"
+    },
+    "library_construction_approach": {
+        "text": "Smart-seq2",
+        "ontology": "EFO:0008931",
+        "ontology_label": "Smart-seq2"
+    },
+    "end_bias": "full length",
+    "primer": "poly-dT",
+    "strand": "unstranded",
+    "provenance": {
+        "document_id": "6c21812c-ed31-4697-b5c2-28215158736b",
+        "submission_date": "2018-11-21T10:59:30.316Z",
+        "update_date": "2018-11-21T10:59:37.059Z"
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "describedBy": "https://schema.humancellatlas.org/type/protocol/sequencing/9.0.3/sequencing_protocol",
+    "schema_type": "protocol",
+    "protocol_core": {
+        "protocol_id": "P-GSE93593-4",
+        "protocol_name": "single cell sequencing protocol",
+        "protocol_description": "We used 1 ng of cDNA to generate RNA-Seq libraries using the Nextera XT library prep system (Illumina). We carried out sequencing of human cortical cells the on Illumina HiSeq using 50 base paired-end reads"
+    },
+    "instrument_manufacturer_model": {
+        "text": "Illumina HiSeq 2500",
+        "ontology": "EFO:0008565",
+        "ontology_label": "Illumina HiSeq 2500"
+    },
+    "paired_end": true,
+    "sequencing_approach": {
+        "text": "RNA-Seq",
+        "ontology": "EFO:0008896",
+        "ontology_label": "RNA-Seq"
+    },
+    "provenance": {
+        "document_id": "c5bd5499-17d2-46a9-a8f8-179d0df3c732",
+        "submission_date": "2018-11-21T10:59:30.323Z",
+        "update_date": "2018-11-21T10:59:37.108Z"
+    }
+}

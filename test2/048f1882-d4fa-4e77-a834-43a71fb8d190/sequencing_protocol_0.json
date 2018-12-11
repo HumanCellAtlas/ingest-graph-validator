@@ -1,0 +1,26 @@
+{
+    "describedBy": "https://schema.humancellatlas.org/type/protocol/sequencing/9.0.3/sequencing_protocol",
+    "schema_type": "protocol",
+    "protocol_core": {
+        "protocol_id": "sequencing_protocol_1",
+        "protocol_name": "SmartSeq2 single cell sequencing",
+        "protocol_description": "Libraries were sequenced on an Illumina HiSeq 2000, generating 43 bp single-end reads.",
+        "publication_doi": "10.1038/nprot.2014.006"
+    },
+    "sequencing_approach": {
+        "text": "full length single cell RNA sequencing",
+        "ontology": "EFO:0008441",
+        "ontology_label": "full length single cell RNA sequencing"
+    },
+    "instrument_manufacturer_model": {
+        "text": "Illumina HiSeq 2000",
+        "ontology": "EFO:0004203",
+        "ontology_label": "Illumina HiSeq 2000"
+    },
+    "paired_end": false,
+    "provenance": {
+        "document_id": "92c2c573-6871-4c9c-920f-49ae32078c72",
+        "submission_date": "2018-12-03T15:25:26.101Z",
+        "update_date": "2018-12-03T15:25:31.215Z"
+    }
+}

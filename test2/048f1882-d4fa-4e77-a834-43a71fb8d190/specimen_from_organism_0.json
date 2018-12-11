@@ -1,0 +1,37 @@
+{
+    "describedBy": "https://schema.humancellatlas.org/type/biomaterial/6.3.3/specimen_from_organism",
+    "schema_type": "biomaterial",
+    "biomaterial_core": {
+        "biomaterial_id": "T2D4_pancreas",
+        "biomaterial_name": "Pancreas from donor T2D4",
+        "biomaterial_description": "Pancreas from type II diabetes mellitus donor T2D4",
+        "ncbi_taxon_id": [
+            9606
+        ]
+    },
+    "genus_species": [
+        {
+            "text": "Homo sapiens",
+            "ontology": "NCBITaxon:9606",
+            "ontology_label": "Homo sapiens"
+        }
+    ],
+    "organ": {
+        "text": "pancreas",
+        "ontology": "UBERON:0001264",
+        "ontology_label": "pancreas"
+    },
+    "organ_part": {
+        "text": "islet of Langerhans",
+        "ontology": "UBERON:0000006",
+        "ontology_label": "islet of Langerhans"
+    },
+    "purchased_specimen": {
+        "manufacturer": "Prodo Laboratories Inc (Irvine, CA, USA) "
+    },
+    "provenance": {
+        "document_id": "71d18b32-e222-4ccf-9110-688a13683017",
+        "submission_date": "2018-12-03T15:23:08.529Z",
+        "update_date": "2018-12-03T15:31:37.995Z"
+    }
+}

@@ -1,0 +1,14 @@
+{
+    "describedBy": "https://schema.humancellatlas.org/type/file/1.1.5/supplementary_file",
+    "schema_type": "file",
+    "file_core": {
+        "file_name": "SmartSeq2_sequencing_protocol.pdf",
+        "file_format": "pdf"
+    },
+    "file_description": "Sequencing SmartSeq2 cells",
+    "provenance": {
+        "document_id": "dd5638fe-9028-46d3-8d28-d77b21018041",
+        "submission_date": "2018-11-06T16:18:53.329Z",
+        "update_date": "2018-11-06T16:29:04.403Z"
+    }
+}

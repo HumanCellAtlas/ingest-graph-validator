@@ -1,0 +1,14 @@
+{
+    "describedBy": "https://schema.humancellatlas.org/type/file/1.1.5/supplementary_file",
+    "schema_type": "file",
+    "file_core": {
+        "file_name": "SmartSeq2_RTPCR_protocol.pdf",
+        "file_format": "pdf"
+    },
+    "file_description": "Make/amplify cDNA for each cell",
+    "provenance": {
+        "document_id": "d25ca3d2-2492-4d3e-86bf-350d73829d26",
+        "submission_date": "2018-11-06T16:18:53.308Z",
+        "update_date": "2018-11-06T16:29:04.396Z"
+    }
+}

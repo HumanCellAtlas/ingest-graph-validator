@@ -1,0 +1,50 @@
+{
+    "describedBy": "https://schema.humancellatlas.org/type/biomaterial/10.1.2/donor_organism",
+    "schema_type": "biomaterial",
+    "biomaterial_core": {
+        "biomaterial_id": "T2D1",
+        "biomaterial_name": "Type II Diabetes Donor 1",
+        "biomaterial_description": "Type II Diabetes Donor 1",
+        "ncbi_taxon_id": [
+            9606
+        ]
+    },
+    "genus_species": [
+        {
+            "text": "Homo sapiens",
+            "ontology": "NCBITaxon:9606",
+            "ontology_label": "Homo sapiens"
+        }
+    ],
+    "is_living": "no",
+    "sex": "male",
+    "medical_history": {
+        "test_results": "HbA1c 7.0%"
+    },
+    "diseases": [
+        {
+            "text": "type II diabetes mellitus",
+            "ontology": "MONDO:0005148",
+            "ontology_label": "type 2 diabetes mellitus"
+        }
+    ],
+    "development_stage": {
+        "text": "adult",
+        "ontology": "EFO:0001272",
+        "ontology_label": "adult"
+    },
+    "organism_age": "57",
+    "organism_age_unit": {
+        "text": "year",
+        "ontology": "UO:0000036",
+        "ontology_label": "year"
+    },
+    "human_specific": {
+        "body_mass_index": 24
+    },
+    "provenance": {
+        "document_id": "1ed5537b-1241-472c-8caa-13350cc8a1c1",
+        "submission_date": "2018-12-03T15:23:08.368Z",
+        "update_date": "2018-12-03T15:28:38.699Z"
+    }
+}
