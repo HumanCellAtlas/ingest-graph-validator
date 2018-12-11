@@ -1,0 +1,17 @@
+{
+    "describedBy": "https://schema.humancellatlas.org/type/file/6.5.2/sequence_file",
+    "schema_type": "file",
+    "file_core": {
+        "file_name": "GAC027_hOrg_HipSci_2_S6_L007_R1_001.fastq.gz",
+        "file_format": "fastq.gz",
+        "checksum": "02d00b0af6519738f66ace0db6af1938"
+    },
+    "read_index": "read1",
+    "lane_index": 7,
+    "read_length": 26,
+    "provenance": {
+        "document_id": "2a6c9275-c82a-46fb-bb0f-909d9d68714a",
+        "submission_date": "2018-10-30T15:29:07.193Z",
+        "update_date": "2018-10-30T15:41:32.739Z"
+    }
+}

@@ -1,0 +1,14 @@
+{
+    "describedBy": "https://schema.humancellatlas.org/type/file/1.1.5/supplementary_file",
+    "schema_type": "file",
+    "file_core": {
+        "file_name": "Dissociation_protocol_130-092-628.pdf",
+        "file_format": "pdf"
+    },
+    "file_description": "Cerebral organoid dissociation protocol.",
+    "provenance": {
+        "document_id": "92a30afd-21eb-4682-bb08-212ce48244b4",
+        "submission_date": "2018-10-30T15:29:07.071Z",
+        "update_date": "2018-10-30T15:38:50.461Z"
+    }
+}
