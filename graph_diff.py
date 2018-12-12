@@ -389,11 +389,32 @@ def generate_report(FL, AL):
 		print(assumption_frame_unique)
 
 def graph_compare(graphs):
-	graph_sets = [sorted(list(set(x))) for x in graphs]
-	unique_data = [list(x) for x in set(tuple(x) for x in graph_sets)]
+	# graph_sets = [sorted(list(set(x))) for x in graphs]
+	# unique_data = [list(x) for x in set(tuple(x) for x in graph_sets)]
+	# print('There are {} unique node sets out of {} graphs'.format(len(unique_data), len(graphs)))
 
-	new = nx.difference(graphs[0], graphs[1])
-	print(new)
+	unique_by_node_groups = {} # str(sorted_node_list) : [G,G]
+
+	for graph in graphs:
+		sorted_node_list = sorted(list(set(graph)))
+		if str(sorted_node_list) in unique_by_node_groups:
+			unique_by_node_groups[str(sorted_node_list)].append(graph)
+		else:
+			unique_by_node_groups[str(sorted_node_list)] = [graph]
+
+	print('There are {} unique node sets out of {} graphs'.format(len(unique_by_node_groups), len(graphs)))
+	
+	for group, graph_list in unique_by_node_groups.items():
+		group_representative_graph = graph_list[0]
+		for grouped_graph in graph_list[1:]:
+
+			# all too slow for now. We need to find an optimised graph comparison tool.
+
+			# comparison = nx.difference(group_representative_graph, grouped_graph)
+			# print(nx.graph_edit_distance(group_representative_graph, grouped_graph))
+			# agenerator = nx.optimize_graph_edit_distance(group_representative_graph, grouped_graph) # not sure why I see a difference here
+			# agenerator = nx.optimize_edit_paths(group_representative_graph, grouped_graph) # weird tuple output and slow
+
 
 if __name__ == '__main__':
 
