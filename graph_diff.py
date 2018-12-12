@@ -255,6 +255,7 @@ def graph_stats(G):
 		'totalNodes': total_nodes,
 		'totalEdges': total_edges,
 		'maxDepth': max_depth,
+		'nodeList': ",".join(str(x) for x in sorted(list(set(G)))),
 		'biomaterialOutdegrees': ",".join(str(x) for x in biomaterial_out_degrees),
 		'biomaterialIndegrees': ",".join(str(x) for x in biomaterial_in_degrees),
 		'processOutdegrees': ",".join(str(x) for x in process_out_degrees),
@@ -280,9 +281,6 @@ def graph_assumptions(G):
 		donorFirstNode = False
 
 	# print('Graph starts with donor node: %s' % donorFirstNode)
-
-	# Graph can have more than one first biomaterial (biomaterial with indegree 0).
-	# Not checked.
 
 	# Every graph should end with file node(s). sequence_file_in_degrees = 1, sequence_file_out_degree = 0.
 	sequenceFileNodes = [x for x, y in G.nodes(data=True) if y['entity_name'] == "sequence_file"]
@@ -333,22 +331,22 @@ def graph_assumptions(G):
 	# Cell suspension or imaged specimen is the last biomaterial node.
 	lastBiomaterialNode = [y for x, y in G.nodes(data=True) if y['unique_name'] == "biomaterial_1"]
 	for x in lastBiomaterialNode:
-		if x['entity_name'] == 'cell_suspension':
+		if x['entity_name'] == 'cell_suspension' or x['entity_name'] == 'imaged_specimen':
 			cellSuspensionLastBiomaterial = True
 		else:
 			cellSuspensionLastBiomaterial = False
 
 	# The minimal longest path length of the graph should be 5 (sequencing or imaging).
 	max_depth= nx.dag_longest_path_length(G)
-	print(max_depth)
+	# print(max_depth)
 	if max_depth >= 5:
 		minLongestPathIsFive = True
 	else:
 		minLongestPathIsFive = False
 
-	# exit()
-
+	# Not checked:
 	# Graph has a direction from biomaterial node to file node and cannot have cycle (is directional acyclical).
+	# Graph can have more than one first biomaterial (biomaterial with indegree 0).
 
 	assumptions = {
 		'donorFirstNode': donorFirstNode,
