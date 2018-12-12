@@ -10,9 +10,14 @@ import json
 import os
 import networkx as nx
 import pandas as pd
+from networkx import Graph
+from networkx.algorithms.coloring.greedy_coloring_with_interchange import Node
 from pandas.testing import assert_frame_equal
+from argparse import ArgumentParser
 import numpy as np
-# import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
+from py2neo import Relationship
+
 
 def load_graph_networkx_old(data):
 	G=nx.DiGraph()
@@ -339,26 +344,46 @@ def generate_report(FL, AL):
 
 	feature_frame = pd.DataFrame(FL)
 	print("Number of feature sets (graphs): %d" % len(feature_frame))
+
 	# Find unique rows
 	feature_frame_unique = feature_frame.drop_duplicates()
 	print("Number of unique feature sets (graphs): %d" % len(feature_frame_unique))
-	print("\nUnique feature sets:")
+
+	print("\n\nUnique feature sets:")
 	with pd.option_context('display.max_rows', None, 'display.max_columns', feature_frame_unique.shape[1]):
 		print(feature_frame_unique)
 
 	assumption_frame = pd.DataFrame(AL)
 	print("--------------------\nNumber of assumption sets (graphs): %d" % len(assumption_frame))
+
 	# Find unique rows
 	assumption_frame_unique = assumption_frame.drop_duplicates()
 	print("Number of unique assumption sets (graphs): %d" % len(assumption_frame_unique))
-	print("\nUnique assumption sets:")
+
+	print("\n\nUnique assumption sets:")
 	with pd.option_context('display.max_rows', None, 'display.max_columns', assumption_frame_unique.shape[1]):
 		print(assumption_frame_unique)
 
+def graph_compare(graphs):
+	graph_sets = [sorted(list(set(x))) for x in graphs]
+	unique_data = [list(x) for x in set(tuple(x) for x in graph_sets)]
+
+	new = nx.difference(graphs[0], graphs[1])
+	print(new)
+
 if __name__ == '__main__':
 
+	parser = ArgumentParser()
+	parser.add_argument("-d", "--directory", dest="inputDirectory",
+						help="Path to the input files")
+	parser.add_argument("-p", "--plot", action="store_true",
+						help="Flag to draw the graphs")
+	parser.add_argument("-l", "--layout", dest="layout",
+						help="Graph layout option", default="2")
 
-	indir = 'test5/'
+	arguments = parser.parse_args()
+
+	indir = arguments.inputDirectory
 	# metadata_file = '/links.json'
 	l = os.listdir(indir)
 	# infiles = [indir + x + metadata_file for x in l]
@@ -375,9 +400,8 @@ if __name__ == '__main__':
 			graph = load_graph_networkx(data)
 			G = graph[0]
 			node_names = graph[1]
-			# plot_graph(G, node_names, infile, save_fig=False)
-
-			# Calculate graph features
+			if arguments.plot:
+				plot_graph(G, node_names, infile, arguments.layout, save_fig=False)
 			G_features = graph_stats(G)
 			feature_list.append(G_features)
 
@@ -385,7 +409,8 @@ if __name__ == '__main__':
 			G_assumptions = graph_assumptions(G)
 			assumption_list.append(G_assumptions)
 
-			# graphs.append(G)
+		graphs.append(G)
 
 	# load_graph_neo4j(data)
-	generate_report(feature_list, assumption_list)
+	# generate_report(feature_list, assumption_list)
+	graph_compare(graphs)
