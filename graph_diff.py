@@ -44,8 +44,7 @@ def load_graph_networkx_old(data):
 	nx.set_node_attributes(G, node_names, 'entity_name')
 
 	# print(G.nodes(data=True))
-	print(node_types)
-	sys.exit()
+	print(node_names)
 
 	return G, node_names
 
@@ -104,8 +103,10 @@ def load_graph_networkx(data):
 	uuid_switch = {y:x for x,y in node_names.items()}
 	nx.set_node_attributes(G, uuid_switch, 'uuid')
 
-	print(G.nodes(data=True))
-	sys.exit()
+	# print(G.nodes(data=True))
+	print(specific_node_types)
+
+	return G, specific_node_types
 
 def load_graph_neo4j(data): # not working on hold
 	graph = Graph('http://localhost:7474/db/data/', user='neo4j', password='neo5j')  # initialising graph
@@ -270,6 +271,7 @@ if __name__ == '__main__':
 	print('Processing {} bundles'.format(len(infiles)))
 
 	feature_list = []
+	graphs = []
 
 	for infile in infiles:
 		with open(infile) as f:
@@ -278,14 +280,14 @@ if __name__ == '__main__':
 			G = graph[0]
 			node_names = graph[1]
 			# plot_graph(G, node_names, infile, save_fig=False)
-			G_features = graph_stats(G)
-			feature_list.append(G_features)
+			# G_features = graph_stats(G)
+			# feature_list.append(G_features)
 
-			# load_graph_neo4j(data)
 
-	feature_frame = pd.DataFrame(feature_list)
-	print(feature_frame)
-	print("length of dataFrame: %d" % len(feature_frame))
+
+	# feature_frame = pd.DataFrame(feature_list)
+	# print(feature_frame)
+	# print("length of dataFrame: %d" % len(feature_frame))
 
 	# Find unique rows
 	# feature_frame_unique = feature_frame.drop_duplicates()
