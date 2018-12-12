@@ -195,6 +195,9 @@ def graph_stats(G):
 
 	return features
 
+def graph_assumptions(G):
+	
+
 if __name__ == '__main__':
 
 
@@ -214,8 +217,14 @@ if __name__ == '__main__':
 			G = graph[0]
 			node_names = graph[1]
 			# plot_graph(G, node_names, infile, save_fig=False)
+
+			# Calculate graph features
 			G_features = graph_stats(G)
 			feature_list.append(G_features)
+
+			# Assess graph assumptions
+			G_assumptions = graph_assumptions(G)
+
 			# load_graph_neo4j(data)
 
 	feature_frame = pd.DataFrame(feature_list)
