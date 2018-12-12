@@ -15,9 +15,8 @@ from networkx.algorithms.coloring.greedy_coloring_with_interchange import Node
 from pandas.testing import assert_frame_equal
 from argparse import ArgumentParser
 import numpy as np
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 from py2neo import Relationship
-
 
 def load_graph_networkx_old(data):
 	G=nx.DiGraph()
@@ -322,18 +321,43 @@ def graph_assumptions(G):
 
 	# print('Graph has no hanging biomaterial nodes: %s\n' % noHangingBiomaterialNode)
 
+	# The ultimate process node should have 2 protocols (library preparation and sequencing or imaging preparation and imaging).
+	assayProtocolEdge = [x for x in G.edges() if 'process_1' in x[0] and 'protocol' in x[1]]
+	# print(assayProtocolEdge)
+
+	if len(assayProtocolEdge) == 2:
+		assayHasTwoProtocols = True
+	else:
+		assayHasTwoProtocols = False
+
+	# Cell suspension or imaged specimen is the last biomaterial node.
+	lastBiomaterialNode = [y for x, y in G.nodes(data=True) if y['unique_name'] == "biomaterial_1"]
+	for x in lastBiomaterialNode:
+		if x['entity_name'] == 'cell_suspension':
+			cellSuspensionLastBiomaterial = True
+		else:
+			cellSuspensionLastBiomaterial = False
+
+	# The minimal longest path length of the graph should be 5 (sequencing or imaging).
+	max_depth= nx.dag_longest_path_length(G)
+	print(max_depth)
+	if max_depth >= 5:
+		minLongestPathIsFive = True
+	else:
+		minLongestPathIsFive = False
+
 	# exit()
 
 	# Graph has a direction from biomaterial node to file node and cannot have cycle (is directional acyclical).
-	# The ultimate process node should have 2 protocols (library preparation and sequencing or imaging preparation and imaging).
-	# Cell suspension or imaged specimen is the last biomaterial node.
-	# The minimal longest path length of the graph should be 5 (sequencing or imaging).
 
 	assumptions = {
 		'donorFirstNode': donorFirstNode,
 		'sequenceFileLastNode': sequenceFileLastNode,
 		'sequenceFileNodeCount': sequenceFileNodeCount,
-		'noHangingBiomaterialNode': noHangingBiomaterialNode
+		'noHangingBiomaterialNode': noHangingBiomaterialNode,
+		'assayHasTwoProtocols': assayHasTwoProtocols,
+		'minLongestPathIsFive': minLongestPathIsFive,
+		'cellSuspensionLastBiomaterial': cellSuspensionLastBiomaterial
 	}
 
 	return assumptions
@@ -402,6 +426,8 @@ if __name__ == '__main__':
 			node_names = graph[1]
 			if arguments.plot:
 				plot_graph(G, node_names, infile, arguments.layout, save_fig=False)
+
+			# Calculate graph features
 			G_features = graph_stats(G)
 			feature_list.append(G_features)
 
@@ -412,5 +438,5 @@ if __name__ == '__main__':
 		graphs.append(G)
 
 	# load_graph_neo4j(data)
-	# generate_report(feature_list, assumption_list)
+	generate_report(feature_list, assumption_list)
 	graph_compare(graphs)

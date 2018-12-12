@@ -42,19 +42,5 @@
         ],
         "input_specific_type": "specimen_from_organism",
         "output_specific_type": "cell_suspension"
-    },
-    {
-        "process": "51282080-c1c6-4e59-8de0-a0616535ab05",
-        "inputs": {
-            "0b9941f9-1ceb-4e48-a5db-23c6317a32b2": "BM1"
-        },
-        "input_type": "biomaterial",
-        "outputs": {
-            "e5ef762f-2809-481d-a3bb-01433d4326f9": "2_BM1"
-        },
-        "output_type": "biomaterial",
-        "protocols": [],
-        "input_specific_type": "donor_organism",
-        "output_specific_type": "specimen_from_organism"
     }
 ]
