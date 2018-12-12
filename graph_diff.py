@@ -185,7 +185,6 @@ def graph_stats(G):
 		'totalNodes': total_nodes,
 		'totalEdges': total_edges,
 		'maxDepth': max_depth,
-		# 'nodesEdgesDepth': [total_nodes, total_edges, max_depth],
 		'biomaterialOutdegrees': ",".join(str(x) for x in biomaterial_out_degrees),
 		'biomaterialIndegrees': ",".join(str(x) for x in biomaterial_in_degrees),
 		'processOutdegrees': ",".join(str(x) for x in process_out_degrees),
@@ -194,7 +193,6 @@ def graph_stats(G):
 		'fileIndegrees': ",".join(str(x) for x in file_in_degrees)
 	}
 
-	# print(features)
 	return features
 
 if __name__ == '__main__':
@@ -222,12 +220,10 @@ if __name__ == '__main__':
 
 	feature_frame = pd.DataFrame(feature_list)
 	print("Number of feature sets (graphs): %d" % len(feature_frame))
-	# print(feature_frame)
 
 	# Find unique rows
 	feature_frame_unique = feature_frame.drop_duplicates()
 	print("Number of unique feature sets (graphs): %d" % len(feature_frame_unique))
-	# print(feature_frame_unique)
 
 	print("--------------------\nUnique feature sets:")
 	with pd.option_context('display.max_rows', None, 'display.max_columns', feature_frame_unique.shape[1]):
