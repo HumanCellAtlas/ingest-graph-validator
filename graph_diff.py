@@ -331,7 +331,12 @@ def graph_assumptions(G):
 		assayHasTwoProtocols = False
 
 	# Cell suspension or imaged specimen is the last biomaterial node.
-
+	lastBiomaterialNode = [y for x, y in G.nodes(data=True) if y['unique_name'] == "biomaterial_1"]
+	for x in lastBiomaterialNode:
+		if x['entity_name'] == 'cell_suspension':
+			cellSuspensionLastBiomaterial = True
+		else:
+			cellSuspensionLastBiomaterial = False
 
 	# exit()
 
@@ -343,7 +348,8 @@ def graph_assumptions(G):
 		'sequenceFileLastNode': sequenceFileLastNode,
 		'sequenceFileNodeCount': sequenceFileNodeCount,
 		'noHangingBiomaterialNode': noHangingBiomaterialNode,
-		'assayHasTwoProtocols': assayHasTwoProtocols
+		'assayHasTwoProtocols': assayHasTwoProtocols,
+		'cellSuspensionLastBiomaterial': cellSuspensionLastBiomaterial
 	}
 
 	return assumptions
