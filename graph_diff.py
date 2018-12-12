@@ -331,14 +331,14 @@ def graph_assumptions(G):
 	# Cell suspension or imaged specimen is the last biomaterial node.
 	lastBiomaterialNode = [y for x, y in G.nodes(data=True) if y['unique_name'] == "biomaterial_1"]
 	for x in lastBiomaterialNode:
-		if x['entity_name'] == 'cell_suspension':
+		if x['entity_name'] == 'cell_suspension' or x['entity_name'] == 'imaged_specimen':
 			cellSuspensionLastBiomaterial = True
 		else:
 			cellSuspensionLastBiomaterial = False
 
 	# The minimal longest path length of the graph should be 5 (sequencing or imaging).
 	max_depth= nx.dag_longest_path_length(G)
-	print(max_depth)
+	# print(max_depth)
 	if max_depth >= 5:
 		minLongestPathIsFive = True
 	else:
