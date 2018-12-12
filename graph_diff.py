@@ -17,7 +17,7 @@ import numpy as np
 def load_graph_networkx_old(data):
 	G=nx.DiGraph()
 	links = data#['links']
-	node_names ={}
+	node_names = {}
 	node_types = {}
 	for process in links:
 		process_uuid = process['process']
@@ -51,8 +51,8 @@ def load_graph_networkx_old(data):
 def load_graph_networkx(data):
 	G=nx.DiGraph()
 	links = data#['links']
-	node_types = []
 	node_names = {}
+	node_types = []
 	nonspecific_node_types = {}
 	specific_node_types = {}
 
@@ -104,7 +104,7 @@ def load_graph_networkx(data):
 	nx.set_node_attributes(G, uuid_switch, 'uuid')
 
 	# print(G.nodes(data=True))
-	print(specific_node_types)
+	# print(specific_node_types)
 
 	return G, specific_node_types
 
@@ -206,7 +206,7 @@ def plot_graph(G, node_names, outfile_name, layout_option=2, save_fig=False):
 
 	elif layout_option == 2:
 		A = G.to_undirected() # can only get edges to size correctly with an undirected graph for some reason
-		nx.draw(A, with_labels=True, labels=node_names, node_color=node_color, node_size=800, font_size=8)
+		nx.draw(A, with_labels=True, node_color=node_color, node_size=800, font_size=8)
 		plt.show()
 		# if save_fig is True:
 		# 	plt.savefig(outfile_name + '.png')
@@ -223,18 +223,21 @@ def graph_stats(G):
 	# print('Total edges is %d' % total_edges)
 
 	biomaterialNodes = [x for x, y in G.nodes(data=True) if y['entity_type'] == "biomaterial"]
+	biomaterialNodes.sort()
 	biomaterial_out_degrees = [x[1] for x in G.out_degree(biomaterialNodes)]
 	# print('Biomaterial node outdegrees are: ', *biomaterial_out_degrees)
 	biomaterial_in_degrees = [x[1] for x in G.in_degree(biomaterialNodes)]
 	# print('Biomaterial node indegrees are: ', *biomaterial_in_degrees)
 
 	processNodes = [x for x, y in G.nodes(data=True) if y['entity_type'] == "process"]
+	processNodes.sort()
 	process_out_degrees = [x[1] for x in G.out_degree(processNodes)]
 	# print('Process node outdegrees are: ', *process_out_degrees)
 	process_in_degrees = [x[1] for x in G.in_degree(processNodes)]
 	# print('Process node indegrees are: ', *process_in_degrees)
 
 	fileNodes = [x for x, y in G.nodes(data=True) if y['entity_type'] == "file"]
+	fileNodes.sort()
 	file_out_degrees = [x[1] for x in G.out_degree(fileNodes)]
 	# print('File node outdegrees are: ', *file_out_degrees)
 	file_in_degrees = [x[1] for x in G.in_degree(fileNodes)]
@@ -261,6 +264,7 @@ def graph_stats(G):
 def graph_assumptions(G):
 	# Every graph starts from donor biomaterial node: donor_in_degree = 0, donor_out_degrees >= 1.
 	donorNodes = [x for x, y in G.nodes(data=True) if y['entity_name'] == "donor_organism"]
+	donorNodes.sort()
 	donor_in_degrees = [x[1] for x in G.in_degree(donorNodes)]
 	donor_out_degrees = [x[1] for x in G.out_degree(donorNodes)]
 	# print('Donor node indegrees are: ', *donor_in_degrees)
@@ -278,6 +282,7 @@ def graph_assumptions(G):
 
 	# Every graph should end with file node(s). sequence_file_in_degrees = 1, sequence_file_out_degree = 0.
 	sequenceFileNodes = [x for x, y in G.nodes(data=True) if y['entity_name'] == "sequence_file"]
+	sequenceFileNodes.sort()
 	sequence_file_in_degrees = [x[1] for x in G.in_degree(sequenceFileNodes)]
 	sequence_file_out_degrees = [x[1] for x in G.out_degree(sequenceFileNodes)]
 	# print('Sequence file node indegrees are: ', *sequence_file_in_degrees)
@@ -301,6 +306,7 @@ def graph_assumptions(G):
 
 	# Graph should have no hanging biomaterial nodes.
 	biomaterialNodes = [x for x, y in G.nodes(data=True) if y['entity_type'] == "biomaterial"]
+	biomaterialNodes.sort()
 	biomaterial_out_degrees = [x[1] for x in G.out_degree(biomaterialNodes)]
 	# print('Biomaterial node outdegrees are: ', *biomaterial_out_degrees)
 
