@@ -200,6 +200,7 @@ def graph_stats(G):
 
 if __name__ == '__main__':
 
+
 	indir = 'test5/'
 	# metadata_file = '/links.json'
 	l = os.listdir(indir)
