@@ -15,7 +15,7 @@ from networkx.algorithms.coloring.greedy_coloring_with_interchange import Node
 from pandas.testing import assert_frame_equal
 from argparse import ArgumentParser
 import numpy as np
-# import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 from py2neo import Relationship
 
 def load_graph_networkx_old(data):
@@ -195,7 +195,7 @@ def plot_graph(G, node_names, outfile_name, layout_option=2, save_fig=False):
 			node_color.append('olive')
 
 
-	if layout_option == 1:
+	if layout_option == '1':
 		# pos = nx.spectral_layout(G)
 		pos = nx.spring_layout(G)
 		nodes = nx.draw_networkx_nodes(G, pos, node_size=100,
@@ -208,7 +208,7 @@ def plot_graph(G, node_names, outfile_name, layout_option=2, save_fig=False):
 			arrowsize=10,
 			width=2)
 
-	elif layout_option == 2:
+	elif layout_option == '2':
 		A = G.to_undirected() # can only get edges to size correctly with an undirected graph for some reason
 		nx.draw(A, with_labels=True, node_color=node_color, node_size=800, font_size=8)
 		plt.show()
@@ -216,7 +216,7 @@ def plot_graph(G, node_names, outfile_name, layout_option=2, save_fig=False):
 		# 	plt.savefig(outfile_name + '.png')
 
 
-	elif layout_option == 3:
+	elif layout_option == '3':
 		A = nx.nx_agraph.to_agraph(G)        # convert to a graphviz graph
 		# print(A)
 
@@ -404,7 +404,7 @@ def graph_compare(graphs):
 	
 	for group, graph_list in unique_by_node_groups.items():
 		group_representative_graph = graph_list[0]
-		for grouped_graph in graph_list[1:]:
+		# for grouped_graph in graph_list[1:]:
 
 			# all too slow for now. We need to find an optimised graph comparison tool.
 
