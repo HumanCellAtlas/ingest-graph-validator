@@ -196,7 +196,41 @@ def graph_stats(G):
 	return features
 
 def graph_assumptions(G):
-	
+	# Every graph starts from donor biomaterial node: donor_in_degree = 0, donor_out_degrees >= 1.
+	donorNodes = [x for x, y in G.nodes(data=True) if y['entity_name'] == "donor_organism"]
+	donor_in_degrees = [x[1] for x in G.in_degree(donorNodes)]
+	donor_out_degrees = [x[1] for x in G.out_degree(donorNodes)]
+	# print('Donor node indegrees are: ', *donor_in_degrees)
+	# print('Donor node outdegrees are: ', *donor_out_degrees)
+	# print(all(x == 0 for x in donor_in_degrees))
+	# print(all(x >= 1 for x in donor_out_degrees))
+
+	if all(x == 0 for x in donor_in_degrees) and all(x >= 1 for x in donor_out_degrees):
+		donorFirstNode = True
+	else:
+		donorFirstNode = False
+
+	print('Graph starts with donor node: %s' % donorFirstNode)
+
+	# Graph can have more than one first biomaterial (biomaterial with indegree 0).
+	# Not checked.
+
+	# Every graph should end with a file node.
+	sequenceFileNodes = [x for x, y in G.nodes(data=True) if y['entity_name'] == "sequence_file"]
+	donor_in_degrees = [x[1] for x in G.in_degree(sequenceFileNodes)]
+	donor_out_degrees = [x[1] for x in G.out_degree(sequenceFileNodes)]
+
+	exit()
+	# Graph has a direction from biomaterial node to file node and cannot have cycle (is directional acyclical).
+	# Graph should have no hanging biomaterial nodes.
+	# The ultimate process node should have 2 protocols (library preparation and sequencing or imaging preparation and imaging).
+	# Cell suspension or imaged specimen is the last biomaterial node.
+	# There can only be 1, 2, or 3 sequencing file nodes in the graph. (10x should have 2 or 3, and SS2 should have 1 or 2, but this is schema-aware.)
+	# The minimal longest path length of the graph should be 5 (sequencing or imaging).
+
+
+	return assumptions
+
 
 if __name__ == '__main__':
 
