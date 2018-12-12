@@ -15,7 +15,7 @@ from networkx.algorithms.coloring.greedy_coloring_with_interchange import Node
 from pandas.testing import assert_frame_equal
 from argparse import ArgumentParser
 import numpy as np
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 from py2neo import Relationship
 
 def load_graph_networkx_old(data):
@@ -321,18 +321,29 @@ def graph_assumptions(G):
 
 	# print('Graph has no hanging biomaterial nodes: %s\n' % noHangingBiomaterialNode)
 
+	# The ultimate process node should have 2 protocols (library preparation and sequencing or imaging preparation and imaging).
+	assayProtocolEdge = [x for x in G.edges() if 'process_1' in x[0] and 'protocol' in x[1]]
+	# print(assayProtocolEdge)
+
+	if len(assayProtocolEdge) == 2:
+		assayHasTwoProtocols = True
+	else:
+		assayHasTwoProtocols = False
+
+	# Cell suspension or imaged specimen is the last biomaterial node.
+
+
 	# exit()
 
 	# Graph has a direction from biomaterial node to file node and cannot have cycle (is directional acyclical).
-	# The ultimate process node should have 2 protocols (library preparation and sequencing or imaging preparation and imaging).
-	# Cell suspension or imaged specimen is the last biomaterial node.
 	# The minimal longest path length of the graph should be 5 (sequencing or imaging).
 
 	assumptions = {
 		'donorFirstNode': donorFirstNode,
 		'sequenceFileLastNode': sequenceFileLastNode,
 		'sequenceFileNodeCount': sequenceFileNodeCount,
-		'noHangingBiomaterialNode': noHangingBiomaterialNode
+		'noHangingBiomaterialNode': noHangingBiomaterialNode,
+		'assayHasTwoProtocols': assayHasTwoProtocols
 	}
 
 	return assumptions
