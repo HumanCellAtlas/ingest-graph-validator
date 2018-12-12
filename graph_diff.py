@@ -155,32 +155,31 @@ def plot_graph(G, node_names, outfile_name, layout_option=2, save_fig=False):
 
 def graph_stats(G):
 	total_nodes = G.number_of_nodes()
-	print('Total nodes is %d' % total_nodes)
+	# print('Total nodes is %d' % total_nodes)
 	total_edges = G.number_of_edges()
-	print('Total edges is %d' % total_edges)
+	# print('Total edges is %d' % total_edges)
 
 	biomaterialNodes = [x for x, y in G.nodes(data=True) if y['entity_type'] == "biomaterial"]
 	biomaterial_out_degrees = [x[1] for x in G.out_degree(biomaterialNodes)]
-	print('Biomaterial node outdegrees are: ', *biomaterial_out_degrees)
+	# print('Biomaterial node outdegrees are: ', *biomaterial_out_degrees)
 	biomaterial_in_degrees = [x[1] for x in G.in_degree(biomaterialNodes)]
-	print('Biomaterial node indegrees are: ', *biomaterial_in_degrees)
+	# print('Biomaterial node indegrees are: ', *biomaterial_in_degrees)
 
 	processNodes = [x for x, y in G.nodes(data=True) if y['entity_type'] == "process"]
 	process_out_degrees = [x[1] for x in G.out_degree(processNodes)]
-	print('Process node outdegrees are: ', *process_out_degrees)
+	# print('Process node outdegrees are: ', *process_out_degrees)
 	process_in_degrees = [x[1] for x in G.in_degree(processNodes)]
-	print('Process node indegrees are: ', *process_in_degrees)
+	# print('Process node indegrees are: ', *process_in_degrees)
 
 	fileNodes = [x for x, y in G.nodes(data=True) if y['entity_type'] == "file"]
 	file_out_degrees = [x[1] for x in G.out_degree(fileNodes)]
-	print('File node outdegrees are: ', *file_out_degrees)
+	# print('File node outdegrees are: ', *file_out_degrees)
 	file_in_degrees = [x[1] for x in G.in_degree(fileNodes)]
-	print('File node indegrees are: ', *file_in_degrees)
+	# print('File node indegrees are: ', *file_in_degrees)
 
 	max_depth= nx.dag_longest_path_length(G)
-	print('Max depth is %d' % max_depth)
-
-	print('\n')
+	# print('Max depth is %d' % max_depth)
+	# print('\n')
 
 	features = {
 		'totalNodes': total_nodes,
