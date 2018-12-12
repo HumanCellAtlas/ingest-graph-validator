@@ -183,16 +183,16 @@ def graph_stats(G):
 	print('\n')
 
 	features = {
-		# 	'totalNodes': total_nodes,
-		# 	'totalEdges': total_edges,
-		# 	'maxDepth': max_depth,
-		'nodesEdgesDepth': [total_nodes, total_edges, max_depth],
-		'biomaterialOutdegrees': biomaterial_out_degrees,
-		'biomaterialIndegrees': biomaterial_in_degrees,
-		'processOutdegrees': process_out_degrees,
-		'processIndegrees': process_in_degrees,
-		'fileOutdegrees': file_out_degrees,
-		'fileIndegrees': file_in_degrees
+		'totalNodes': total_nodes,
+		'totalEdges': total_edges,
+		'maxDepth': max_depth,
+		# 'nodesEdgesDepth': [total_nodes, total_edges, max_depth],
+		'biomaterialOutdegrees': ",".join(str(x) for x in biomaterial_out_degrees),
+		'biomaterialIndegrees': ",".join(str(x) for x in biomaterial_in_degrees),
+		'processOutdegrees': ",".join(str(x) for x in process_out_degrees),
+		'processIndegrees': ",".join(str(x) for x in process_in_degrees),
+		'fileOutdegrees': ",".join(str(x) for x in file_out_degrees),
+		'fileIndegrees': ",".join(str(x) for x in file_in_degrees)
 	}
 
 	# print(features)
@@ -219,25 +219,14 @@ if __name__ == '__main__':
 			# plot_graph(G, node_names, infile, save_fig=False)
 			G_features = graph_stats(G)
 			feature_list.append(G_features)
-
 			# load_graph_neo4j(data)
 
 	feature_frame = pd.DataFrame(feature_list)
-	print(feature_frame)
-	print("Number of unique features sets (graphs): %d" % len(feature_frame))
+	# print(feature_frame)
+	print("Number of feature sets (graphs): %d" % len(feature_frame))
 
 	# Find unique rows
-	# feature_frame_unique = feature_frame.drop_duplicates()
-	# print(feature_frame_unique)
+	feature_frame_unique = feature_frame.drop_duplicates()
+	print(feature_frame_unique)
+	print("Number of unique feature sets (graphs): %d" % len(feature_frame_unique))
 
-	# Convert to int
-	# feature_frame.radius = feature_frame.radius.astype(int)
-	# feature_frame_unique = feature_frame.drop_duplicates()
-	# print(feature_frame_unique)
-
-	# Subset on columns that are no lists
-	# feature_frame_unique = feature_frame.drop_duplicates(subset=("totalEdges","totalNodes","maxDepth"))
-	# print(feature_frame_unique)
-
-	# feature_frame_unique = pd.DataFrame(np.unique(feature_frame))
-	# print(feature_frame_unique)
