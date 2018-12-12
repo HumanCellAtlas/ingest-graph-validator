@@ -1,3 +1,5 @@
 networkx
 pandas
 numpy
+matplotlib
+py2neo
