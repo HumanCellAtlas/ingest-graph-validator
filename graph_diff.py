@@ -202,10 +202,8 @@ def graph_assumptions(G):
 	donor_out_degrees = [x[1] for x in G.out_degree(donorNodes)]
 	# print('Donor node indegrees are: ', *donor_in_degrees)
 	# print('Donor node outdegrees are: ', *donor_out_degrees)
-	# print(all(x == 0 for x in donor_in_degrees))
-	# print(all(x >= 1 for x in donor_out_degrees))
 
-	if all(x == 0 for x in donor_in_degrees) and all(x >= 1 for x in donor_out_degrees):
+	if all(x == 0 for x in donor_in_degrees) and all(x >= 1 for x in donor_out_degrees) and len(donorNodes) >= 1:
 		donorFirstNode = True
 	else:
 		donorFirstNode = False
@@ -221,26 +219,48 @@ def graph_assumptions(G):
 	sequence_file_out_degrees = [x[1] for x in G.out_degree(sequenceFileNodes)]
 	# print('Sequence file node indegrees are: ', *sequence_file_in_degrees)
 	# print('Sequence file node outdegrees are: ', *sequence_file_out_degrees)
-	# print(all(x == 1 for x in sequence_file_in_degrees))
-	# print(all(x == 0 for x in sequence_file_out_degrees))
 
-	if all(x == 1 for x in sequence_file_in_degrees) and all(x == 0 for x in sequence_file_out_degrees):
+	if all(x == 1 for x in sequence_file_in_degrees) and all(x == 0 for x in sequence_file_out_degrees) and len(sequenceFileNodes) >= 1:
 		sequenceFileLastNode = True
 	else:
 		sequenceFileLastNode = False
 
-	print('Graph ends with sequence file nodes: %s' % sequenceFileLastNode)
+	print('Graph ends with sequence file node(s): %s' % sequenceFileLastNode)
+
+	# There can only be 1, 2, or 3 sequencing file nodes in the graph.
+
+	if len(sequenceFileNodes) in [1,2,3]:
+		sequenceFileNodeCount = True
+	else:
+		sequenceFileNodeCount = False
+
+	print('Graph has 1, 2, or 3 sequence file node(s): %s' % sequenceFileNodeCount)
 
 	# Graph should have no hanging biomaterial nodes.
+	biomaterialNodes = [x for x, y in G.nodes(data=True) if y['entity_type'] == "biomaterial"]
+	biomaterial_out_degrees = [x[1] for x in G.out_degree(biomaterialNodes)]
+	# print('Biomaterial node outdegrees are: ', *biomaterial_out_degrees)
 
-	exit()
+	if all(x >= 1 for x in biomaterial_out_degrees):
+		noHangingBiomaterialNode = True
+	else:
+		noHangingBiomaterialNode = False
+
+	print('Graph has no hanging biomaterial nodes: %s\n' % noHangingBiomaterialNode)
+
+	# exit()
 
 	# Graph has a direction from biomaterial node to file node and cannot have cycle (is directional acyclical).
 	# The ultimate process node should have 2 protocols (library preparation and sequencing or imaging preparation and imaging).
 	# Cell suspension or imaged specimen is the last biomaterial node.
-	# There can only be 1, 2, or 3 sequencing file nodes in the graph. (10x should have 2 or 3, and SS2 should have 1 or 2, but this is schema-aware.)
 	# The minimal longest path length of the graph should be 5 (sequencing or imaging).
 
+	assumptions = {
+		'donorFirstNode': donorFirstNode,
+		'sequenceFileLastNode': sequenceFileLastNode,
+		'sequenceFileNodeCount': sequenceFileNodeCount,
+		'noHangingBiomaterialNode': noHangingBiomaterialNode
+	}
 
 	return assumptions
 
@@ -256,6 +276,7 @@ if __name__ == '__main__':
 	print('Processing {} bundles...'.format(len(infiles)))
 
 	feature_list = []
+	assumption_list = []
 
 	for infile in infiles:
 		with open(infile) as f:
@@ -271,8 +292,9 @@ if __name__ == '__main__':
 
 			# Assess graph assumptions
 			G_assumptions = graph_assumptions(G)
+			assumption_list.append(G_assumptions)
 
-			# load_graph_neo4j(data)
+	# load_graph_neo4j(data)
 
 	feature_frame = pd.DataFrame(feature_list)
 	print("Number of feature sets (graphs): %d" % len(feature_frame))
@@ -284,4 +306,15 @@ if __name__ == '__main__':
 	print("--------------------\nUnique feature sets:")
 	with pd.option_context('display.max_rows', None, 'display.max_columns', feature_frame_unique.shape[1]):
 		print(feature_frame_unique)
+
+	assumption_frame = pd.DataFrame(assumption_list)
+	print("--------------------\nNumber of assumption sets (graphs): %d" % len(assumption_frame))
+
+	# Find unique rows
+	assumption_frame_unique = assumption_frame.drop_duplicates()
+	print("Number of unique assumption sets (graphs): %d" % len(assumption_frame_unique))
+
+	print("--------------------\nUnique assumption sets:")
+	with pd.option_context('display.max_rows', None, 'display.max_columns', assumption_frame_unique.shape[1]):
+		print(assumption_frame_unique)
 
