@@ -282,9 +282,6 @@ def graph_assumptions(G):
 
 	# print('Graph starts with donor node: %s' % donorFirstNode)
 
-	# Graph can have more than one first biomaterial (biomaterial with indegree 0).
-	# Not checked.
-
 	# Every graph should end with file node(s). sequence_file_in_degrees = 1, sequence_file_out_degree = 0.
 	sequenceFileNodes = [x for x, y in G.nodes(data=True) if y['entity_name'] == "sequence_file"]
 	sequenceFileNodes.sort()
@@ -347,9 +344,9 @@ def graph_assumptions(G):
 	else:
 		minLongestPathIsFive = False
 
-	# exit()
-
+	# Not checked:
 	# Graph has a direction from biomaterial node to file node and cannot have cycle (is directional acyclical).
+	# Graph can have more than one first biomaterial (biomaterial with indegree 0).
 
 	assumptions = {
 		'donorFirstNode': donorFirstNode,
