@@ -17,7 +17,7 @@ import matplotlib.pyplot as plt
 def load_graph_networkx_old(data):
 	G=nx.DiGraph()
 	links = data#['links']
-	node_names ={}
+	node_names = {}
 	node_types = {}
 	for process in links:
 		process_uuid = process['process']
@@ -51,8 +51,8 @@ def load_graph_networkx_old(data):
 def load_graph_networkx(data):
 	G=nx.DiGraph()
 	links = data#['links']
-	node_types = []
 	node_names = {}
+	node_types = []
 	nonspecific_node_types = {}
 	specific_node_types = {}
 
@@ -218,59 +218,160 @@ def plot_graph(G, node_names, outfile_name, layout_option=2, save_fig=False):
 
 def graph_stats(G):
 	total_nodes = G.number_of_nodes()
-	print('Total nodes is %d' % total_nodes)
+	# print('Total nodes is %d' % total_nodes)
 	total_edges = G.number_of_edges()
-	print('Total edges is %d' % total_edges)
+	# print('Total edges is %d' % total_edges)
 
 	biomaterialNodes = [x for x, y in G.nodes(data=True) if y['entity_type'] == "biomaterial"]
+	biomaterialNodes.sort()
 	biomaterial_out_degrees = [x[1] for x in G.out_degree(biomaterialNodes)]
-	print('Biomaterial node outdegrees are: ', *biomaterial_out_degrees)
+	# print('Biomaterial node outdegrees are: ', *biomaterial_out_degrees)
 	biomaterial_in_degrees = [x[1] for x in G.in_degree(biomaterialNodes)]
-	print('Biomaterial node indegrees are: ', *biomaterial_in_degrees)
+	# print('Biomaterial node indegrees are: ', *biomaterial_in_degrees)
 
 	processNodes = [x for x, y in G.nodes(data=True) if y['entity_type'] == "process"]
+	processNodes.sort()
 	process_out_degrees = [x[1] for x in G.out_degree(processNodes)]
-	print('Process node outdegrees are: ', *process_out_degrees)
+	# print('Process node outdegrees are: ', *process_out_degrees)
 	process_in_degrees = [x[1] for x in G.in_degree(processNodes)]
-	print('Process node indegrees are: ', *process_in_degrees)
+	# print('Process node indegrees are: ', *process_in_degrees)
 
 	fileNodes = [x for x, y in G.nodes(data=True) if y['entity_type'] == "file"]
+	fileNodes.sort()
 	file_out_degrees = [x[1] for x in G.out_degree(fileNodes)]
-	print('File node outdegrees are: ', *file_out_degrees)
+	# print('File node outdegrees are: ', *file_out_degrees)
 	file_in_degrees = [x[1] for x in G.in_degree(fileNodes)]
-	print('File node indegrees are: ', *file_in_degrees)
+	# print('File node indegrees are: ', *file_in_degrees)
 
 	max_depth= nx.dag_longest_path_length(G)
-	print('Max depth is %d' % max_depth)
-
-	print('\n')
+	# print('Max depth is %d' % max_depth)
+	# print('\n')
 
 	features = {
-		# 	'totalNodes': total_nodes,
-		# 	'totalEdges': total_edges,
-		# 	'maxDepth': max_depth,
-		'nodesEdgesDepth': [total_nodes, total_edges, max_depth],
-		'biomaterialOutdegrees': biomaterial_out_degrees,
-		'biomaterialIndegrees': biomaterial_in_degrees,
-		'processOutdegrees': process_out_degrees,
-		'processIndegrees': process_in_degrees,
-		'fileOutdegrees': file_out_degrees,
-		'fileIndegrees': file_in_degrees
+		'totalNodes': total_nodes,
+		'totalEdges': total_edges,
+		'maxDepth': max_depth,
+		'biomaterialOutdegrees': ",".join(str(x) for x in biomaterial_out_degrees),
+		'biomaterialIndegrees': ",".join(str(x) for x in biomaterial_in_degrees),
+		'processOutdegrees': ",".join(str(x) for x in process_out_degrees),
+		'processIndegrees': ",".join(str(x) for x in process_in_degrees),
+		'fileOutdegrees': ",".join(str(x) for x in file_out_degrees),
+		'fileIndegrees': ",".join(str(x) for x in file_in_degrees)
 	}
 
-	# print(features)
 	return features
 
+def graph_assumptions(G):
+	# Every graph starts from donor biomaterial node: donor_in_degree = 0, donor_out_degrees >= 1.
+	donorNodes = [x for x, y in G.nodes(data=True) if y['entity_name'] == "donor_organism"]
+	donorNodes.sort()
+	donor_in_degrees = [x[1] for x in G.in_degree(donorNodes)]
+	donor_out_degrees = [x[1] for x in G.out_degree(donorNodes)]
+	# print('Donor node indegrees are: ', *donor_in_degrees)
+	# print('Donor node outdegrees are: ', *donor_out_degrees)
+
+	if all(x == 0 for x in donor_in_degrees) and all(x >= 1 for x in donor_out_degrees) and len(donorNodes) >= 1:
+		donorFirstNode = True
+	else:
+		donorFirstNode = False
+
+	# print('Graph starts with donor node: %s' % donorFirstNode)
+
+	# Graph can have more than one first biomaterial (biomaterial with indegree 0).
+	# Not checked.
+
+	# Every graph should end with file node(s). sequence_file_in_degrees = 1, sequence_file_out_degree = 0.
+	sequenceFileNodes = [x for x, y in G.nodes(data=True) if y['entity_name'] == "sequence_file"]
+	sequenceFileNodes.sort()
+	sequence_file_in_degrees = [x[1] for x in G.in_degree(sequenceFileNodes)]
+	sequence_file_out_degrees = [x[1] for x in G.out_degree(sequenceFileNodes)]
+	# print('Sequence file node indegrees are: ', *sequence_file_in_degrees)
+	# print('Sequence file node outdegrees are: ', *sequence_file_out_degrees)
+
+	if all(x == 1 for x in sequence_file_in_degrees) and all(x == 0 for x in sequence_file_out_degrees) and len(sequenceFileNodes) >= 1:
+		sequenceFileLastNode = True
+	else:
+		sequenceFileLastNode = False
+
+	# print('Graph ends with sequence file node(s): %s' % sequenceFileLastNode)
+
+	# There can only be 1, 2, or 3 sequencing file nodes in the graph.
+
+	if len(sequenceFileNodes) in [1,2,3]:
+		sequenceFileNodeCount = True
+	else:
+		sequenceFileNodeCount = False
+
+	# print('Graph has 1, 2, or 3 sequence file node(s): %s' % sequenceFileNodeCount)
+
+	# Graph should have no hanging biomaterial nodes.
+	biomaterialNodes = [x for x, y in G.nodes(data=True) if y['entity_type'] == "biomaterial"]
+	biomaterialNodes.sort()
+	biomaterial_out_degrees = [x[1] for x in G.out_degree(biomaterialNodes)]
+	# print('Biomaterial node outdegrees are: ', *biomaterial_out_degrees)
+
+	if all(x >= 1 for x in biomaterial_out_degrees):
+		noHangingBiomaterialNode = True
+	else:
+		noHangingBiomaterialNode = False
+
+	# print('Graph has no hanging biomaterial nodes: %s\n' % noHangingBiomaterialNode)
+
+	# exit()
+
+	# Graph has a direction from biomaterial node to file node and cannot have cycle (is directional acyclical).
+	# The ultimate process node should have 2 protocols (library preparation and sequencing or imaging preparation and imaging).
+	# Cell suspension or imaged specimen is the last biomaterial node.
+	# The minimal longest path length of the graph should be 5 (sequencing or imaging).
+
+	assumptions = {
+		'donorFirstNode': donorFirstNode,
+		'sequenceFileLastNode': sequenceFileLastNode,
+		'sequenceFileNodeCount': sequenceFileNodeCount,
+		'noHangingBiomaterialNode': noHangingBiomaterialNode
+	}
+
+	return assumptions
+
+def generate_report(FL, AL):
+
+	print('--------------------\nREPORT\n--------------------')
+
+	feature_frame = pd.DataFrame(FL)
+	print("Number of feature sets (graphs): %d" % len(feature_frame))
+
+	# Find unique rows
+	feature_frame_unique = feature_frame.drop_duplicates()
+	print("Number of unique feature sets (graphs): %d" % len(feature_frame_unique))
+
+	print("\n\nUnique feature sets:")
+	with pd.option_context('display.max_rows', None, 'display.max_columns', feature_frame_unique.shape[1]):
+		print(feature_frame_unique)
+
+	assumption_frame = pd.DataFrame(AL)
+	print("--------------------\nNumber of assumption sets (graphs): %d" % len(assumption_frame))
+
+	# Find unique rows
+	assumption_frame_unique = assumption_frame.drop_duplicates()
+	print("Number of unique assumption sets (graphs): %d" % len(assumption_frame_unique))
+
+	print("\n\nUnique assumption sets:")
+	with pd.option_context('display.max_rows', None, 'display.max_columns', assumption_frame_unique.shape[1]):
+		print(assumption_frame_unique)
+
+
 if __name__ == '__main__':
+
 
 	indir = 'test5/'
 	# metadata_file = '/links.json'
 	l = os.listdir(indir)
 	# infiles = [indir + x + metadata_file for x in l]
 	infiles = [indir + x for x in l]
-	print('Processing {} bundles'.format(len(infiles)))
+	print('Processing {} bundles...'.format(len(infiles)))
 
 	feature_list = []
+	assumption_list = []
 	graphs = []
 
 	for infile in infiles:
@@ -280,34 +381,16 @@ if __name__ == '__main__':
 			G = graph[0]
 			node_names = graph[1]
 			plot_graph(G, node_names, infile, save_fig=False)
-			# G_features = graph_stats(G)
-			# feature_list.append(G_features)
 
-			graphs.append(G)
+			# Calculate graph features
+			G_features = graph_stats(G)
+			feature_list.append(G_features)
 
+			# Assess graph assumptions
+			G_assumptions = graph_assumptions(G)
+			assumption_list.append(G_assumptions)
 
-			# load_graph_neo4j(data)
+            graphs.append(G)
 
-
-
-
-
-	# feature_frame = pd.DataFrame(feature_list)
-	# print(feature_frame)
-	# print("length of dataFrame: %d" % len(feature_frame))
-
-	# Find unique rows
-	# feature_frame_unique = feature_frame.drop_duplicates()
-	# print(feature_frame_unique)
-
-	# Convert to int
-	# feature_frame.radius = feature_frame.radius.astype(int)
-	# feature_frame_unique = feature_frame.drop_duplicates()
-	# print(feature_frame_unique)
-
-	# Subset on columns that are no lists
-	# feature_frame_unique = feature_frame.drop_duplicates(subset=("totalEdges","totalNodes","maxDepth"))
-	# print(feature_frame_unique)
-
-	# feature_frame_unique = pd.DataFrame(np.unique(feature_frame))
-	# print(feature_frame_unique)
+	# load_graph_neo4j(data)
+	generate_report(feature_list, assumption_list)
