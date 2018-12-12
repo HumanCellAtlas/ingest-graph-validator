@@ -1,0 +1,63 @@
+[
+    {
+        "process": "45f1b36b-9ec9-471e-a2b1-d36b054c603b",
+        "inputs": {
+            "c1073cbe-7527-4003-b772-3f0b79c8bf5f": "GSM2171886 1"
+        },
+        "input_type": "biomaterial",
+        "outputs": {
+            "9534c545-00ec-40a0-8212-f4a2afecdfa3": "SRR3562216_2.fastq.gz",
+            "ac532838-92cc-40fb-bb83-07118a259d0c": "SRR3562216_1.fastq.gz"
+        },
+        "output_type": "file",
+        "protocols": [
+            {
+                "protocol_type": "library_preparation_protocol",
+                "protocol_id": "c22b83a5-34a3-4568-8246-41570aceb566"
+            },
+            {
+                "protocol_type": "sequencing_protocol",
+                "protocol_id": "58137ec3-e62d-4614-9f72-489d9b4cde55"
+            }
+        ],
+        "input_specific_type": "cell_suspension",
+        "output_specific_type": "sequence_file"
+    },
+    {
+        "process": "06ade282-79b5-4e8e-97e9-1698f3432fc9",
+        "inputs": {
+            "5c4cccb9-85f0-44aa-a6e0-febdaf6fda46": "DID_scRSq04_pancreas"
+        },
+        "input_type": "biomaterial",
+        "outputs": {
+            "c1073cbe-7527-4003-b772-3f0b79c8bf5f": "GSM2171886 1"
+        },
+        "output_type": "biomaterial",
+        "protocols": [
+            {
+                "protocol_type": "dissociation_protocol",
+                "protocol_id": "c3891263-ebe8-4d28-bd08-90086866225a"
+            },
+            {
+                "protocol_type": "enrichment_protocol",
+                "protocol_id": "3d679034-fc63-453b-80ec-93f9bb571be0"
+            }
+        ],
+        "input_specific_type": "specimen_from_organism",
+        "output_specific_type": "cell_suspension"
+    },
+    {
+        "process": "6e03f062-0b62-4b6f-bc88-67cc46d0934b",
+        "inputs": {
+            "3ce1aebd-79c4-4605-8517-0c107f3db298": "DID_scRSq04"
+        },
+        "input_type": "biomaterial",
+        "outputs": {
+            "5c4cccb9-85f0-44aa-a6e0-febdaf6fda46": "DID_scRSq04_pancreas"
+        },
+        "output_type": "biomaterial",
+        "protocols": [],
+        "input_specific_type": "donor_organism",
+        "output_specific_type": "specimen_from_organism"
+    }
+]

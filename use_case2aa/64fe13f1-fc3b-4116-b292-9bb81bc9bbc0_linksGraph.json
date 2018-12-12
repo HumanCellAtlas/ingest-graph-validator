@@ -1,0 +1,58 @@
+[
+    {
+        "process": "64fe13f1-fc3b-4116-b292-9bb81bc9bbc0",
+        "inputs": {
+            "a4cd8577-cefd-40b8-8e40-7b4bc08e995b": "HPSI0314i-test_skin_cell_suspension"
+        },
+        "input_type": "biomaterial",
+        "outputs": {
+            "b5a3a98d-4a52-41bd-91d4-8ddc46f20573": "GAC027_hOrg_HipSci_3_S7_L008_R1_001.fastq.gz"
+        },
+        "output_type": "file",
+        "protocols": [
+            {
+                "protocol_type": "library_preparation_protocol",
+                "protocol_id": "2ff8f83f-a608-4b97-aa4c-2a0d11e05e21"
+            },
+            {
+                "protocol_type": "sequencing_protocol",
+                "protocol_id": "82109ee6-292f-466a-8675-6b27c01c34a0"
+            }
+        ],
+        "input_specific_type": "cell_suspension",
+        "output_specific_type": "sequence_file"
+    },
+    {
+        "process": "6dc0fc26-8b26-4618-a2ad-cc2c0626f313",
+        "inputs": {
+            "9e15d737-bc15-4565-893d-2c11fd9035a9": "HPSI0314i-test_skin"
+        },
+        "input_type": "biomaterial",
+        "outputs": {
+            "a4cd8577-cefd-40b8-8e40-7b4bc08e995b": "HPSI0314i-test_skin_cell_suspension"
+        },
+        "output_type": "biomaterial",
+        "protocols": [
+            {
+                "protocol_type": "dissociation_protocol",
+                "protocol_id": "1f9bdf67-cee8-4ffb-844f-9de9db7a32dc"
+            }
+        ],
+        "input_specific_type": "specimen_from_organism",
+        "output_specific_type": "cell_suspension"
+    },
+    {
+        "process": "1fe6261f-386e-44e2-b11e-16926bc88de5",
+        "inputs": {
+            "1261220c-590a-46b7-8201-16e9185060c9": "HPSI0314i-test"
+        },
+        "input_type": "biomaterial",
+        "outputs": {
+            "9e15d737-bc15-4565-893d-2c11fd9035a9": "HPSI0314i-test_skin"
+        },
+        "output_type": "biomaterial",
+        "protocols": [],
+        "input_specific_type": "donor_organism",
+        "output_specific_type": "specimen_from_organism"
+    }
+]
