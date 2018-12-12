@@ -14,7 +14,7 @@ from pandas.testing import assert_frame_equal
 import numpy as np
 # import matplotlib.pyplot as plt
 
-def load_graph_networkx(data):
+def load_graph_networkx_old(data):
 	G=nx.DiGraph()
 	links = data#['links']
 	node_names ={}
@@ -43,7 +43,70 @@ def load_graph_networkx(data):
 	nx.set_node_attributes(G, node_types, 'entity_type')
 	nx.set_node_attributes(G, node_names, 'entity_name')
 
+	# print(G.nodes(data=True))
+	print(node_names)
+
 	return G, node_names
+
+def load_graph_networkx(data):
+	G=nx.DiGraph()
+	links = data#['links']
+	node_types = []
+	node_names = {}
+	nonspecific_node_types = {}
+	specific_node_types = {}
+
+	def counter(type_name, uuid):
+		# print(type_name)
+		# print(uuid)
+		if uuid in node_names:
+			new_name = type_name + '_' + str(node_types.count(type_name))
+			return new_name
+		else:
+			node_types.append(type_name)
+			new_name = type_name + '_' + str(node_types.count(type_name))
+			node_names[uuid] = new_name
+			nonspecific_node_types[uuid] = type_name
+			return new_name
+
+	for process in links:
+		process_uuid = process['process']
+		input_node_uuids = process['inputs']
+		output_node_uuids = process['outputs']
+		protocols = process['protocols']
+		for in_node in input_node_uuids:
+			# node_names[in_node] = counter(process['input_type'], in_node)
+			counter(process['input_type'], in_node)
+			specific_node_types[in_node] = process['input_specific_type']
+			G.add_edge(in_node,process_uuid)
+		for out_node in output_node_uuids:
+			# node_names[out_node] = counter(process['output_type'], out_node)
+			counter(process['output_type'], out_node)
+			specific_node_types[out_node] = process['output_specific_type']
+			G.add_edge(process_uuid, out_node)
+		for protocol in protocols:
+			protocol_id = protocol['protocol_id']
+			specific_node_types[protocol_id] = protocol['protocol_type']
+			# node_names[protocol_id] = counter(protocol['protocol_type'], protocol_id)
+			counter(protocol['protocol_type'], protocol_id)
+			G.add_edge(process_uuid,protocol_id)
+		# node_names[process_uuid] = counter('process', process_uuid)
+		counter('process', process_uuid)
+		specific_node_types[process_uuid] = 'process'
+
+	nx.set_node_attributes(G, node_names, 'unique_name')
+	nx.set_node_attributes(G, specific_node_types, 'entity_name') # needs adding in again
+
+	nx.set_node_attributes(G, nonspecific_node_types, 'entity_type')
+
+	nx.relabel_nodes(G, node_names, copy=False)
+	uuid_switch = {y:x for x,y in node_names.items()}
+	nx.set_node_attributes(G, uuid_switch, 'uuid')
+
+	# print(G.nodes(data=True))
+	print(specific_node_types)
+
+	return G, specific_node_types
 
 def load_graph_neo4j(data): # not working on hold
 	graph = Graph('http://localhost:7474/db/data/', user='neo4j', password='neo5j')  # initialising graph
@@ -303,6 +366,7 @@ if __name__ == '__main__':
 
 	feature_list = []
 	assumption_list = []
+	graphs = []
 
 	for infile in infiles:
 		with open(infile) as f:
