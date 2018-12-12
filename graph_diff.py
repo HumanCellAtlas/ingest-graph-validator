@@ -12,7 +12,7 @@ import networkx as nx
 import pandas as pd
 from pandas.testing import assert_frame_equal
 import numpy as np
-# import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 
 def load_graph_networkx_old(data):
 	G=nx.DiGraph()
@@ -44,7 +44,7 @@ def load_graph_networkx_old(data):
 	nx.set_node_attributes(G, node_names, 'entity_name')
 
 	# print(G.nodes(data=True))
-	print(node_names)
+	# print(node_names)
 
 	return G, node_names
 
@@ -104,7 +104,7 @@ def load_graph_networkx(data):
 	nx.set_node_attributes(G, uuid_switch, 'uuid')
 
 	# print(G.nodes(data=True))
-	print(specific_node_types)
+	# print(specific_node_types)
 
 	return G, specific_node_types
 
@@ -206,7 +206,7 @@ def plot_graph(G, node_names, outfile_name, layout_option=2, save_fig=False):
 
 	elif layout_option == 2:
 		A = G.to_undirected() # can only get edges to size correctly with an undirected graph for some reason
-		nx.draw(A, with_labels=True, labels=node_names, node_color=node_color, node_size=800, font_size=8)
+		nx.draw(A, with_labels=True, node_color=node_color, node_size=800, font_size=8)
 		plt.show()
 		# if save_fig is True:
 		# 	plt.savefig(outfile_name + '.png')
@@ -279,9 +279,16 @@ if __name__ == '__main__':
 			graph = load_graph_networkx(data)
 			G = graph[0]
 			node_names = graph[1]
-			# plot_graph(G, node_names, infile, save_fig=False)
+			plot_graph(G, node_names, infile, save_fig=False)
 			# G_features = graph_stats(G)
 			# feature_list.append(G_features)
+
+			graphs.append(G)
+
+
+			# load_graph_neo4j(data)
+
+
 
 
 
