@@ -208,7 +208,7 @@ def graph_assumptions(G):
 	else:
 		donorFirstNode = False
 
-	print('Graph starts with donor node: %s' % donorFirstNode)
+	# print('Graph starts with donor node: %s' % donorFirstNode)
 
 	# Graph can have more than one first biomaterial (biomaterial with indegree 0).
 	# Not checked.
@@ -225,7 +225,7 @@ def graph_assumptions(G):
 	else:
 		sequenceFileLastNode = False
 
-	print('Graph ends with sequence file node(s): %s' % sequenceFileLastNode)
+	# print('Graph ends with sequence file node(s): %s' % sequenceFileLastNode)
 
 	# There can only be 1, 2, or 3 sequencing file nodes in the graph.
 
@@ -234,7 +234,7 @@ def graph_assumptions(G):
 	else:
 		sequenceFileNodeCount = False
 
-	print('Graph has 1, 2, or 3 sequence file node(s): %s' % sequenceFileNodeCount)
+	# print('Graph has 1, 2, or 3 sequence file node(s): %s' % sequenceFileNodeCount)
 
 	# Graph should have no hanging biomaterial nodes.
 	biomaterialNodes = [x for x, y in G.nodes(data=True) if y['entity_type'] == "biomaterial"]
@@ -246,7 +246,7 @@ def graph_assumptions(G):
 	else:
 		noHangingBiomaterialNode = False
 
-	print('Graph has no hanging biomaterial nodes: %s\n' % noHangingBiomaterialNode)
+	# print('Graph has no hanging biomaterial nodes: %s\n' % noHangingBiomaterialNode)
 
 	# exit()
 
@@ -263,6 +263,32 @@ def graph_assumptions(G):
 	}
 
 	return assumptions
+
+def generate_report(FL, AL):
+
+	print('--------------------\nREPORT\n--------------------')
+
+	feature_frame = pd.DataFrame(FL)
+	print("Number of feature sets (graphs): %d" % len(feature_frame))
+
+	# Find unique rows
+	feature_frame_unique = feature_frame.drop_duplicates()
+	print("Number of unique feature sets (graphs): %d" % len(feature_frame_unique))
+
+	print("\n\nUnique feature sets:")
+	with pd.option_context('display.max_rows', None, 'display.max_columns', feature_frame_unique.shape[1]):
+		print(feature_frame_unique)
+
+	assumption_frame = pd.DataFrame(AL)
+	print("--------------------\nNumber of assumption sets (graphs): %d" % len(assumption_frame))
+
+	# Find unique rows
+	assumption_frame_unique = assumption_frame.drop_duplicates()
+	print("Number of unique assumption sets (graphs): %d" % len(assumption_frame_unique))
+
+	print("\n\nUnique assumption sets:")
+	with pd.option_context('display.max_rows', None, 'display.max_columns', assumption_frame_unique.shape[1]):
+		print(assumption_frame_unique)
 
 
 if __name__ == '__main__':
@@ -295,26 +321,4 @@ if __name__ == '__main__':
 			assumption_list.append(G_assumptions)
 
 	# load_graph_neo4j(data)
-
-	feature_frame = pd.DataFrame(feature_list)
-	print("Number of feature sets (graphs): %d" % len(feature_frame))
-
-	# Find unique rows
-	feature_frame_unique = feature_frame.drop_duplicates()
-	print("Number of unique feature sets (graphs): %d" % len(feature_frame_unique))
-
-	print("--------------------\nUnique feature sets:")
-	with pd.option_context('display.max_rows', None, 'display.max_columns', feature_frame_unique.shape[1]):
-		print(feature_frame_unique)
-
-	assumption_frame = pd.DataFrame(assumption_list)
-	print("--------------------\nNumber of assumption sets (graphs): %d" % len(assumption_frame))
-
-	# Find unique rows
-	assumption_frame_unique = assumption_frame.drop_duplicates()
-	print("Number of unique assumption sets (graphs): %d" % len(assumption_frame_unique))
-
-	print("--------------------\nUnique assumption sets:")
-	with pd.option_context('display.max_rows', None, 'display.max_columns', assumption_frame_unique.shape[1]):
-		print(assumption_frame_unique)
-
+	generate_report(feature_list, assumption_list)
