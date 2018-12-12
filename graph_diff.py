@@ -11,6 +11,7 @@ import os
 import networkx as nx
 import pandas as pd
 from pandas.testing import assert_frame_equal
+from argparse import ArgumentParser
 import numpy as np
 # import matplotlib.pyplot as plt
 
@@ -200,7 +201,17 @@ def graph_stats(G):
 
 if __name__ == '__main__':
 
-	indir = 'test5/'
+	parser = ArgumentParser()
+	parser.add_argument("-d", "--directory", dest="inputDirectory",
+						help="Path to the input files")
+	parser.add_argument("-p", "--plot", action="store_true",
+						help="Flag to draw the graphs")
+	parser.add_argument("-l", "--layout", dest="layout",
+						help="Graph layout option", default="2")
+
+	arguments = parser.parse_args()
+
+	indir = arguments.inputDirectory
 	# metadata_file = '/links.json'
 	l = os.listdir(indir)
 	# infiles = [indir + x + metadata_file for x in l]
@@ -215,7 +226,8 @@ if __name__ == '__main__':
 			graph = load_graph_networkx(data)
 			G = graph[0]
 			node_names = graph[1]
-			# plot_graph(G, node_names, infile, save_fig=False)
+			if arguments.plot:
+				plot_graph(G, node_names, infile, arguments.layout, save_fig=False)
 			G_features = graph_stats(G)
 			feature_list.append(G_features)
 
