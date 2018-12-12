@@ -12,7 +12,7 @@ import networkx as nx
 import pandas as pd
 from pandas.testing import assert_frame_equal
 import numpy as np
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 
 def load_graph_networkx_old(data):
 	G=nx.DiGraph()
@@ -380,7 +380,7 @@ if __name__ == '__main__':
 			graph = load_graph_networkx(data)
 			G = graph[0]
 			node_names = graph[1]
-			plot_graph(G, node_names, infile, save_fig=False)
+			# plot_graph(G, node_names, infile, save_fig=False)
 
 			# Calculate graph features
 			G_features = graph_stats(G)
@@ -390,7 +390,7 @@ if __name__ == '__main__':
 			G_assumptions = graph_assumptions(G)
 			assumption_list.append(G_assumptions)
 
-            graphs.append(G)
+			# graphs.append(G)
 
 	# load_graph_neo4j(data)
 	generate_report(feature_list, assumption_list)
