@@ -338,10 +338,17 @@ def graph_assumptions(G):
 		else:
 			cellSuspensionLastBiomaterial = False
 
+	# The minimal longest path length of the graph should be 5 (sequencing or imaging).
+	max_depth= nx.dag_longest_path_length(G)
+	print(max_depth)
+	if max_depth >= 5:
+		minLongestPathIsFive = True
+	else:
+		minLongestPathIsFive = False
+
 	# exit()
 
 	# Graph has a direction from biomaterial node to file node and cannot have cycle (is directional acyclical).
-	# The minimal longest path length of the graph should be 5 (sequencing or imaging).
 
 	assumptions = {
 		'donorFirstNode': donorFirstNode,
@@ -349,6 +356,7 @@ def graph_assumptions(G):
 		'sequenceFileNodeCount': sequenceFileNodeCount,
 		'noHangingBiomaterialNode': noHangingBiomaterialNode,
 		'assayHasTwoProtocols': assayHasTwoProtocols,
+		'minLongestPathIsFive': minLongestPathIsFive,
 		'cellSuspensionLastBiomaterial': cellSuspensionLastBiomaterial
 	}
 
