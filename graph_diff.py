@@ -205,7 +205,7 @@ if __name__ == '__main__':
 	l = os.listdir(indir)
 	# infiles = [indir + x + metadata_file for x in l]
 	infiles = [indir + x for x in l]
-	print('Processing {} bundles'.format(len(infiles)))
+	print('Processing {} bundles...'.format(len(infiles)))
 
 	feature_list = []
 
@@ -221,11 +221,15 @@ if __name__ == '__main__':
 			# load_graph_neo4j(data)
 
 	feature_frame = pd.DataFrame(feature_list)
-	# print(feature_frame)
 	print("Number of feature sets (graphs): %d" % len(feature_frame))
+	# print(feature_frame)
 
 	# Find unique rows
 	feature_frame_unique = feature_frame.drop_duplicates()
-	print(feature_frame_unique)
 	print("Number of unique feature sets (graphs): %d" % len(feature_frame_unique))
+	# print(feature_frame_unique)
+
+	print("--------------------\nUnique feature sets:")
+	with pd.option_context('display.max_rows', None, 'display.max_columns', feature_frame_unique.shape[1]):
+		print(feature_frame_unique)
 
