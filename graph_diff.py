@@ -359,6 +359,12 @@ def generate_report(FL, AL):
 	with pd.option_context('display.max_rows', None, 'display.max_columns', assumption_frame_unique.shape[1]):
 		print(assumption_frame_unique)
 
+def graph_compare(graphs):
+	graph_sets = [sorted(list(set(x))) for x in graphs]
+	unique_data = [list(x) for x in set(tuple(x) for x in graph_sets)]
+
+	new = nx.difference(graphs[0], graphs[1])
+	print(new)
 
 if __name__ == '__main__':
 
@@ -393,4 +399,5 @@ if __name__ == '__main__':
             graphs.append(G)
 
 	# load_graph_neo4j(data)
-	generate_report(feature_list, assumption_list)
+	# generate_report(feature_list, assumption_list)
+	graph_compare(graphs)
