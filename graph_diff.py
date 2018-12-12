@@ -255,6 +255,7 @@ def graph_stats(G):
 		'totalNodes': total_nodes,
 		'totalEdges': total_edges,
 		'maxDepth': max_depth,
+		'nodeList': ",".join(str(x) for x in sorted(list(set(G)))),
 		'biomaterialOutdegrees': ",".join(str(x) for x in biomaterial_out_degrees),
 		'biomaterialIndegrees': ",".join(str(x) for x in biomaterial_in_degrees),
 		'processOutdegrees': ",".join(str(x) for x in process_out_degrees),
