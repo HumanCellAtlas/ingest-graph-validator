@@ -12,7 +12,7 @@ import networkx as nx
 import pandas as pd
 from pandas.testing import assert_frame_equal
 import numpy as np
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 
 def load_graph_networkx_old(data):
 	G=nx.DiGraph()
@@ -339,26 +339,21 @@ def generate_report(FL, AL):
 
 	feature_frame = pd.DataFrame(FL)
 	print("Number of feature sets (graphs): %d" % len(feature_frame))
-
 	# Find unique rows
 	feature_frame_unique = feature_frame.drop_duplicates()
 	print("Number of unique feature sets (graphs): %d" % len(feature_frame_unique))
-
-	print("\n\nUnique feature sets:")
+	print("\nUnique feature sets:")
 	with pd.option_context('display.max_rows', None, 'display.max_columns', feature_frame_unique.shape[1]):
 		print(feature_frame_unique)
 
 	assumption_frame = pd.DataFrame(AL)
 	print("--------------------\nNumber of assumption sets (graphs): %d" % len(assumption_frame))
-
 	# Find unique rows
 	assumption_frame_unique = assumption_frame.drop_duplicates()
 	print("Number of unique assumption sets (graphs): %d" % len(assumption_frame_unique))
-
-	print("\n\nUnique assumption sets:")
+	print("\nUnique assumption sets:")
 	with pd.option_context('display.max_rows', None, 'display.max_columns', assumption_frame_unique.shape[1]):
 		print(assumption_frame_unique)
-
 
 if __name__ == '__main__':
 
@@ -380,7 +375,7 @@ if __name__ == '__main__':
 			graph = load_graph_networkx(data)
 			G = graph[0]
 			node_names = graph[1]
-			plot_graph(G, node_names, infile, save_fig=False)
+			# plot_graph(G, node_names, infile, save_fig=False)
 
 			# Calculate graph features
 			G_features = graph_stats(G)
@@ -390,7 +385,7 @@ if __name__ == '__main__':
 			G_assumptions = graph_assumptions(G)
 			assumption_list.append(G_assumptions)
 
-            graphs.append(G)
+			# graphs.append(G)
 
 	# load_graph_neo4j(data)
 	generate_report(feature_list, assumption_list)
