@@ -18,7 +18,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 from py2neo import Relationship
 
-
 def load_graph_networkx_old(data):
 	G=nx.DiGraph()
 	links = data#['links']
@@ -196,7 +195,7 @@ def plot_graph(G, node_names, outfile_name, layout_option=2, save_fig=False):
 			node_color.append('olive')
 
 
-	if layout_option == 1:
+	if layout_option == '1':
 		# pos = nx.spectral_layout(G)
 		pos = nx.spring_layout(G)
 		nodes = nx.draw_networkx_nodes(G, pos, node_size=100,
@@ -209,7 +208,7 @@ def plot_graph(G, node_names, outfile_name, layout_option=2, save_fig=False):
 			arrowsize=10,
 			width=2)
 
-	elif layout_option == 2:
+	elif layout_option == '2':
 		A = G.to_undirected() # can only get edges to size correctly with an undirected graph for some reason
 		nx.draw(A, with_labels=True, node_color=node_color, node_size=800, font_size=8)
 		plt.show()
@@ -217,7 +216,7 @@ def plot_graph(G, node_names, outfile_name, layout_option=2, save_fig=False):
 		# 	plt.savefig(outfile_name + '.png')
 
 
-	elif layout_option == 3:
+	elif layout_option == '3':
 		A = nx.nx_agraph.to_agraph(G)        # convert to a graphviz graph
 		# print(A)
 
@@ -256,6 +255,7 @@ def graph_stats(G):
 		'totalNodes': total_nodes,
 		'totalEdges': total_edges,
 		'maxDepth': max_depth,
+		'nodeList': ",".join(str(x) for x in sorted(list(set(G)))),
 		'biomaterialOutdegrees': ",".join(str(x) for x in biomaterial_out_degrees),
 		'biomaterialIndegrees': ",".join(str(x) for x in biomaterial_in_degrees),
 		'processOutdegrees': ",".join(str(x) for x in process_out_degrees),
@@ -281,9 +281,6 @@ def graph_assumptions(G):
 		donorFirstNode = False
 
 	# print('Graph starts with donor node: %s' % donorFirstNode)
-
-	# Graph can have more than one first biomaterial (biomaterial with indegree 0).
-	# Not checked.
 
 	# Every graph should end with file node(s). sequence_file_in_degrees = 1, sequence_file_out_degree = 0.
 	sequenceFileNodes = [x for x, y in G.nodes(data=True) if y['entity_name'] == "sequence_file"]
@@ -322,18 +319,43 @@ def graph_assumptions(G):
 
 	# print('Graph has no hanging biomaterial nodes: %s\n' % noHangingBiomaterialNode)
 
-	# exit()
-
-	# Graph has a direction from biomaterial node to file node and cannot have cycle (is directional acyclical).
 	# The ultimate process node should have 2 protocols (library preparation and sequencing or imaging preparation and imaging).
+	assayProtocolEdge = [x for x in G.edges() if 'process_1' in x[0] and 'protocol' in x[1]]
+	# print(assayProtocolEdge)
+
+	if len(assayProtocolEdge) == 2:
+		assayHasTwoProtocols = True
+	else:
+		assayHasTwoProtocols = False
+
 	# Cell suspension or imaged specimen is the last biomaterial node.
+	lastBiomaterialNode = [y for x, y in G.nodes(data=True) if y['unique_name'] == "biomaterial_1"]
+	for x in lastBiomaterialNode:
+		if x['entity_name'] == 'cell_suspension' or x['entity_name'] == 'imaged_specimen':
+			cellSuspensionLastBiomaterial = True
+		else:
+			cellSuspensionLastBiomaterial = False
+
 	# The minimal longest path length of the graph should be 5 (sequencing or imaging).
+	max_depth= nx.dag_longest_path_length(G)
+	# print(max_depth)
+	if max_depth >= 5:
+		minLongestPathIsFive = True
+	else:
+		minLongestPathIsFive = False
+
+	# Not checked:
+	# Graph has a direction from biomaterial node to file node and cannot have cycle (is directional acyclical).
+	# Graph can have more than one first biomaterial (biomaterial with indegree 0).
 
 	assumptions = {
 		'donorFirstNode': donorFirstNode,
 		'sequenceFileLastNode': sequenceFileLastNode,
 		'sequenceFileNodeCount': sequenceFileNodeCount,
-		'noHangingBiomaterialNode': noHangingBiomaterialNode
+		'noHangingBiomaterialNode': noHangingBiomaterialNode,
+		'assayHasTwoProtocols': assayHasTwoProtocols,
+		'minLongestPathIsFive': minLongestPathIsFive,
+		'cellSuspensionLastBiomaterial': cellSuspensionLastBiomaterial
 	}
 
 	return assumptions
@@ -365,11 +387,32 @@ def generate_report(FL, AL):
 		print(assumption_frame_unique)
 
 def graph_compare(graphs):
-	graph_sets = [sorted(list(set(x))) for x in graphs]
-	unique_data = [list(x) for x in set(tuple(x) for x in graph_sets)]
+	# graph_sets = [sorted(list(set(x))) for x in graphs]
+	# unique_data = [list(x) for x in set(tuple(x) for x in graph_sets)]
+	# print('There are {} unique node sets out of {} graphs'.format(len(unique_data), len(graphs)))
 
-	new = nx.difference(graphs[0], graphs[1])
-	print(new)
+	unique_by_node_groups = {} # str(sorted_node_list) : [G,G]
+
+	for graph in graphs:
+		sorted_node_list = sorted(list(set(graph)))
+		if str(sorted_node_list) in unique_by_node_groups:
+			unique_by_node_groups[str(sorted_node_list)].append(graph)
+		else:
+			unique_by_node_groups[str(sorted_node_list)] = [graph]
+
+	print('There are {} unique node sets out of {} graphs'.format(len(unique_by_node_groups), len(graphs)))
+	
+	for group, graph_list in unique_by_node_groups.items():
+		group_representative_graph = graph_list[0]
+		# for grouped_graph in graph_list[1:]:
+
+			# all too slow for now. We need to find an optimised graph comparison tool.
+
+			# comparison = nx.difference(group_representative_graph, grouped_graph)
+			# print(nx.graph_edit_distance(group_representative_graph, grouped_graph))
+			# agenerator = nx.optimize_graph_edit_distance(group_representative_graph, grouped_graph) # not sure why I see a difference here
+			# agenerator = nx.optimize_edit_paths(group_representative_graph, grouped_graph) # weird tuple output and slow
+
 
 if __name__ == '__main__':
 
@@ -402,6 +445,8 @@ if __name__ == '__main__':
 			node_names = graph[1]
 			if arguments.plot:
 				plot_graph(G, node_names, infile, arguments.layout, save_fig=False)
+
+			# Calculate graph features
 			G_features = graph_stats(G)
 			feature_list.append(G_features)
 
