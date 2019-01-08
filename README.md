@@ -10,3 +10,9 @@ Here are the use cases for this code (in progress):
 https://github.com/HumanCellAtlas/hca-data-wrangling/blob/master/docs/20181211_graph_use_cases.md
 
 ## How to run code?
+
+1. Clone this directory
+1. Setup a virtual environment `virtualenv -p python3 <env_name>` then `source <env_name>/bin/activate`. You may have to pip install virtualenv first.
+1. Install requirments 'pip3 install -r requirements.txt`
+1. Run the script on test 5 example `python3 graph_diff.py -d test5/'
+1. add the -p flag to plot graphs `python3 graph_diff.py -d test5/ -p'
