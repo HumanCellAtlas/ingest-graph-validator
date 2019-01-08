@@ -15,6 +15,8 @@ from networkx.algorithms.coloring.greedy_coloring_with_interchange import Node
 from pandas.testing import assert_frame_equal
 from argparse import ArgumentParser
 import numpy as np
+import matplotlib
+matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 from py2neo import Relationship
 
