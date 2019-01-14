@@ -388,7 +388,8 @@ def generate_report(FL, AL):
 	with pd.option_context('display.max_rows', None, 'display.max_columns', assumption_frame_unique.shape[1]):
 		print(assumption_frame_unique)
 
-def graph_compare(graphs):
+def graph_compare(graphs): # this function offers an alternative graph compare method and is on hold
+
 	# graph_sets = [sorted(list(set(x))) for x in graphs]
 	# unique_data = [list(x) for x in set(tuple(x) for x in graph_sets)]
 	# print('There are {} unique node sets out of {} graphs'.format(len(unique_data), len(graphs)))
@@ -459,5 +460,5 @@ if __name__ == '__main__':
 		graphs.append(G)
 
 	# load_graph_neo4j(data)
-	generate_report(feature_list, assumption_list)
-	graph_compare(graphs)
+	# generate_report(feature_list, assumption_list)
+	save_report(feature_list, assumption_list,indir)
