@@ -1,0 +1,60 @@
+[
+    {
+        "process": "98951dc5-7762-458d-9cac-fc48d1e1e0fc",
+        "inputs": {
+            "1b0b30e8-dcff-4f45-8af5-3aaa0b7293e1": "E18_20160930_Neurons_Sample_02"
+        },
+        "input_type": "biomaterial",
+        "outputs": {
+            "e976e62f-1bec-4c1d-a8e4-7f5ef27197e2": "E18_20160930_Neurons_Sample_02_S002_L002_I1_002.fastq.gz",
+            "75b2a035-f34b-4d5e-b16c-e9c898785789": "E18_20160930_Neurons_Sample_02_S002_L002_R1_002.fastq.gz",
+            "9d8dd3a7-506b-4e40-9619-681a1c1a9c3f": "E18_20160930_Neurons_Sample_02_S002_L002_R2_002.fastq.gz"
+        },
+        "output_type": "file",
+        "protocols": [
+            {
+                "protocol_type": "library_preparation_protocol",
+                "protocol_id": "3c2d6162-f086-4cf4-bd01-fb46c1b04990"
+            },
+            {
+                "protocol_type": "sequencing_protocol",
+                "protocol_id": "3decd8d5-5990-43cd-84cc-6c7796b8a76d"
+            }
+        ],
+        "input_specific_type": "cell_suspension",
+        "output_specific_type": "sequence_file"
+    },
+    {
+        "process": "6a49e55f-da80-432f-8b24-a00d66617e78",
+        "inputs": {
+            "3a04d7b0-105b-457b-9a5e-a6b2ab4d3225": "E18_20160930_Brain"
+        },
+        "input_type": "biomaterial",
+        "outputs": {
+            "1b0b30e8-dcff-4f45-8af5-3aaa0b7293e1": "E18_20160930_Neurons_Sample_02"
+        },
+        "output_type": "biomaterial",
+        "protocols": [
+            {
+                "protocol_type": "dissociation_protocol",
+                "protocol_id": "516829d4-62b6-4053-b670-650b8b56c4e1"
+            }
+        ],
+        "input_specific_type": "specimen_from_organism",
+        "output_specific_type": "cell_suspension"
+    },
+    {
+        "process": "ca505f0d-0d6e-49bc-bd45-7b1fb3f771e5",
+        "inputs": {
+            "c489c2bb-54c2-4d51-bdd9-3499e291e367": "E18_20160930"
+        },
+        "input_type": "biomaterial",
+        "outputs": {
+            "3a04d7b0-105b-457b-9a5e-a6b2ab4d3225": "E18_20160930_Brain"
+        },
+        "output_type": "biomaterial",
+        "protocols": [],
+        "input_specific_type": "donor_organism",
+        "output_specific_type": "specimen_from_organism"
+    }
+]

@@ -1,0 +1,64 @@
+[
+    {
+        "process": "786919e7-6086-4b5a-8790-56ff747cc66d",
+        "inputs": {
+            "201aa008-fde8-4d72-a285-17fc90995aa5": "A12-Spl-0-TL1_cells"
+        },
+        "input_type": "biomaterial",
+        "outputs": {
+            "34c30e6b-d783-42e0-a82d-c5d6374d4df4": "HCATisStabAug177376561_S1_L001_I1_001.fastq.gz",
+            "c732cdb9-76f8-463c-846e-642c94a9ebb2": "HCATisStabAug177376561_S1_L001_R1_001.fastq.gz",
+            "5b431932-1739-4e5e-89c1-5cb9554a19d2": "HCATisStabAug177376561_S1_L001_R2_001.fastq.gz"
+        },
+        "output_type": "file",
+        "protocols": [
+            {
+                "protocol_type": "library_preparation_protocol",
+                "protocol_id": "85579bf6-2d77-48ab-a829-b2f789b76fd0"
+            },
+            {
+                "protocol_type": "sequencing_protocol",
+                "protocol_id": "eedd7bce-b670-44f6-b4df-93a15bf4db9a"
+            }
+        ],
+        "input_specific_type": "cell_suspension",
+        "output_specific_type": "sequence_file"
+    },
+    {
+        "process": "bd20207e-f8cd-4cad-8740-1199353a782c",
+        "inputs": {
+            "71c829a8-9b57-49ba-acf1-d4f1850e929b": "A12-Spl-0-TL1"
+        },
+        "input_type": "biomaterial",
+        "outputs": {
+            "201aa008-fde8-4d72-a285-17fc90995aa5": "A12-Spl-0-TL1_cells"
+        },
+        "output_type": "biomaterial",
+        "protocols": [
+            {
+                "protocol_type": "dissociation_protocol",
+                "protocol_id": "d362f895-9c75-470b-8c37-fcd3386c2786"
+            },
+            {
+                "protocol_type": "enrichment_protocol",
+                "protocol_id": "fa67c716-2cd8-4e8e-99bc-e153d39b3d1e"
+            }
+        ],
+        "input_specific_type": "specimen_from_organism",
+        "output_specific_type": "cell_suspension"
+    },
+    {
+        "process": "1da3b244-fc3d-4e40-9faa-ae23f20b1f9f",
+        "inputs": {
+            "e9d00809-44fb-49f4-bd6c-45ed569b70bb": "CBTM-325C"
+        },
+        "input_type": "biomaterial",
+        "outputs": {
+            "71c829a8-9b57-49ba-acf1-d4f1850e929b": "A12-Spl-0-TL1"
+        },
+        "output_type": "biomaterial",
+        "protocols": [],
+        "input_specific_type": "donor_organism",
+        "output_specific_type": "specimen_from_organism"
+    }
+]

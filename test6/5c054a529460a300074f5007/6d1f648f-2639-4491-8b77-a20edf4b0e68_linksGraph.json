@@ -1,0 +1,58 @@
+[
+    {
+        "process": "6d1f648f-2639-4491-8b77-a20edf4b0e68",
+        "inputs": {
+            "a1a0489a-1f8e-44ce-9999-20fabc823679": "HP1502401_J2"
+        },
+        "input_type": "biomaterial",
+        "outputs": {
+            "c407735b-c3d5-43e4-a0f0-7b6201401280": "HP1502401_J2.fastq.gz"
+        },
+        "output_type": "file",
+        "protocols": [
+            {
+                "protocol_type": "library_preparation_protocol",
+                "protocol_id": "d4d412af-9a10-40fb-9103-3cbea6989a40"
+            },
+            {
+                "protocol_type": "sequencing_protocol",
+                "protocol_id": "92c2c573-6871-4c9c-920f-49ae32078c72"
+            }
+        ],
+        "input_specific_type": "cell_suspension",
+        "output_specific_type": "sequence_file"
+    },
+    {
+        "process": "b8a88dc7-6599-4ba7-96fb-46b20d277a61",
+        "inputs": {
+            "621e457e-0d64-418b-8956-4232b237faef": "H2_pancreas"
+        },
+        "input_type": "biomaterial",
+        "outputs": {
+            "a1a0489a-1f8e-44ce-9999-20fabc823679": "HP1502401_J2"
+        },
+        "output_type": "biomaterial",
+        "protocols": [
+            {
+                "protocol_type": "dissociation_protocol",
+                "protocol_id": "9f90f02c-ee8b-4451-aa7e-185bb05cf167"
+            }
+        ],
+        "input_specific_type": "specimen_from_organism",
+        "output_specific_type": "cell_suspension"
+    },
+    {
+        "process": "e6475049-e9b8-4c3a-b05b-a60a06f24425",
+        "inputs": {
+            "eef1dee1-e80f-44b2-8d34-d7f928180116": "H2"
+        },
+        "input_type": "biomaterial",
+        "outputs": {
+            "621e457e-0d64-418b-8956-4232b237faef": "H2_pancreas"
+        },
+        "output_type": "biomaterial",
+        "protocols": [],
+        "input_specific_type": "donor_organism",
+        "output_specific_type": "specimen_from_organism"
+    }
+]

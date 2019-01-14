@@ -1,0 +1,297 @@
+[
+    {
+        "process": "f301ecd1-56fa-49cf-8f81-a1cdb9d7bbe3",
+        "inputs": {
+            "85776cff-1d2a-4de5-b478-c65180c3adcd": "cell_suspension1",
+            "a6dd82df-6dbe-4554-86aa-c9bacc1d8204": "cell_suspension2",
+            "5406d0f3-9350-4a77-ba1c-55258d9159b5": "cell_suspension3",
+            "195dab6a-f772-463c-93a7-c17f6b682a76": "cell_suspension4",
+            "c2990997-ac3f-4aad-bbeb-6870c4a47be3": "cell_suspension5",
+            "f0020bc7-26d0-4320-ab77-da992da90a45": "cell_suspension6",
+            "8ee6eebf-ad36-4fc0-93d4-acc0901b4ca8": "cell_suspension7",
+            "2ff1d77a-4035-4392-a1a9-2253468d81f0": "cell_suspension8"
+        },
+        "input_type": "biomaterial",
+        "outputs": {
+            "f82d6c73-80e7-4d5b-99e7-8cbd01254a4e": "PBMC_RNA_R1.fastq.gz",
+            "daad25c9-2da2-4ba4-927c-7a4564a22d85": "PBMC_RNA_R2.fastq.gz"
+        },
+        "output_type": "file",
+        "protocols": [
+            {
+                "protocol_type": "library_preparation_protocol",
+                "protocol_id": "c9eb661d-cee1-423b-b307-56c082560982"
+            },
+            {
+                "protocol_type": "sequencing_protocol",
+                "protocol_id": "b5663dff-b3d6-4f6b-a2d3-aefd1f4a0cd2"
+            }
+        ],
+        "input_specific_type": "cell_suspension",
+        "output_specific_type": "sequence_file"
+    },
+    {
+        "process": "ae0c0271-6091-4537-bd3b-0274b5834a3e",
+        "inputs": {
+            "3366b3ee-1a29-4beb-8718-a1cad52814ca": "Specimen_PBMC1"
+        },
+        "input_type": "biomaterial",
+        "outputs": {
+            "85776cff-1d2a-4de5-b478-c65180c3adcd": "cell_suspension1"
+        },
+        "output_type": "biomaterial",
+        "protocols": [
+            {
+                "protocol_type": "dissociation_protocol",
+                "protocol_id": "e10e02fb-5fb6-4476-8ed8-6dc696f874fc"
+            }
+        ],
+        "input_specific_type": "specimen_from_organism",
+        "output_specific_type": "cell_suspension"
+    },
+    {
+        "process": "7f50b0fa-f9c5-49d8-bcc5-e2cf21cb6315",
+        "inputs": {
+            "f0697fb6-149a-4f56-afac-fc0e6d6cd912": "Donor_PBMC1"
+        },
+        "input_type": "biomaterial",
+        "outputs": {
+            "3366b3ee-1a29-4beb-8718-a1cad52814ca": "Specimen_PBMC1"
+        },
+        "output_type": "biomaterial",
+        "protocols": [],
+        "input_specific_type": "donor_organism",
+        "output_specific_type": "specimen_from_organism"
+    },
+    {
+        "process": "37d99471-4a8d-401a-bc62-7894b37182d9",
+        "inputs": {
+            "23f6484b-bd0a-4bb2-a86a-345ee5b8ce3c": "Specimen_PBMC2"
+        },
+        "input_type": "biomaterial",
+        "outputs": {
+            "a6dd82df-6dbe-4554-86aa-c9bacc1d8204": "cell_suspension2"
+        },
+        "output_type": "biomaterial",
+        "protocols": [
+            {
+                "protocol_type": "dissociation_protocol",
+                "protocol_id": "e10e02fb-5fb6-4476-8ed8-6dc696f874fc"
+            }
+        ],
+        "input_specific_type": "specimen_from_organism",
+        "output_specific_type": "cell_suspension"
+    },
+    {
+        "process": "c4c828da-9d25-40f9-b129-d473f7b09f1d",
+        "inputs": {
+            "350ec5b4-cbe1-4379-b1eb-d63a4dd3f90f": "Donor_PBMC2"
+        },
+        "input_type": "biomaterial",
+        "outputs": {
+            "23f6484b-bd0a-4bb2-a86a-345ee5b8ce3c": "Specimen_PBMC2"
+        },
+        "output_type": "biomaterial",
+        "protocols": [],
+        "input_specific_type": "donor_organism",
+        "output_specific_type": "specimen_from_organism"
+    },
+    {
+        "process": "2a7e6683-b549-4c4e-9e5a-18f153275b67",
+        "inputs": {
+            "e17dfd9e-3218-4f11-87a8-1f089364a544": "Specimen_PBMC3"
+        },
+        "input_type": "biomaterial",
+        "outputs": {
+            "5406d0f3-9350-4a77-ba1c-55258d9159b5": "cell_suspension3"
+        },
+        "output_type": "biomaterial",
+        "protocols": [
+            {
+                "protocol_type": "dissociation_protocol",
+                "protocol_id": "e10e02fb-5fb6-4476-8ed8-6dc696f874fc"
+            }
+        ],
+        "input_specific_type": "specimen_from_organism",
+        "output_specific_type": "cell_suspension"
+    },
+    {
+        "process": "5ff501b3-87de-4124-b2da-c263de02d459",
+        "inputs": {
+            "6966dbe9-a24b-406c-a7bc-766982b27ea2": "Donor_PBMC3"
+        },
+        "input_type": "biomaterial",
+        "outputs": {
+            "e17dfd9e-3218-4f11-87a8-1f089364a544": "Specimen_PBMC3"
+        },
+        "output_type": "biomaterial",
+        "protocols": [],
+        "input_specific_type": "donor_organism",
+        "output_specific_type": "specimen_from_organism"
+    },
+    {
+        "process": "10fec49e-98d0-46ac-a6be-254297298771",
+        "inputs": {
+            "0aefd0d6-5a70-4f88-af62-c9bd65d460c6": "Specimen_PBMC4"
+        },
+        "input_type": "biomaterial",
+        "outputs": {
+            "195dab6a-f772-463c-93a7-c17f6b682a76": "cell_suspension4"
+        },
+        "output_type": "biomaterial",
+        "protocols": [
+            {
+                "protocol_type": "dissociation_protocol",
+                "protocol_id": "e10e02fb-5fb6-4476-8ed8-6dc696f874fc"
+            }
+        ],
+        "input_specific_type": "specimen_from_organism",
+        "output_specific_type": "cell_suspension"
+    },
+    {
+        "process": "7bf13121-0a8e-4595-afd7-ff8c23687425",
+        "inputs": {
+            "d7659fff-6650-4965-86c3-ff9c50398e8d": "Donor_PBMC4"
+        },
+        "input_type": "biomaterial",
+        "outputs": {
+            "0aefd0d6-5a70-4f88-af62-c9bd65d460c6": "Specimen_PBMC4"
+        },
+        "output_type": "biomaterial",
+        "protocols": [],
+        "input_specific_type": "donor_organism",
+        "output_specific_type": "specimen_from_organism"
+    },
+    {
+        "process": "84164687-62d3-4cbc-abd2-9f96588225ea",
+        "inputs": {
+            "88b82697-73cf-477d-b3f1-1088ad99a8fb": "Specimen_PBMC5"
+        },
+        "input_type": "biomaterial",
+        "outputs": {
+            "c2990997-ac3f-4aad-bbeb-6870c4a47be3": "cell_suspension5"
+        },
+        "output_type": "biomaterial",
+        "protocols": [
+            {
+                "protocol_type": "dissociation_protocol",
+                "protocol_id": "e10e02fb-5fb6-4476-8ed8-6dc696f874fc"
+            }
+        ],
+        "input_specific_type": "specimen_from_organism",
+        "output_specific_type": "cell_suspension"
+    },
+    {
+        "process": "027f1e78-5da5-4777-8676-9c5feed4a0ea",
+        "inputs": {
+            "812e17d9-978d-4853-b841-82d0b8b5cee5": "Donor_PBMC5"
+        },
+        "input_type": "biomaterial",
+        "outputs": {
+            "88b82697-73cf-477d-b3f1-1088ad99a8fb": "Specimen_PBMC5"
+        },
+        "output_type": "biomaterial",
+        "protocols": [],
+        "input_specific_type": "donor_organism",
+        "output_specific_type": "specimen_from_organism"
+    },
+    {
+        "process": "afda160f-3f8f-4831-b911-25dee00ef150",
+        "inputs": {
+            "3c3e342b-28db-46bb-bc8b-165d10dbeadf": "Specimen_PBMC6"
+        },
+        "input_type": "biomaterial",
+        "outputs": {
+            "f0020bc7-26d0-4320-ab77-da992da90a45": "cell_suspension6"
+        },
+        "output_type": "biomaterial",
+        "protocols": [
+            {
+                "protocol_type": "dissociation_protocol",
+                "protocol_id": "e10e02fb-5fb6-4476-8ed8-6dc696f874fc"
+            }
+        ],
+        "input_specific_type": "specimen_from_organism",
+        "output_specific_type": "cell_suspension"
+    },
+    {
+        "process": "c39e7518-ac5a-4c79-b26a-a2750f40232c",
+        "inputs": {
+            "e0ac9c77-b586-480f-95ea-9022232662c3": "Donor_PBMC6"
+        },
+        "input_type": "biomaterial",
+        "outputs": {
+            "3c3e342b-28db-46bb-bc8b-165d10dbeadf": "Specimen_PBMC6"
+        },
+        "output_type": "biomaterial",
+        "protocols": [],
+        "input_specific_type": "donor_organism",
+        "output_specific_type": "specimen_from_organism"
+    },
+    {
+        "process": "3a28bcdf-4901-4e69-9956-52b1694180a9",
+        "inputs": {
+            "089d99db-3263-426c-916d-43f38b6e41c4": "Specimen_PBMC7"
+        },
+        "input_type": "biomaterial",
+        "outputs": {
+            "8ee6eebf-ad36-4fc0-93d4-acc0901b4ca8": "cell_suspension7"
+        },
+        "output_type": "biomaterial",
+        "protocols": [
+            {
+                "protocol_type": "dissociation_protocol",
+                "protocol_id": "e10e02fb-5fb6-4476-8ed8-6dc696f874fc"
+            }
+        ],
+        "input_specific_type": "specimen_from_organism",
+        "output_specific_type": "cell_suspension"
+    },
+    {
+        "process": "ed449b0c-1d58-410c-8c4f-b894a4f9f866",
+        "inputs": {
+            "d13990df-8dc2-4980-9dcf-0bee29025ebb": "Donor_PBMC7"
+        },
+        "input_type": "biomaterial",
+        "outputs": {
+            "089d99db-3263-426c-916d-43f38b6e41c4": "Specimen_PBMC7"
+        },
+        "output_type": "biomaterial",
+        "protocols": [],
+        "input_specific_type": "donor_organism",
+        "output_specific_type": "specimen_from_organism"
+    },
+    {
+        "process": "7904d154-5da5-4a03-9e99-1e81101643c6",
+        "inputs": {
+            "8eb8967e-bdf3-4221-b59d-e66c55e97ffb": "Specimen_PBMC8"
+        },
+        "input_type": "biomaterial",
+        "outputs": {
+            "2ff1d77a-4035-4392-a1a9-2253468d81f0": "cell_suspension8"
+        },
+        "output_type": "biomaterial",
+        "protocols": [
+            {
+                "protocol_type": "dissociation_protocol",
+                "protocol_id": "e10e02fb-5fb6-4476-8ed8-6dc696f874fc"
+            }
+        ],
+        "input_specific_type": "specimen_from_organism",
+        "output_specific_type": "cell_suspension"
+    },
+    {
+        "process": "eb872dab-8d66-409c-b48a-208eaa3d17a7",
+        "inputs": {
+            "4dd13723-fe35-4247-baad-ed7d42ffd3fb": "Donor_PBMC8"
+        },
+        "input_type": "biomaterial",
+        "outputs": {
+            "8eb8967e-bdf3-4221-b59d-e66c55e97ffb": "Specimen_PBMC8"
+        },
+        "output_type": "biomaterial",
+        "protocols": [],
+        "input_specific_type": "donor_organism",
+        "output_specific_type": "specimen_from_organism"
+    }
+]

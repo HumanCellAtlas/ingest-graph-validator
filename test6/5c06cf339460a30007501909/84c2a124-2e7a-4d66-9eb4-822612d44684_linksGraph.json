@@ -1,0 +1,82 @@
+[
+    {
+        "process": "84c2a124-2e7a-4d66-9eb4-822612d44684",
+        "inputs": {
+            "d839bd06-f07d-4405-acff-727f1438700e": "HS_BM_P1_cells_1"
+        },
+        "input_type": "biomaterial",
+        "outputs": {
+            "f8e39b0e-6c11-4b90-8fea-7603adfd33ab": "CD34positive1_IGO_07511_1_S1_L001_R1_001.fastq.gz",
+            "9dc19081-c866-4ffa-b8b6-a4c2498c5028": "CD34positive1_IGO_07511_1_S1_L001_R2_001.fastq.gz"
+        },
+        "output_type": "file",
+        "protocols": [
+            {
+                "protocol_type": "library_preparation_protocol",
+                "protocol_id": "540b6b3b-9609-4251-94c8-88724b8a7136"
+            },
+            {
+                "protocol_type": "sequencing_protocol",
+                "protocol_id": "06020aee-6152-4e1d-8d28-aebbfa154230"
+            }
+        ],
+        "input_specific_type": "cell_suspension",
+        "output_specific_type": "sequence_file"
+    },
+    {
+        "process": "a14045f5-09de-4b2f-a28f-1055c1870ce3",
+        "inputs": {
+            "b95bd00c-1c00-4f57-820f-f3f431e63377": "HS_BM_1_cell_line"
+        },
+        "input_type": "biomaterial",
+        "outputs": {
+            "d839bd06-f07d-4405-acff-727f1438700e": "HS_BM_P1_cells_1"
+        },
+        "output_type": "biomaterial",
+        "protocols": [
+            {
+                "protocol_type": "enrichment_protocol",
+                "protocol_id": "fd588b5b-1c54-40f5-9b80-e3e75bcf39a0"
+            }
+        ],
+        "input_specific_type": "cell_line",
+        "output_specific_type": "cell_suspension"
+    },
+    {
+        "process": "3d8e9e60-67d3-42ec-9add-3383729424df",
+        "inputs": {
+            "2addfa7c-26c1-47aa-89cb-7b0c80c518ca": "HS_BM_1_specimen"
+        },
+        "input_type": "biomaterial",
+        "outputs": {
+            "b95bd00c-1c00-4f57-820f-f3f431e63377": "HS_BM_1_cell_line"
+        },
+        "output_type": "biomaterial",
+        "protocols": [],
+        "input_specific_type": "specimen_from_organism",
+        "output_specific_type": "cell_line"
+    },
+    {
+        "process": "3707b407-d7c4-4d40-8c6c-3f3ae3558415",
+        "inputs": {
+            "2997af30-bf0a-4f8e-871f-2c3349c26169": "HS_BM_1"
+        },
+        "input_type": "biomaterial",
+        "outputs": {
+            "2addfa7c-26c1-47aa-89cb-7b0c80c518ca": "HS_BM_1_specimen"
+        },
+        "output_type": "biomaterial",
+        "protocols": [
+            {
+                "protocol_type": "collection_protocol",
+                "protocol_id": "9495ef05-da3b-4e42-9293-60a6cf8c1a61"
+            },
+            {
+                "protocol_type": "enrichment_protocol",
+                "protocol_id": "fd588b5b-1c54-40f5-9b80-e3e75bcf39a0"
+            }
+        ],
+        "input_specific_type": "donor_organism",
+        "output_specific_type": "specimen_from_organism"
+    }
+]

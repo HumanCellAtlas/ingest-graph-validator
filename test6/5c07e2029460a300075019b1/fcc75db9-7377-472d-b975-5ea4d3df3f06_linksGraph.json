@@ -1,0 +1,64 @@
+[
+    {
+        "process": "fcc75db9-7377-472d-b975-5ea4d3df3f06",
+        "inputs": {
+            "8a7fe2d8-ea9d-4d72-a83d-73d0df6747a9": "A6-Oes-1-TL1_cells"
+        },
+        "input_type": "biomaterial",
+        "outputs": {
+            "6dc46902-c207-44c0-9348-6887b179f8c7": "HCATisStabAug177184858_S1_L001_I1_001.fastq.gz",
+            "ef0e5ed8-9a08-434a-a6aa-001740c2fa13": "HCATisStabAug177184858_S1_L001_R1_001.fastq.gz",
+            "5423f77f-c323-4cbb-9fc1-1b19f38f06f4": "HCATisStabAug177184858_S1_L001_R2_001.fastq.gz"
+        },
+        "output_type": "file",
+        "protocols": [
+            {
+                "protocol_type": "library_preparation_protocol",
+                "protocol_id": "85579bf6-2d77-48ab-a829-b2f789b76fd0"
+            },
+            {
+                "protocol_type": "sequencing_protocol",
+                "protocol_id": "eedd7bce-b670-44f6-b4df-93a15bf4db9a"
+            }
+        ],
+        "input_specific_type": "cell_suspension",
+        "output_specific_type": "sequence_file"
+    },
+    {
+        "process": "d4b16d71-f616-4dc3-b0dc-62f69e464313",
+        "inputs": {
+            "5786b241-27a9-4b09-a154-2fdf3c95a3ab": "A6-Oes-1-TL1"
+        },
+        "input_type": "biomaterial",
+        "outputs": {
+            "8a7fe2d8-ea9d-4d72-a83d-73d0df6747a9": "A6-Oes-1-TL1_cells"
+        },
+        "output_type": "biomaterial",
+        "protocols": [
+            {
+                "protocol_type": "dissociation_protocol",
+                "protocol_id": "d263e359-08c7-4085-b227-4d2ac5d071cd"
+            },
+            {
+                "protocol_type": "enrichment_protocol",
+                "protocol_id": "fa67c716-2cd8-4e8e-99bc-e153d39b3d1e"
+            }
+        ],
+        "input_specific_type": "specimen_from_organism",
+        "output_specific_type": "cell_suspension"
+    },
+    {
+        "process": "b2b263dd-2062-4677-bf4a-8545542e160d",
+        "inputs": {
+            "730390a4-cea2-44ee-9770-80d73431255a": "CBTM-296C"
+        },
+        "input_type": "biomaterial",
+        "outputs": {
+            "5786b241-27a9-4b09-a154-2fdf3c95a3ab": "A6-Oes-1-TL1"
+        },
+        "output_type": "biomaterial",
+        "protocols": [],
+        "input_specific_type": "donor_organism",
+        "output_specific_type": "specimen_from_organism"
+    }
+]

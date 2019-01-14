@@ -1,0 +1,71 @@
+[
+    {
+        "process": "2f8b9702-b1df-472a-b4c1-112d99f51898",
+        "inputs": {
+            "38c5ac1d-e985-42ae-b158-e5ce9f0d015a": "Single-cell_RNA-seq_Subject10_TEMRA_Cell008"
+        },
+        "input_type": "biomaterial",
+        "outputs": {
+            "431bb03b-95b0-4422-92cc-7eb0c702e2e7": "SRR6257794.fastq.gz"
+        },
+        "output_type": "file",
+        "protocols": [
+            {
+                "protocol_type": "library_preparation_protocol",
+                "protocol_id": "9d6450e9-cd79-4191-98cc-09a1279d9760"
+            },
+            {
+                "protocol_type": "sequencing_protocol",
+                "protocol_id": "3705fd55-8d36-430b-a625-68b87a66f4c3"
+            }
+        ],
+        "input_specific_type": "cell_suspension",
+        "output_specific_type": "sequence_file"
+    },
+    {
+        "process": "b066de74-bf6f-433a-8dfa-42ddeb1dc1ec",
+        "inputs": {
+            "9f22bdc6-9f0b-454f-bf73-0ea34a4c3490": "Subject10_DENV negative_PBMC_TEMRA"
+        },
+        "input_type": "biomaterial",
+        "outputs": {
+            "38c5ac1d-e985-42ae-b158-e5ce9f0d015a": "Single-cell_RNA-seq_Subject10_TEMRA_Cell008"
+        },
+        "output_type": "biomaterial",
+        "protocols": [
+            {
+                "protocol_type": "dissociation_protocol",
+                "protocol_id": "7571bffa-11ec-4921-bfad-ece0afc0dc70"
+            },
+            {
+                "protocol_type": "enrichment_protocol",
+                "protocol_id": "d2c44393-1cd7-4c53-a6bd-b06cdea13d5e"
+            }
+        ],
+        "input_specific_type": "specimen_from_organism",
+        "output_specific_type": "cell_suspension"
+    },
+    {
+        "process": "8b625f0b-bca0-441d-a7e5-d5c5ffca2d23",
+        "inputs": {
+            "e2082942-5acb-4f3c-8e14-393584e3c724": "Subject10"
+        },
+        "input_type": "biomaterial",
+        "outputs": {
+            "9f22bdc6-9f0b-454f-bf73-0ea34a4c3490": "Subject10_DENV negative_PBMC_TEMRA"
+        },
+        "output_type": "biomaterial",
+        "protocols": [
+            {
+                "protocol_type": "collection_protocol",
+                "protocol_id": "abed2b97-ef60-4dd7-a3f0-415bdd0a1321"
+            },
+            {
+                "protocol_type": "enrichment_protocol",
+                "protocol_id": "715f3d79-c9c2-475a-a59f-5b56ed8dfafb"
+            }
+        ],
+        "input_specific_type": "donor_organism",
+        "output_specific_type": "specimen_from_organism"
+    }
+]

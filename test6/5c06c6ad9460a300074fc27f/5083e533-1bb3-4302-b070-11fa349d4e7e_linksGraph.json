@@ -1,0 +1,64 @@
+[
+    {
+        "process": "5083e533-1bb3-4302-b070-11fa349d4e7e",
+        "inputs": {
+            "733ea63a-71cd-4d5f-bf2b-8da2c1dc2964": "BxA14_tube4"
+        },
+        "input_type": "biomaterial",
+        "outputs": {
+            "5c571d44-09ea-4aff-9f86-f43e4cfb47f6": "Biopsy.NextSeq4_L003_R1.fastq.gz",
+            "1f39ffd3-0159-48b5-8390-9b1886f51514": "Biopsy.NextSeq4_L003_R2.fastq.gz"
+        },
+        "output_type": "file",
+        "protocols": [
+            {
+                "protocol_type": "library_preparation_protocol",
+                "protocol_id": "5b3454e6-d183-4ce2-b40b-d16874019964"
+            },
+            {
+                "protocol_type": "sequencing_protocol",
+                "protocol_id": "128b8a30-187d-4131-8c46-bebceaf58f5e"
+            }
+        ],
+        "input_specific_type": "cell_suspension",
+        "output_specific_type": "sequence_file"
+    },
+    {
+        "process": "759081ab-881f-4eaf-a87c-1d49583e3953",
+        "inputs": {
+            "9e9bb1a8-166e-4ce7-babe-31142a02b3dd": "BxA14_specimen"
+        },
+        "input_type": "biomaterial",
+        "outputs": {
+            "733ea63a-71cd-4d5f-bf2b-8da2c1dc2964": "BxA14_tube4"
+        },
+        "output_type": "biomaterial",
+        "protocols": [
+            {
+                "protocol_type": "dissociation_protocol",
+                "protocol_id": "4711dc7a-2a3f-465b-b1fb-ce5ff5199869"
+            }
+        ],
+        "input_specific_type": "specimen_from_organism",
+        "output_specific_type": "cell_suspension"
+    },
+    {
+        "process": "8094b83c-003b-417f-bd43-8d09ac3219fc",
+        "inputs": {
+            "ef5082a4-d7c0-4486-8fd5-750a74b743e1": "donor_BxA14"
+        },
+        "input_type": "biomaterial",
+        "outputs": {
+            "9e9bb1a8-166e-4ce7-babe-31142a02b3dd": "BxA14_specimen"
+        },
+        "output_type": "biomaterial",
+        "protocols": [
+            {
+                "protocol_type": "collection_protocol",
+                "protocol_id": "775fbb0e-c88e-469e-975d-c0a708473049"
+            }
+        ],
+        "input_specific_type": "donor_organism",
+        "output_specific_type": "specimen_from_organism"
+    }
+]

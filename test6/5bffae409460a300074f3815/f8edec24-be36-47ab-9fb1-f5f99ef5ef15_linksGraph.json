@@ -1,0 +1,60 @@
+[
+    {
+        "process": "f8edec24-be36-47ab-9fb1-f5f99ef5ef15",
+        "inputs": {
+            "70708fb8-fbd8-4433-afd6-6798cc52f5b2": "2_BM1_cells"
+        },
+        "input_type": "biomaterial",
+        "outputs": {
+            "9d4d123e-7f23-4561-bf67-37f4f5ee8a4c": "MantonBM1_HiSeq_2_S2_L008_I1_001.fastq.gz",
+            "40b62824-b747-4ce4-b489-288a183a0aa0": "MantonBM1_HiSeq_2_S2_L008_R1_001.fastq.gz",
+            "d118af2d-cb00-4b03-9010-76815db2b6ad": "MantonBM1_HiSeq_2_S2_L008_R2_001.fastq.gz"
+        },
+        "output_type": "file",
+        "protocols": [
+            {
+                "protocol_type": "library_preparation_protocol",
+                "protocol_id": "6f367bb6-7fc6-4099-a053-005f38e690cb"
+            },
+            {
+                "protocol_type": "sequencing_protocol",
+                "protocol_id": "89cb35ca-037e-4c71-b90a-3dd660dfc4cd"
+            }
+        ],
+        "input_specific_type": "cell_suspension",
+        "output_specific_type": "sequence_file"
+    },
+    {
+        "process": "a4e61b9c-bc66-4a1d-88c9-26eaccf72db6",
+        "inputs": {
+            "ed2dbdf3-3a1d-45da-8b6a-e116f5a459b3": "2_BM1"
+        },
+        "input_type": "biomaterial",
+        "outputs": {
+            "70708fb8-fbd8-4433-afd6-6798cc52f5b2": "2_BM1_cells"
+        },
+        "output_type": "biomaterial",
+        "protocols": [
+            {
+                "protocol_type": "dissociation_protocol",
+                "protocol_id": "856bf334-2ce9-46bc-a567-4700f45ff5e1"
+            }
+        ],
+        "input_specific_type": "specimen_from_organism",
+        "output_specific_type": "cell_suspension"
+    },
+    {
+        "process": "892c1f12-341f-45e7-9047-dade9787ef22",
+        "inputs": {
+            "1c5d5560-7bd1-4874-a46a-e7a9c77dce6e": "BM1"
+        },
+        "input_type": "biomaterial",
+        "outputs": {
+            "ed2dbdf3-3a1d-45da-8b6a-e116f5a459b3": "2_BM1"
+        },
+        "output_type": "biomaterial",
+        "protocols": [],
+        "input_specific_type": "donor_organism",
+        "output_specific_type": "specimen_from_organism"
+    }
+]
