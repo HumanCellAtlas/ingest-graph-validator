@@ -20,6 +20,8 @@ matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 from py2neo import Relationship
 
+# Functions not in use
+
 def load_graph_networkx_old(data):
 	G=nx.DiGraph()
 	links = data#['links']
@@ -54,65 +56,33 @@ def load_graph_networkx_old(data):
 
 	return G, node_names
 
-def load_graph_networkx(data):
-	G=nx.DiGraph()
-	links = data#['links']
-	node_names = {}
-	node_types = []
-	nonspecific_node_types = {}
-	specific_node_types = {}
+def graph_compare(graphs): # this function offers an alternative graph compare method and is on hold
 
-	def counter(type_name, uuid):
-		# print(type_name)
-		# print(uuid)
-		if uuid in node_names:
-			new_name = type_name + '_' + str(node_types.count(type_name))
-			return new_name
+	# graph_sets = [sorted(list(set(x))) for x in graphs]
+	# unique_data = [list(x) for x in set(tuple(x) for x in graph_sets)]
+	# print('There are {} unique node sets out of {} graphs'.format(len(unique_data), len(graphs)))
+
+	unique_by_node_groups = {} # str(sorted_node_list) : [G,G]
+
+	for graph in graphs:
+		sorted_node_list = sorted(list(set(graph)))
+		if str(sorted_node_list) in unique_by_node_groups:
+			unique_by_node_groups[str(sorted_node_list)].append(graph)
 		else:
-			node_types.append(type_name)
-			new_name = type_name + '_' + str(node_types.count(type_name))
-			node_names[uuid] = new_name
-			nonspecific_node_types[uuid] = type_name
-			return new_name
+			unique_by_node_groups[str(sorted_node_list)] = [graph]
 
-	for process in links:
-		process_uuid = process['process']
-		input_node_uuids = process['inputs']
-		output_node_uuids = process['outputs']
-		protocols = process['protocols']
-		for in_node in input_node_uuids:
-			# node_names[in_node] = counter(process['input_type'], in_node)
-			counter(process['input_type'], in_node)
-			specific_node_types[in_node] = process['input_specific_type']
-			G.add_edge(in_node,process_uuid)
-		for out_node in output_node_uuids:
-			# node_names[out_node] = counter(process['output_type'], out_node)
-			counter(process['output_type'], out_node)
-			specific_node_types[out_node] = process['output_specific_type']
-			G.add_edge(process_uuid, out_node)
-		for protocol in protocols:
-			protocol_id = protocol['protocol_id']
-			specific_node_types[protocol_id] = protocol['protocol_type']
-			# node_names[protocol_id] = counter(protocol['protocol_type'], protocol_id)
-			counter(protocol['protocol_type'], protocol_id)
-			G.add_edge(process_uuid,protocol_id)
-		# node_names[process_uuid] = counter('process', process_uuid)
-		counter('process', process_uuid)
-		specific_node_types[process_uuid] = 'process'
+	print('There are {} unique node sets out of {} graphs'.format(len(unique_by_node_groups), len(graphs)))
+	
+	for group, graph_list in unique_by_node_groups.items():
+		group_representative_graph = graph_list[0]
+		# for grouped_graph in graph_list[1:]:
 
-	nx.set_node_attributes(G, node_names, 'unique_name')
-	nx.set_node_attributes(G, specific_node_types, 'entity_name') # needs adding in again
+			# all too slow for now. We need to find an optimised graph comparison tool.
 
-	nx.set_node_attributes(G, nonspecific_node_types, 'entity_type')
-
-	nx.relabel_nodes(G, node_names, copy=False)
-	uuid_switch = {y:x for x,y in node_names.items()}
-	nx.set_node_attributes(G, uuid_switch, 'uuid')
-
-	# print(G.nodes(data=True))
-	# print(specific_node_types)
-
-	return G, specific_node_types
+			# comparison = nx.difference(group_representative_graph, grouped_graph)
+			# print(nx.graph_edit_distance(group_representative_graph, grouped_graph))
+			# agenerator = nx.optimize_graph_edit_distance(group_representative_graph, grouped_graph) # not sure why I see a difference here
+			# agenerator = nx.optimize_edit_paths(group_representative_graph, grouped_graph) # weird tuple output and slow
 
 def load_graph_neo4j(data): # not working on hold
 	graph = Graph('http://localhost:7474/db/data/', user='neo4j', password='neo5j')  # initialising graph
@@ -181,6 +151,68 @@ def load_graph_neo4j(data): # not working on hold
 
 		# for neo_relationship in neo4j_relationships:
 		# 	graph.merge(neo_relationship, "name") # merge is important to prevent duplicates
+
+# Functions in use
+
+def load_graph_networkx(data):
+	G=nx.DiGraph()
+	links = data#['links']
+	node_names = {}
+	node_types = []
+	nonspecific_node_types = {}
+	specific_node_types = {}
+
+	def counter(type_name, uuid):
+		# print(type_name)
+		# print(uuid)
+		if uuid in node_names:
+			new_name = type_name + '_' + str(node_types.count(type_name))
+			return new_name
+		else:
+			node_types.append(type_name)
+			new_name = type_name + '_' + str(node_types.count(type_name))
+			node_names[uuid] = new_name
+			nonspecific_node_types[uuid] = type_name
+			return new_name
+
+	for process in links:
+		process_uuid = process['process']
+		input_node_uuids = process['inputs']
+		output_node_uuids = process['outputs']
+		protocols = process['protocols']
+		for in_node in input_node_uuids:
+			# node_names[in_node] = counter(process['input_type'], in_node)
+			counter(process['input_type'], in_node)
+			specific_node_types[in_node] = process['input_specific_type']
+			G.add_edge(in_node,process_uuid)
+		for out_node in output_node_uuids:
+			# node_names[out_node] = counter(process['output_type'], out_node)
+			counter(process['output_type'], out_node)
+			specific_node_types[out_node] = process['output_specific_type']
+			G.add_edge(process_uuid, out_node)
+		for protocol in protocols:
+			protocol_id = protocol['protocol_id']
+			specific_node_types[protocol_id] = protocol['protocol_type']
+			# node_names[protocol_id] = counter(protocol['protocol_type'], protocol_id)
+			counter(protocol['protocol_type'], protocol_id)
+			G.add_edge(process_uuid,protocol_id)
+		# node_names[process_uuid] = counter('process', process_uuid)
+		counter('process', process_uuid)
+		specific_node_types[process_uuid] = 'process'
+
+	nx.set_node_attributes(G, node_names, 'unique_name')
+	nx.set_node_attributes(G, specific_node_types, 'entity_name') # needs adding in again
+
+	nx.set_node_attributes(G, nonspecific_node_types, 'entity_type')
+
+	nx.relabel_nodes(G, node_names, copy=False)
+	uuid_switch = {y:x for x,y in node_names.items()}
+	nx.set_node_attributes(G, uuid_switch, 'uuid')
+
+	# print(G.nodes(data=True))
+	# print(specific_node_types)
+
+	return G, specific_node_types
 
 def plot_graph(G, node_names, outfile_name, layout_option=2, save_fig=False):
 
@@ -388,33 +420,6 @@ def generate_report(FL, AL):
 	with pd.option_context('display.max_rows', None, 'display.max_columns', assumption_frame_unique.shape[1]):
 		print(assumption_frame_unique)
 
-def graph_compare(graphs): # this function offers an alternative graph compare method and is on hold
-
-	# graph_sets = [sorted(list(set(x))) for x in graphs]
-	# unique_data = [list(x) for x in set(tuple(x) for x in graph_sets)]
-	# print('There are {} unique node sets out of {} graphs'.format(len(unique_data), len(graphs)))
-
-	unique_by_node_groups = {} # str(sorted_node_list) : [G,G]
-
-	for graph in graphs:
-		sorted_node_list = sorted(list(set(graph)))
-		if str(sorted_node_list) in unique_by_node_groups:
-			unique_by_node_groups[str(sorted_node_list)].append(graph)
-		else:
-			unique_by_node_groups[str(sorted_node_list)] = [graph]
-
-	print('There are {} unique node sets out of {} graphs'.format(len(unique_by_node_groups), len(graphs)))
-	
-	for group, graph_list in unique_by_node_groups.items():
-		group_representative_graph = graph_list[0]
-		# for grouped_graph in graph_list[1:]:
-
-			# all too slow for now. We need to find an optimised graph comparison tool.
-
-			# comparison = nx.difference(group_representative_graph, grouped_graph)
-			# print(nx.graph_edit_distance(group_representative_graph, grouped_graph))
-			# agenerator = nx.optimize_graph_edit_distance(group_representative_graph, grouped_graph) # not sure why I see a difference here
-			# agenerator = nx.optimize_edit_paths(group_representative_graph, grouped_graph) # weird tuple output and slow
 
 
 if __name__ == '__main__':
@@ -460,5 +465,5 @@ if __name__ == '__main__':
 		graphs.append(G)
 
 	# load_graph_neo4j(data)
-	# generate_report(feature_list, assumption_list)
-	save_report(feature_list, assumption_list,indir)
+	generate_report(feature_list, assumption_list)
+	# save_report(feature_list, assumption_list,indir) #TODO
