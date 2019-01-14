@@ -245,16 +245,17 @@ def plot_graph(G, node_names, outfile_name, layout_option=2, save_fig=False):
 	elif layout_option == '2':
 		A = G.to_undirected() # can only get edges to size correctly with an undirected graph for some reason
 		nx.draw(A, with_labels=True, node_color=node_color, node_size=800, font_size=8)
-		plt.show()
-		# if save_fig is True:
-		# 	plt.savefig(outfile_name + '.png')
+		if save_fig is True:
+			plt.savefig(outfile_name + '.png')
+		else:
+			plt.show()
 
 
 	elif layout_option == '3':
 		A = nx.nx_agraph.to_agraph(G)        # convert to a graphviz graph
 		# print(A)
 
-def graph_stats(G):
+def graph_stats(G, infile):
 	total_nodes = G.number_of_nodes()
 	# print('Total nodes is %d' % total_nodes)
 	total_edges = G.number_of_edges()
@@ -286,6 +287,7 @@ def graph_stats(G):
 	# print('\n')
 
 	features = {
+		'links file name': infile,
 		'totalNodes': total_nodes,
 		'totalEdges': total_edges,
 		'maxDepth': max_depth,
@@ -300,7 +302,7 @@ def graph_stats(G):
 
 	return features
 
-def graph_assumptions(G):
+def graph_assumptions(G, infile):
 	# Every graph starts from donor biomaterial node: donor_in_degree = 0, donor_out_degrees >= 1.
 	donorNodes = [x for x, y in G.nodes(data=True) if y['entity_name'] == "donor_organism"]
 	donorNodes.sort()
@@ -383,6 +385,7 @@ def graph_assumptions(G):
 	# Graph can have more than one first biomaterial (biomaterial with indegree 0).
 
 	assumptions = {
+		'links file name': infile,
 		'donorFirstNode': donorFirstNode,
 		'sequenceFileLastNode': sequenceFileLastNode,
 		'sequenceFileNodeCount': sequenceFileNodeCount,
@@ -394,11 +397,12 @@ def graph_assumptions(G):
 
 	return assumptions
 
-def generate_report(FL, AL):
+def generate_report(FL, AL, plot):
 
 	print('--------------------\nREPORT\n--------------------')
 
-	feature_frame = pd.DataFrame(FL)
+	feature_frame = pd.DataFrame(FL).set_index('links file name')
+	
 	print("Number of feature sets (graphs): %d" % len(feature_frame))
 
 	# Find unique rows
@@ -409,18 +413,20 @@ def generate_report(FL, AL):
 	with pd.option_context('display.max_rows', None, 'display.max_columns', feature_frame_unique.shape[1]):
 		print(feature_frame_unique)
 
-	assumption_frame = pd.DataFrame(AL)
+	assumption_frame = pd.DataFrame(AL).set_index('links file name')
 	print("--------------------\nNumber of assumption sets (graphs): %d" % len(assumption_frame))
 
 	# Find unique rows
 	assumption_frame_unique = assumption_frame.drop_duplicates()
+	# assumption_frame_unique.to_csv('temp.csv')
 	print("Number of unique assumption sets (graphs): %d" % len(assumption_frame_unique))
 
 	print("\n\nUnique assumption sets:")
 	with pd.option_context('display.max_rows', None, 'display.max_columns', assumption_frame_unique.shape[1]):
 		print(assumption_frame_unique)
 
-
+	# get list of unique graph for plotting
+	return (feature_frame_unique.index.values, assumption_frame_unique.index.values)
 
 if __name__ == '__main__':
 
@@ -451,19 +457,38 @@ if __name__ == '__main__':
 			graph = load_graph_networkx(data)
 			G = graph[0]
 			node_names = graph[1]
-			if arguments.plot:
-				plot_graph(G, node_names, infile, arguments.layout, save_fig=False)
 
 			# Calculate graph features
-			G_features = graph_stats(G)
+			G_features = graph_stats(G, infile)
 			feature_list.append(G_features)
 
 			# Assess graph assumptions
-			G_assumptions = graph_assumptions(G)
+			G_assumptions = graph_assumptions(G, infile)
 			assumption_list.append(G_assumptions)
 
 		graphs.append(G)
 
-	# load_graph_neo4j(data)
-	generate_report(feature_list, assumption_list)
+	plot_lists = generate_report(feature_list, assumption_list, arguments.plot)
+	if arguments.plot:
+		feature_unique_representatives = plot_lists[0]
+		# assumption_unique_representatives = plot_lists[1]
+		print('Saving {} unique graphs to file...'.format(len(feature_unique_representatives)))
+		for filename in feature_unique_representatives:
+			print(filename)
+			with open(filename) as fs:
+				data = json.load(fs)
+				graph = load_graph_networkx(data)
+				G = graph[0]
+				node_names = graph[1]
+				plot_graph(G, node_names, filename, arguments.layout, True)
+
+
+
+
+
+		
 	# save_report(feature_list, assumption_list,indir) #TODO
+
+
+
+
