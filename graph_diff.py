@@ -12,9 +12,7 @@ import networkx as nx
 import pandas as pd
 from networkx import Graph
 from networkx.algorithms.coloring.greedy_coloring_with_interchange import Node
-from pandas.testing import assert_frame_equal
 from argparse import ArgumentParser
-import numpy as np
 import matplotlib
 matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
@@ -152,6 +150,76 @@ def load_graph_neo4j(data): # not working on hold
 		# for neo_relationship in neo4j_relationships:
 		# 	graph.merge(neo_relationship, "name") # merge is important to prevent duplicates
 
+def generate_report(FL, AL):
+
+	print('--------------------\nREPORT\n--------------------')
+
+	feature_frame = pd.DataFrame(FL)
+	
+	print("Number of feature sets (graphs): %d" % len(feature_frame))
+
+	# Find unique rows
+	feature_frame_unique = feature_frame.drop_duplicates()
+	print("Number of unique feature sets (graphs): %d" % len(feature_frame_unique))
+
+	print("\n\nUnique feature sets:")
+	with pd.option_context('display.max_rows', None, 'display.max_columns', feature_frame_unique.shape[1]):
+		print(feature_frame_unique)
+
+
+	assumption_frame = pd.DataFrame(AL)
+	print("--------------------\nNumber of assumption sets (graphs): %d" % len(assumption_frame))
+
+	# Find unique rows
+	assumption_frame_unique = assumption_frame.drop_duplicates()
+	# assumption_frame_unique.to_csv('assumption.csv')
+	print("Number of unique assumption sets (graphs): %d" % len(assumption_frame_unique))
+
+	print("\n\nUnique assumption sets:")
+	with pd.option_context('display.max_rows', None, 'display.max_columns', assumption_frame_unique.shape[1]):
+		print(assumption_frame_unique)
+
+def plot_graph(G, node_names, outfile_name, layout_option=2, save_fig=False):
+
+	node_color = []
+	for node in G.nodes(data=True):
+
+		if 'biomaterial' in node[1]['entity_type']:
+			node_color.append('darkorange')
+		elif 'file' in node[1]['entity_type']:
+			node_color.append('lightskyblue')
+		elif 'process' in node[1]['entity_type']:
+			node_color.append('mistyrose')
+		else:
+			node_color.append('olive')
+
+
+	if layout_option == '1':
+		# pos = nx.spectral_layout(G)
+		pos = nx.spring_layout(G)
+		nodes = nx.draw_networkx_nodes(G, pos, node_size=100,
+			node_color=node_color,
+			font_size=8,
+			labels=node_names,
+			with_labels=True)
+		edges = nx.draw_networkx_edges(G, pos,
+			arrowstyle='->',
+			arrowsize=10,
+			width=2)
+
+	elif layout_option == '2':
+		A = G.to_undirected() # can only get edges to size correctly with an undirected graph for some reason
+		nx.draw(A, with_labels=True, node_color=node_color, node_size=800, font_size=8)
+		if save_fig is True:
+			plt.savefig(outfile_name + '.png')
+		else:
+			plt.show()
+
+
+	elif layout_option == '3':
+		A = nx.nx_agraph.to_agraph(G)        # convert to a graphviz graph
+		# print(A)
+
 # Functions in use
 
 def load_graph_networkx(data):
@@ -213,47 +281,6 @@ def load_graph_networkx(data):
 	# print(specific_node_types)
 
 	return G, specific_node_types
-
-def plot_graph(G, node_names, outfile_name, layout_option=2, save_fig=False):
-
-	node_color = []
-	for node in G.nodes(data=True):
-
-		if 'biomaterial' in node[1]['entity_type']:
-			node_color.append('darkorange')
-		elif 'file' in node[1]['entity_type']:
-			node_color.append('lightskyblue')
-		elif 'process' in node[1]['entity_type']:
-			node_color.append('mistyrose')
-		else:
-			node_color.append('olive')
-
-
-	if layout_option == '1':
-		# pos = nx.spectral_layout(G)
-		pos = nx.spring_layout(G)
-		nodes = nx.draw_networkx_nodes(G, pos, node_size=100,
-			node_color=node_color,
-			font_size=8,
-			labels=node_names,
-			with_labels=True)
-		edges = nx.draw_networkx_edges(G, pos,
-			arrowstyle='->',
-			arrowsize=10,
-			width=2)
-
-	elif layout_option == '2':
-		A = G.to_undirected() # can only get edges to size correctly with an undirected graph for some reason
-		nx.draw(A, with_labels=True, node_color=node_color, node_size=800, font_size=8)
-		if save_fig is True:
-			plt.savefig(outfile_name + '.png')
-		else:
-			plt.show()
-
-
-	elif layout_option == '3':
-		A = nx.nx_agraph.to_agraph(G)        # convert to a graphviz graph
-		# print(A)
 
 def graph_stats(G, infile):
 	total_nodes = G.number_of_nodes()
@@ -397,36 +424,37 @@ def graph_assumptions(G, infile):
 
 	return assumptions
 
-def generate_report(FL, AL, plot):
+def unique(dict_to_df):
+	# move column links file name to index so drop duplicates can be performed
+	df = pd.DataFrame(dict_to_df).set_index('links file name')
+	df_unique = df.drop_duplicates()
+	return (df_unique.index.values, df)
 
-	print('--------------------\nREPORT\n--------------------')
+def save_plot_with_filename(filename):
+	with open(filename) as fs:
+		data = json.load(fs)
+		graph = load_graph_networkx(data)
+		G = graph[0]
+		node_names = graph[1]
 
-	feature_frame = pd.DataFrame(FL).set_index('links file name')
-	
-	print("Number of feature sets (graphs): %d" % len(feature_frame))
+		node_color = []
+		for node in G.nodes(data=True):
 
-	# Find unique rows
-	feature_frame_unique = feature_frame.drop_duplicates()
-	print("Number of unique feature sets (graphs): %d" % len(feature_frame_unique))
+			if 'biomaterial' in node[1]['entity_type']:
+				node_color.append('darkorange')
+			elif 'file' in node[1]['entity_type']:
+				node_color.append('lightskyblue')
+			elif 'process' in node[1]['entity_type']:
+				node_color.append('mistyrose')
+			else:
+				node_color.append('olive')
 
-	print("\n\nUnique feature sets:")
-	with pd.option_context('display.max_rows', None, 'display.max_columns', feature_frame_unique.shape[1]):
-		print(feature_frame_unique)
-
-	assumption_frame = pd.DataFrame(AL).set_index('links file name')
-	print("--------------------\nNumber of assumption sets (graphs): %d" % len(assumption_frame))
-
-	# Find unique rows
-	assumption_frame_unique = assumption_frame.drop_duplicates()
-	# assumption_frame_unique.to_csv('temp.csv')
-	print("Number of unique assumption sets (graphs): %d" % len(assumption_frame_unique))
-
-	print("\n\nUnique assumption sets:")
-	with pd.option_context('display.max_rows', None, 'display.max_columns', assumption_frame_unique.shape[1]):
-		print(assumption_frame_unique)
-
-	# get list of unique graph for plotting
-	return (feature_frame_unique.index.values, assumption_frame_unique.index.values)
+		A = G.to_undirected()  # can only get edges to size correctly with an undirected graph for some reason
+		print('graph {} has {} nodes'.format(filename, A.number_of_nodes()))
+		# nx.draw(A, with_labels=True, node_color=node_color, node_size=800, font_size=8)
+		nx.draw_networkx(A, with_labels=True, node_color=node_color, node_size=800, font_size=8)
+		plt.savefig(filename + '.png')
+		plt.gcf().clear()
 
 if __name__ == '__main__':
 
@@ -441,53 +469,72 @@ if __name__ == '__main__':
 	arguments = parser.parse_args()
 
 	indir = arguments.inputDirectory
-	# metadata_file = '/links.json'
-	l = os.listdir(indir)
-	# infiles = [indir + x + metadata_file for x in l]
-	infiles = [indir + x for x in l]
-	print('Processing {} bundles...'.format(len(infiles)))
-
-	feature_list = []
-	assumption_list = []
-	graphs = []
-
-	for infile in infiles:
-		with open(infile) as f:
-			data = json.load(f)
-			graph = load_graph_networkx(data)
-			G = graph[0]
-			node_names = graph[1]
-
-			# Calculate graph features
-			G_features = graph_stats(G, infile)
-			feature_list.append(G_features)
-
-			# Assess graph assumptions
-			G_assumptions = graph_assumptions(G, infile)
-			assumption_list.append(G_assumptions)
-
-		graphs.append(G)
-
-	plot_lists = generate_report(feature_list, assumption_list, arguments.plot)
-	if arguments.plot:
-		feature_unique_representatives = plot_lists[0]
-		# assumption_unique_representatives = plot_lists[1]
-		print('Saving {} unique graphs to file...'.format(len(feature_unique_representatives)))
-		for filename in feature_unique_representatives:
-			print(filename)
-			with open(filename) as fs:
-				data = json.load(fs)
-				graph = load_graph_networkx(data)
-				G = graph[0]
-				node_names = graph[1]
-				plot_graph(G, node_names, filename, arguments.layout, True)
 
 
+	# dirpaths=[]
+	# infiles=[]
+	suffix = ".json"
+	infile_paths={}
+	for dirpath, dirnames, filenames in os.walk(indir):
+		for filename in [f for f in filenames if f.endswith(".json")]:
+			# infiles.append(os.path.join(dirpath, filename))
+			# dirpaths.append(dirpath)
+			infile_paths[dirpath] = filenames
+
+	print('Processing {} bundles...'.format(len(infile_paths)))
+
+	for path in infile_paths:
+		feature_list = []
+		assumption_list = []
+		for infile in infile_paths[path]:
+			if infile.endswith(suffix):
+				full_filename = str(path + "/" + infile)
+				with open(full_filename) as f:
+					data = json.load(f)
+					graph = load_graph_networkx(data)
+					G = graph[0]
+					node_names = graph[1]
+
+					# Calculate graph features
+					G_features = graph_stats(G, full_filename)
+					feature_list.append(G_features)
+
+					# Assess graph assumptions
+					G_assumptions = graph_assumptions(G, full_filename)
+					assumption_list.append(G_assumptions)
+
+		feature_list_unique = unique(feature_list)[0]
+
+		# save_csv_summary
+		save_path = str(path + '/features.csv')
+		unique(feature_list)[1].to_csv(save_path)
+
+		# plot one unique representative graph
+		if arguments.plot:
+			for filename in feature_list_unique:
+				save_plot_with_filename(filename)
 
 
 
-		
-	# save_report(feature_list, assumption_list,indir) #TODO
+
+
+
+
+
+
+
+
+			# print('Saving {} unique graphs to file for project {}...'.format(len(feature_list_unique), path))
+			# for filename in feature_list_unique:
+			# 	with open(filename) as fs:
+			# 		data = json.load(fs)
+			# 		graph = load_graph_networkx(data)
+			# 		G = graph[0]
+			# 		node_names = graph[1]
+			# 		plot_graph(G, node_names, filename, arguments.layout, True)
+
+
+# save_report(feature_list, assumption_list,indir) #TODO
 
 
 
