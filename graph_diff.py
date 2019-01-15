@@ -436,6 +436,7 @@ def save_plot_with_filename(filename):
 		graph = load_graph_networkx(data)
 		G = graph[0]
 		node_names = graph[1]
+		labels = {}
 
 		node_color = []
 		for node in G.nodes(data=True):
@@ -449,10 +450,15 @@ def save_plot_with_filename(filename):
 			else:
 				node_color.append('olive')
 
+			unique_name = node[1]['unique_name']
+			entity_name = node[1]['entity_name']
+			labels[unique_name] = entity_name
+
 		A = G.to_undirected()  # can only get edges to size correctly with an undirected graph for some reason
 		print('graph {} has {} nodes'.format(filename, A.number_of_nodes()))
-		# nx.draw(A, with_labels=True, node_color=node_color, node_size=800, font_size=8)
-		nx.draw_networkx(A, with_labels=True, node_color=node_color, node_size=800, font_size=8)
+		print(node_names)
+		# nx.draw_networkx(A, with_labels=True, node_color=node_color, node_size=800, font_size=8) # use to visualise with unique labels
+		nx.draw_networkx(A, labels=labels, node_color=node_color, node_size=800, font_size=8)
 		plt.savefig(filename + '.png')
 		plt.gcf().clear()
 
@@ -513,29 +519,5 @@ if __name__ == '__main__':
 		if arguments.plot:
 			for filename in feature_list_unique:
 				save_plot_with_filename(filename)
-
-
-
-
-
-
-
-
-
-
-
-			# print('Saving {} unique graphs to file for project {}...'.format(len(feature_list_unique), path))
-			# for filename in feature_list_unique:
-			# 	with open(filename) as fs:
-			# 		data = json.load(fs)
-			# 		graph = load_graph_networkx(data)
-			# 		G = graph[0]
-			# 		node_names = graph[1]
-			# 		plot_graph(G, node_names, filename, arguments.layout, True)
-
-
-# save_report(feature_list, assumption_list,indir) #TODO
-
-
 
 
