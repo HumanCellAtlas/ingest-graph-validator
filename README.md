@@ -19,5 +19,7 @@ Ingest hits a connection error for submissions with lots of bundles. This issue 
 
 Loads a one submission subgraph identified using the submission ID.
 
-Checks the following:
+Here are graph assumptions that this validator should check: https://github.com/HumanCellAtlas/hca-data-wrangling/blob/master/docs/Graph_assumptions.md
+
+Here are the use cases for this code (in progress): https://github.com/HumanCellAtlas/hca-data-wrangling/blob/master/docs/20181211_graph_use_cases.md
 

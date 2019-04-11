@@ -2,19 +2,19 @@ __author__ = "hewgreen"
 __license__ = "Apache 2.0"
 __date__ = "3/04/2019"
 
+# todo add links to protocols
 # todo check that nodes are merging and never getting duplicated. How do I merge on uuid to double ensure this?
 # todo add more metadata to the nodes. currently only strings are added.
 
 
 from ingest.api.ingestapi import IngestApi
-import os, sys
+import os
 from py2neo import Graph, Node
 import json
 import requests
 from tqdm import tqdm
 from multiprocessing.dummy import Pool
 from functools import reduce
-from datetime import datetime
 import itertools
 
 
@@ -41,14 +41,14 @@ def subid2neo(sub_id, fresh_start=False, threads=1):
     for node_type_name, nodes in node_types.items():
         totalElements = get_totals(subs_url, node_type_name)  # just for progress bar
         print('Building {} nodes in Neo4J... \n'.format(node_type_name))
-        node_list_2neo(GRAPH, nodes, node_type_name, totalElements)
+        node_list_2neo(GRAPH, nodes, node_type_name, totalElements, sub_id)
 
     processes = ingest_api.getEntities(subs_url, "processes", 500)
     totalElements = get_totals(subs_url, 'processes')  # just for progress bar
     make_links(processes, threads)
 
 
-def node_list_2neo(graph, nodes, type, totalElements): # pass a generator, node type
+def node_list_2neo(graph, nodes, type, totalElements, sub_id): # pass a generator, node type
     counter = 0
     tx = graph.begin()
     for node in tqdm(nodes, total=totalElements):
@@ -56,9 +56,13 @@ def node_list_2neo(graph, nodes, type, totalElements): # pass a generator, node 
         node_name = 'node' + str(counter)
         content = node.get('content')
         uuid = str(node.get('uuid').get('uuid'))
-        node_name = Node(type, uuid=uuid)
+        node_name = Node(type, uuid=uuid, submissionID=sub_id)
         for key, value in content.items():
-            if isinstance(value, str): #todo look for other data types and get them added to neo4j
+            if key == 'describedBy':
+                specific_type = value.split('/')[-1:][0]
+                node_name['specificType'] = specific_type
+                node_name['describeBy'] = value
+            elif isinstance(value, str): #todo look for other data types and get them added to neo4j
                 # print('Adding {} : {}'.format(key, value))
                 node_name[key] = value
         tx.create(node_name)
@@ -114,7 +118,7 @@ def make_links(processes, threads):
     rel_batch_ = list(itertools.chain.from_iterable(rel_batch_lists))
     rel_batch = str(rel_batch_).replace("'from'", "from").replace("'to'", "to").replace("'", '"')
 
-    pre_query = "WITH REL_BATCH AS batch UNWIND batch as row MATCH (n1 {uuid : row.from}) MATCH (n2 {uuid : row.to}) MERGE(n2)-[rel: DERIVED_BY]->(n1)"
+    pre_query = "WITH REL_BATCH AS batch UNWIND batch as row MATCH (n1 {uuid : row.from}) MATCH (n2 {uuid : row.to}) MERGE(n1)-[rel: DERIVED_FROM]->(n2)"
     query = pre_query.replace('REL_BATCH', rel_batch)
     GRAPH.run(query)
     print('Edge building complete.\n')
