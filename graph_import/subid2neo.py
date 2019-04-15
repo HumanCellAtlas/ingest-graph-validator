@@ -2,13 +2,10 @@ __author__ = "hewgreen"
 __license__ = "Apache 2.0"
 __date__ = "3/04/2019"
 
-# todo add links to protocols
-# todo check that nodes are merging and never getting duplicated. How do I merge on uuid to double ensure this?
-# todo add more metadata to the nodes. currently only strings are added.
-
+# todo add more metadata to the nodes. Currently only strings are added.
 
 from ingest.api.ingestapi import IngestApi
-import os
+import os, sys
 from py2neo import Graph, Node
 import json
 import requests
@@ -84,7 +81,8 @@ def get_rels(process_node, main_uuid):
     relations = {'inputBiomaterials':'biomaterials',
                  'derivedBiomaterials':'biomaterials',
                  'inputFiles':'files',
-                 'derivedFiles':'files'} #todo add protocols
+                 'derivedFiles':'files',
+                 'protocols':'protocols'}
 
     link_uuids = []
 
@@ -96,9 +94,11 @@ def get_rels(process_node, main_uuid):
         for link in links:
             uuid = link.get('uuid').get('uuid')
             if relation == 'inputBiomaterials' or relation == 'inputFiles':
-                link_uuids.append({"from": main_uuid, "to": uuid})
+                link_uuids.append({"from": main_uuid, "to": uuid, "link": "DERIVED_FROM"})
             elif relation == 'derivedBiomaterials' or relation == 'derivedFiles':
-                link_uuids.append({"from": uuid, "to": main_uuid})
+                link_uuids.append({"from": uuid, "to": main_uuid, "link": "DERIVED_FROM"})
+            elif relation == 'protocols':
+                link_uuids.append({"from": main_uuid, "to": uuid, "link": "IMPLEMENTS"})
 
     return link_uuids
 
@@ -116,11 +116,22 @@ def make_links(processes, threads):
                                [])
 
     rel_batch_ = list(itertools.chain.from_iterable(rel_batch_lists))
-    rel_batch = str(rel_batch_).replace("'from'", "from").replace("'to'", "to").replace("'", '"')
 
-    pre_query = "WITH REL_BATCH AS batch UNWIND batch as row MATCH (n1 {uuid : row.from}) MATCH (n2 {uuid : row.to}) MERGE(n1)-[rel: DERIVED_FROM]->(n2)"
-    query = pre_query.replace('REL_BATCH', rel_batch)
-    GRAPH.run(query)
+
+    # until dynamic label parameterization is available in cypher 10 only 1 link type can be created at once hence the need for this splitting.
+    rel_batch_types = {}
+    for link in rel_batch_:
+        link_type = link.get('link')
+        if link_type not in rel_batch_types:
+            rel_batch_types[link_type] = []
+        del link["link"]
+        rel_batch_types.get(link_type).append(link)
+
+    for link_type, pre_rel_batch in rel_batch_types.items():
+        rel_batch = str(pre_rel_batch).replace("'from'", "from").replace("'to'", "to").replace("'link'", "link").replace("'",'"')
+        pre_query = "WITH REL_BATCH AS batch UNWIND batch as row MATCH (n1 {uuid : row.from}) MATCH (n2 {uuid : row.to}) MERGE(n1)-[rel: LINK_TYPE]->(n2)"
+        query = pre_query.replace('REL_BATCH', rel_batch).replace('LINK_TYPE', link_type)
+        GRAPH.run(query)
     print('Edge building complete.\n')
 
 
