@@ -1,0 +1,30 @@
+
+## Test: 10x and SS2 has correct amount of files connected to each process
+
+#### Test description
+
+10x should have 3-4 files associated with it. SS2 should have 2-3 files associated with it.
+
+This test is in development as it requires looking at node metadata to check this assumption.
+
+#### The test- this cypher needs editing
+[source,cypher]
+----
+MATCH(p: processes) < -[r: DERIVED_FROM]-(f:files)
+WHERE p.submissionID = '{submissionID}'
+AND f.submissionID = '{submissionID}'
+AND f.specificType = 'sequence_file'
+AND size((p) - [: DERIVED_FROM]-(:files)) > 3
+RETURN(p)
+----
+
+
+
+.A note about all graph rule violation test
+[NOTE]
+===============================
+* Each cypher snippet in '_violation.adoc' will be ran.
+* The test passes if the cypher query returns no results.
+* `True` is a pass, `False` is a fail.
+* These tests can be renamed and added to as required.
+===============================

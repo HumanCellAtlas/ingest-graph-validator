@@ -1,0 +1,28 @@
+
+
+## Test: File nodes terminate backbone
+
+#### Test description
+
+Checks that file nodes have no in nodes. This would be violated for modelling synthetic biology but we have not encountered this yet.
+
+#### The test
+[source,cypher]
+----
+MATCH(a)
+WHERE a.submissionID = '{submissionID}'
+AND a.schema_type = 'file'
+AND size(()-->(a)) > 0
+RETURN a
+----
+
+
+
+.A note about all graph rule violation test
+[NOTE]
+===============================
+* Each cypher snippet in '_violation.adoc' will be ran.
+* The test passes if the cypher query returns no results.
+* `True` is a pass, `False` is a fail.
+* These tests can be renamed and added to as required.
+===============================
