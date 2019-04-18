@@ -1,6 +1,6 @@
 
 from py2neo import Graph
-from testingAndReporting import graphReports, get_cypher_for_bundle_return
+from testingAndReporting import graphTests
 
 
 
@@ -20,13 +20,9 @@ subid = '5c06c34f9460a300074fc246' # Rsatija 3 bundles, Not in demo DB
 
 
 
-# unique_node_identifiers = graphReports(subid='5c06a9cf9460a300074fc183', graph=graph).unique_node_identifiers
+results = graphTests(subid='5c2dfb101603f500078b28de', graph=graph).test_results
+# results = graphTests(subid='examples/example_sheets/E-GEOD-81547_HCAformat_final.xlsx', graph=graph).test_results
+# results = graphTests(subid='examples/example_sheets/dcp_integration_test_metadata_1_SS2_bundle.xlsx', graph=graph).test_results
 
 
-# unique_node_identifiers = graphReports(subid='dcp_integration_test_metadata_1_SS2_bundle.xlsx', graph=graph).unique_node_identifiers
-unique_node_identifiers = graphReports(subid='E-GEOD-81547_HCAformat_final.xlsx', graph=graph).unique_node_identifiers
-
-cypher_to_view = get_cypher_for_bundle_return(unique_node_identifiers)
-print(cypher_to_view)
-
-
+print(results)

@@ -45,14 +45,12 @@ def subid2neo(sub_id, fresh_start=False, threads=1):
 
 
 def node_list_2neo(graph, nodes, type, totalElements, sub_id): # pass a generator, node type
-    # counter = 0
     tx = graph.begin()
     for node in tqdm(nodes, total=totalElements):
-        # counter += 1
-        # node_name = 'node' + str(counter)
         content = node.get('content')
         unique_node_identifier = str(node.get('uuid').get('uuid'))
-        node_obj = Node(type, unique_node_identifier=unique_node_identifier, submissionID=sub_id)
+        specificType = content.get('describedBy').split('/')[-1:][0]
+        node_obj = Node(type, unique_node_identifier=unique_node_identifier, submissionID=sub_id, specificType=specificType)
 
         flat_content = unpack_ignore_lists(content)
         for key, value in flat_content.items():
@@ -102,7 +100,7 @@ def get_rels(process_node, main_uuid):
 
 def make_links(processes, threads):
 
-    print('Building edges in Neo4J...\n')
+    print('\nBuilding edges in Neo4J...\n')
 
     processes_list = list(processes)
     processes_chunked = list(split(processes_list, threads))
@@ -125,10 +123,10 @@ def make_links(processes, threads):
 
     for link_type, pre_rel_batch in rel_batch_types.items():
         rel_batch = str(pre_rel_batch).replace("'from'", "from").replace("'to'", "to").replace("'link'", "link").replace("'",'"')
-        pre_query = "WITH REL_BATCH AS batch UNWIND batch as row MATCH (n1 {uuid : row.from}) MATCH (n2 {uuid : row.to}) MERGE(n1)-[rel: LINK_TYPE]->(n2)"
+        pre_query = "WITH REL_BATCH AS batch UNWIND batch as row MATCH (n1 {unique_node_identifier : row.from}) MATCH (n2 {unique_node_identifier : row.to}) MERGE(n1)-[rel: LINK_TYPE]->(n2)"
         query = pre_query.replace('REL_BATCH', rel_batch).replace('LINK_TYPE', link_type)
         GRAPH.run(query)
-    print('Edge building complete.\n')
+    print('\nEdge building complete.\n')
 
 
 def split(list_to_split, num_chunks):
