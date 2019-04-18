@@ -11,6 +11,7 @@ from tqdm import tqdm
 from multiprocessing.dummy import Pool
 from functools import reduce
 import itertools
+from graph_import.helperFunctions import unpack_ignore_lists
 
 
 GRAPH = Graph("bolt://localhost:11005", user="neo4j", password="neo5j")
@@ -44,38 +45,20 @@ def subid2neo(sub_id, fresh_start=False, threads=1):
 
 
 def node_list_2neo(graph, nodes, type, totalElements, sub_id): # pass a generator, node type
-    counter = 0
+    # counter = 0
     tx = graph.begin()
     for node in tqdm(nodes, total=totalElements):
-        counter += 1
-        node_name = 'node' + str(counter)
+        # counter += 1
+        # node_name = 'node' + str(counter)
         content = node.get('content')
-        uuid = str(node.get('uuid').get('uuid'))
-        node_name = Node(type, uuid=uuid, submissionID=sub_id)
-        for key, value in content.items():
-            if key == 'describedBy':
-                specific_type = value.split('/')[-1:][0]
-                node_name['specificType'] = specific_type
-                node_name['describeBy'] = value
-            elif isinstance(value, list):
-                node_name[key] = str(value) # todo add better unpacking for arrays (arrays of dict not allowed in Neo4J)
-            elif isinstance(value, dict):
-                for nested_key, nested_value in value.items():
-                    if isinstance(nested_value, str) or isinstance(nested_value, int) or isinstance(nested_value, float):
-                        node_name[key + '.' + nested_key] = nested_value
-                    elif isinstance(nested_value, dict):
-                        for double_nested_key, double_nested_value in value.items():
-                            node_name[key + '.' + nested_key + '.' + double_nested_key] = str(double_nested_value) #todo investigate which attributes are non str here
-                    elif isinstance(nested_value, list):
-                        node_name[key] = str(value)  # todo add better unpacking for arrays (arrays of dict not allowed in Neo4J)
-                    else:
-                        print('MISSING NESTED ATTRIBUTE {}'.format(nested_value))
-            elif isinstance(value, str) or isinstance(value, int) or isinstance(value, float):
-                # print('Adding {} : {}'.format(key, value))
-                node_name[key] = value
-            else:
-                print('MISSING ATTRIBUTE {}'.format(value))
-        tx.create(node_name)
+        unique_node_identifier = str(node.get('uuid').get('uuid'))
+        node_obj = Node(type, unique_node_identifier=unique_node_identifier, submissionID=sub_id)
+
+        flat_content = unpack_ignore_lists(content)
+        for key, value in flat_content.items():
+            node_obj[key] = value
+
+        tx.create(node_obj)
     tx.commit()
 
 def get_totals(subs_url, node_type_name): # just for progress bar

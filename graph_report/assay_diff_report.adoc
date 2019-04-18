@@ -60,7 +60,7 @@ ORDER BY n.specificType
 MATCH (p)-[*]->(q:protocols)
 WITH p, n, s, z, q
 ORDER BY q.specificType
-RETURN p.uuid AS process_uuid,
+RETURN p.unique_node_identifier AS unique_node_identifier,
 count(distinct n) AS biomaterial_counts,
 collect(distinct n.specificType) AS biomaterials,
 count(distinct s) AS process_counts,

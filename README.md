@@ -18,7 +18,7 @@ These modules are for loading nodes and edges into Neo4J.
 
 Ingest hits a connection error for submissions with lots of bundles. This issue has been reported to ingest. Number of threads is not the limit but total number of requests seems to be the problem. Even with 2 threads large datasets cannot be downloaded.
 
-**sheet2neo** has not been started yet. This function will use the ingest importer to convert a stand alone preadsheet into JSON which will then be loaded into Neo4J. This should be faster but not as useful for integration of this validator into ingest.
+**sheet2neo** will use the ingest importer to convert a stand alone spreadsheet into JSON which will then be loaded into Neo4J. By avoiding crawling ingest API this can be used to ingest larger datasets although this still takes time. This script has not yet been optimised for speed but scales to all datasets we have (alough it has not been tested on TM).
 
 ### graph_validate/
 
@@ -43,3 +43,4 @@ MATCH (n {submissionID:'5c2dfb101603f500078b28de'})
 WHERE n.specificType = 'donor_organism' and NOT EXISTS(n.genus_species)
 RETURN count(n)
 ```
+
