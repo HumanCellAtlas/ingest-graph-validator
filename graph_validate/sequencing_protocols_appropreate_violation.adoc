@@ -1,0 +1,29 @@
+
+## Test: Sequencing files have appropreate protocols attached
+
+#### Test description
+
+The process upstream of a sequencing file should have two protocols and they should be 'library_preparation_protocol' and 'sequencing_protocol'. This is quite a strict test so may need to be relaxed at a later data if we observe valid violations.
+
+#### The test
+[source,cypher]
+----
+MATCH x = (d:protocols)<-[r:IMPLEMENTS]-(p:processes)<-[:DERIVED_FROM]-(f:files)
+WHERE f.specificType = 'sequence_file'
+AND d.submissionID = '{submissionID}'
+AND p.submissionID = '{submissionID}'
+AND f.submissionID = '{submissionID}'
+AND NOT (size((p)-[:IMPLEMENTS]-()) = 2 OR d.specificType IN ['library_preparation_protocol', 'sequencing_protocol'])
+RETURN p
+----
+
+
+
+.A note about all graph rule violation test
+[NOTE]
+===============================
+* Each cypher snippet in '_violation.adoc' will be ran.
+* The test passes if the cypher query returns no results.
+* `True` is a pass, `False` is a fail.
+* These tests can be renamed and added to as required.
+===============================

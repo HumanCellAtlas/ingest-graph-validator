@@ -1,0 +1,27 @@
+
+## Test: All attached files are derrived from a donor
+
+#### Test description
+
+This test only matches files attached by a DERIVED_FROM relationship and then ensured they are eventually derived from a donor biomateral. This test will not match supplementary files because they are not attached to the graph. In the ingest API they are only attached to the project.
+
+#### The test
+[source,cypher]
+----
+MATCH path=(a:files)-[:DERIVED_FROM *]->(b)
+WHERE a.submissionID = '{submissionID}'
+AND NOT size((b)-->()) > 0
+AND NOT b.specificType = 'donor_organism'
+RETURN b
+----
+
+
+
+.A note about all graph rule violation test
+[NOTE]
+===============================
+* Each cypher snippet in '_violation.adoc' will be ran.
+* The test passes if the cypher query returns no results.
+* `True` is a pass, `False` is a fail.
+* These tests can be renamed and added to as required.
+===============================
