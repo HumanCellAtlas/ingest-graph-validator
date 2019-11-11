@@ -1,52 +1,63 @@
 
 from ingest.api.ingestapi import IngestApi
 from ingest.importer.importer import XlsImporter
-from graph_import.helperFunctions import unpack_ignore_lists
-from py2neo import Graph, Node
+from graph_import.helperFunctions import unpack_ignore_lists, unpack_dictionary
+from py2neo import Graph, Node, Relationship
 from tqdm import tqdm
+from pprint import pprint
 
+import numpy as np
 import os
 
 DEFAULT_INGEST_URL = os.environ.get('INGEST_API', 'https://api.ingest.data.humancellatlas.org')
 GRAPH = Graph("bolt://localhost:11005", user="neo4j", password="neo5j")
-
+CACHED_NODES = {}
 # pip install -e git+https://github.com/HumanCellAtlas/ingest-client.git@4cb76e90a596cd53aeed13b1c06d65f7f52340df#egg=hca_ingest # temp needed until latest ingest release
 
 
 class fillNeoGraph:
-    def __init__(self, file_path, fresh_start=False):
+    def __init__(self, file_path, fresh_start=False, IngestApi=None, XlsImporter=None):
         self.file_path = file_path
         self.entity_map = self.get_entity_map()
         print('\nUploaded sheet and converted to JSON...\n')
 
-        if fresh_start == True:
+        if fresh_start:
             GRAPH.delete_all()
 
         self.fill_nodes()
         self.fill_relationships()
 
-
+    # NOTES AS PER 10/02/2019:
+    """
+    submissionID was moved to beginning of function to avoid calling it many times
+    content variable was removed (Not necessary now)
+    specificType is defined by a entity value: 'concrete_type'
+    
+    This function gets the entity types (Biomaterial, project, etc) and fills out the node objects to return to Neo4j
+    """
     def fill_nodes(self):
         nodes_by_type = self.entity_map.entities_dict_by_type
+        submissionID = self.file_path  # note there are no uuids or submission IDs with dry mode so the filename is used as a pseudo ID
         for node_type in nodes_by_type:
             print('\nWorking on {} nodes...\n'.format(node_type))
             node_dict = nodes_by_type.get(node_type)
             tx = GRAPH.begin()
             for unique_node_identifier, value in tqdm(node_dict.items()):
-                content = value.content
-                submissionID = self.file_path # note there are no uuids or submission IDs with dry mode so the filename is used as a pseudo ID
-                specificType = content.get('describedBy').split('/')[-1:][0]
+                specificType = value.concrete_type
 
                 # Ingest does not have consistency between importer internal names and API names!!
                 name_mismatch_buffer = {'process':'processes','file':'files','biomaterial':'biomaterials','protocol':'protocols'}
                 if node_type in name_mismatch_buffer:
                     node_type = name_mismatch_buffer.get(node_type)
 
-
-                node_obj = Node(node_type, specificType=specificType, submissionID=submissionID, unique_node_identifier=unique_node_identifier)
-                flat_content = unpack_ignore_lists(content)
-                for key, value in flat_content.items():
-                    node_obj[key] = value
+                node_obj = Node(specificType if specificType else "Process", node_type, specificType=specificType, submissionID=submissionID, unique_node_identifier=unique_node_identifier)
+                flat_content = unpack_dictionary(value.content, {})
+                for key, value2 in flat_content.items():
+                    node_obj[key] = value2
+                    if "name" in key:
+                        node_obj["name"] = value2
+                del flat_content
+                CACHED_NODES[unique_node_identifier] = node_obj
                 tx.create(node_obj)
             tx.commit()
 
@@ -80,16 +91,20 @@ class fillNeoGraph:
                 rel_batch_types[link_type] = []
             del link["link"]
             rel_batch_types.get(link_type).append(link)
-
         print('\nPushing Edges to Neo4J...\n')
 
-        for link_type, pre_rel_batch in rel_batch_types.items():
-            rel_batch = str(pre_rel_batch).replace("'from'", "from").replace("'to'", "to").replace("'link'","link").replace("'",'"')
-            pre_query = "WITH REL_BATCH AS batch UNWIND batch as row MATCH (n1 {unique_node_identifier : row.from}) MATCH (n2 {unique_node_identifier : row.to}) MERGE(n1)-[rel: LINK_TYPE]->(n2)"
-            query = pre_query.replace('REL_BATCH', rel_batch).replace('LINK_TYPE', link_type)
-            GRAPH.run(query)
+        for link_type, pre_rel_batch0 in rel_batch_types.items():
+            unique = [dict(s) for s in set(frozenset(d.items()) for d in pre_rel_batch0)]
+            for pre_rel_batch in tqdm(unique, desc=link_type):
+                node1 = CACHED_NODES[pre_rel_batch["from"]]
+                node2 = CACHED_NODES[pre_rel_batch["to"]]
+                relationship = Relationship(node1, link_type, node2)
+                GRAPH.create(relationship)
         print('\nEdge building complete.\n')
 
+    """
+    This function starts the entity maps for a spreadsheet.
+    """
     def get_entity_map(self):
         ingest_api = IngestApi(url=DEFAULT_INGEST_URL)
         importer = XlsImporter(ingest_api)
