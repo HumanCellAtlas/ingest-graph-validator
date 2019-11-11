@@ -12,6 +12,7 @@ from multiprocessing.dummy import Pool
 from functools import reduce
 import itertools
 from graph_import.helperFunctions import unpack_ignore_lists
+from pprint import pprint
 
 
 GRAPH = Graph("bolt://localhost:11005", user="neo4j", password="neo5j")
@@ -31,6 +32,8 @@ def subid2neo(sub_id, fresh_start=False, threads=1):
 
     node_types = {}
     node_types['protocols'] = ingest_api.getEntities(subs_url, "protocols", pageSize=500)
+    pprint(node_types)
+    sys.exit()
     node_types['biomaterials'] = ingest_api.getEntities(subs_url, "biomaterials", pageSize=500)
     node_types['files'] = ingest_api.getEntities(subs_url, "files", pageSize=500)
     node_types['processes'] = ingest_api.getEntities(subs_url, "processes", pageSize=500)
@@ -122,6 +125,8 @@ def make_links(processes, threads):
         rel_batch_types.get(link_type).append(link)
 
     for link_type, pre_rel_batch in rel_batch_types.items():
+        for relation in pre_rel_batch:
+            pre_query = ""
         rel_batch = str(pre_rel_batch).replace("'from'", "from").replace("'to'", "to").replace("'link'", "link").replace("'",'"')
         pre_query = "WITH REL_BATCH AS batch UNWIND batch as row MATCH (n1 {unique_node_identifier : row.from}) MATCH (n2 {unique_node_identifier : row.to}) MERGE(n1)-[rel: LINK_TYPE]->(n2)"
         query = pre_query.replace('REL_BATCH', rel_batch).replace('LINK_TYPE', link_type)
