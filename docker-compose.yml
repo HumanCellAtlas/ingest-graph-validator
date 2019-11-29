@@ -1,0 +1,19 @@
+# ingest-graph-validator application definition to use as an automated tester in
+# the validation pipeline.
+# Author: Javier Ferrer
+version: "3.5"
+
+services:
+  neo4j-server:
+    image: neo4j:latest
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+    environment:
+      - NEO4J_AUTH=neo4j/password
+  validator-app:
+    build: .
+    depends_on:
+      - neo4j-server
+    environment:
+      - NEO4J_DB_URL=bolt://neo4j-server:7687

@@ -56,3 +56,4 @@ def unpack_ignore_lists(in_dict): # Neo4J cannot take lists or dicts so they are
         out_dict = dict_loop(out_dict)
 
     return out_dict
+

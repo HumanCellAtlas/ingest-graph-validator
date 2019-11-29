@@ -1,18 +1,18 @@
+import os
+
+from py2neo import Graph, Node, Relationship
+from tqdm import tqdm
 
 from ingest.api.ingestapi import IngestApi
 from ingest.importer.importer import XlsImporter
-from graph_import.helperFunctions import unpack_ignore_lists, unpack_dictionary
-from py2neo import Graph, Node, Relationship
-from tqdm import tqdm
-from pprint import pprint
 
-import numpy as np
-import os
+from .helper_functions import unpack_dictionary
 
-DEFAULT_INGEST_URL = os.environ.get('INGEST_API', 'https://api.ingest.data.humancellatlas.org')
-GRAPH = Graph("bolt://localhost:11005", user="neo4j", password="neo5j")
+from ..config import Config
+
+DEFAULT_INGEST_URL = Config['INGEST_API']
+GRAPH = Graph(Config['NEO4J_DB_URL'], user=Config['NEO4J_DB_USERNAME'], password=Config['NEO4J_DB_PASSWORD'])
 CACHED_NODES = {}
-# pip install -e git+https://github.com/HumanCellAtlas/ingest-client.git@4cb76e90a596cd53aeed13b1c06d65f7f52340df#egg=hca_ingest # temp needed until latest ingest release
 
 
 class fillNeoGraph:
@@ -20,7 +20,8 @@ class fillNeoGraph:
         self.file_path = file_path
         self.entity_map = self.get_entity_map()
         print('\nUploaded sheet and converted to JSON...\n')
-
+        print(f'working with {Config["NEO4J_DB_URL"]}')
+        
         if fresh_start:
             GRAPH.delete_all()
 
@@ -106,6 +107,8 @@ class fillNeoGraph:
     This function starts the entity maps for a spreadsheet.
     """
     def get_entity_map(self):
+        print("getting entity map")
         ingest_api = IngestApi(url=DEFAULT_INGEST_URL)
         importer = XlsImporter(ingest_api)
+        print("importing spreasheet")
         return importer.dry_run_import_file(file_path=self.file_path)
