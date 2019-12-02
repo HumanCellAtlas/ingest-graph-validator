@@ -6,6 +6,7 @@ from os import listdir
 import re
 import pandas as pd
 
+
 class graphTests:
     def __init__(self, subid, graph):
         self.submissionID = subid
@@ -39,12 +40,10 @@ class graphReports:
         self.reports = self.get_reports()
 
         # Add new report functions here:
-        reportname = 'assay_diff_report.adoc' # reports should deliver dict that can be put into dataframes
-        self.unique_node_identifiers = self.get_unique_assays(reportname) # each report should have a corresponding function for processing
-
+        reportname = 'assay_diff_report.adoc'  # reports should deliver dict that can be put into dataframes
+        self.unique_node_identifiers = self.get_unique_assays(reportname)  # each report should have a corresponding function for processing
 
     # function finds unique assay graphs and returns the uuid of each represenative for plotting
-
     def get_unique_assays(self, reportname):
         report_result = self.reports.get(reportname)
         df = pd.DataFrame.from_dict(report_result).set_index('unique_node_identifier').astype(str).drop_duplicates()
@@ -60,9 +59,9 @@ class graphReports:
 
 
 # helper functions
-
 def get_tests(self):
     return [x for x in listdir(self.query_path) if x.endswith(self.match_pattern)]
+
 
 def format_query(self, test):
     filepath = self.query_path + '/' + test
@@ -76,11 +75,13 @@ def format_query(self, test):
 
         return formatted_query
 
+
 def run_cypher(self, formatted_query):
     result = self.graph.run(formatted_query)
     return result.data()
 
-def get_cypher_for_bundle_return(unique_node_identifier_list): # just returns cypher to use in neo4J at the moment :-( still working out how to present this
+
+def get_cypher_for_bundle_return(unique_node_identifier_list):  # just returns cypher to use in neo4J at the moment :-( still working out how to present this
     commands = []
     for unique_node_identifier in unique_node_identifier_list:
         query = "MATCH x=(:files)-[:DERIVED_FROM]->(p:processes {unique_node_identifier:'{unique_node_identifier}'})-[*]->(n) WHERE n.specificType = 'donor_organism' or n.schema_type = 'protocol' RETURN x"

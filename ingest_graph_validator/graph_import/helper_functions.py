@@ -1,5 +1,3 @@
-from pprint import pprint
-
 """
 Neo4J cannot take lists or dictionaries. In order to be used, json schemas ("content" in EntityMap object) need to be flattened.
 
@@ -9,7 +7,9 @@ Neo4J cannot take lists or dictionaries. In order to be used, json schemas ("con
 
 @:returns   out_dict    Dictionary with unpacked values
 """
-def unpack_dictionary(in_dict, out_dict={}, nested_key = ""):
+
+
+def unpack_dictionary(in_dict, out_dict={}, nested_key=""):
     for key, value in in_dict.items():
         if isinstance(value, dict):
             out_dict = unpack_dictionary(value, out_dict, "{}{}{}".format(nested_key, "." if nested_key else "", key))
@@ -21,10 +21,11 @@ def unpack_dictionary(in_dict, out_dict={}, nested_key = ""):
                 out_dict["{}{}{}".format(nested_key, "." if nested_key else "", key)] = str(value)
         else:
             out_dict[nested_key + ("." if nested_key else "") + key] = value
-    #pprint(out_dict)
+    #  pprint(out_dict)
     return out_dict
 
-def unpack_ignore_lists(in_dict): # Neo4J cannot take lists or dicts so they are unpacked or stringed
+
+def unpack_ignore_lists(in_dict):  # Neo4J cannot take lists or dicts so they are unpacked or stringed
 
     def dict_loop(in_dict):
 
@@ -56,4 +57,3 @@ def unpack_ignore_lists(in_dict): # Neo4J cannot take lists or dicts so they are
         out_dict = dict_loop(out_dict)
 
     return out_dict
-
