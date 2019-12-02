@@ -13,6 +13,7 @@ import time
 import webbrowser
 
 from .graph_import.sheet2neo import fillNeoGraph
+from .config import Config
 
 
 CONTEXT_SETTINGS = dict(help_option_names=["-h", "--help"])
@@ -22,11 +23,11 @@ CONTEXT_SETTINGS = dict(help_option_names=["-h", "--help"])
 @click.option("-s", "--silent", default=False, is_flag=True, help="Run validation tests without starting the user interface.")
 @click.option("-x", "--xls", type=click.Path(exists=True), help="Fetch data from xls spreadsheet.")
 @click.option("-u", "--subid", type=click.UUID, help="Fetch data from ingest using submission id.")
-@click.option("-b", "--bolt_port", type=click.INT, help="Neo4j backend bolt port.", default=7687, show_default=True)
-@click.option("-w", "--web_port", type=click.INT, help="Neo4j web frontend port.", default=7474, show_default=True)
+@click.option("-b", "--bolt_port", type=click.INT, help="Neo4j backend bolt port.", default=Config['NEO4J_BOLT_PORT'], show_default=True)
+@click.option("-w", "--web_port", type=click.INT, help="Neo4j web frontend port.", default=Config['NEO4J_FRONTEND_PORT'], show_default=True)
 @click.option("-k", "--keep_backend", default=False, is_flag=True, help="Do not close the neo4j backend on exit,\
     useful for keeping the data for further executions.")
-def main(silent, xls, subid, bolt_port, web_port, keep_backend):
+def main(silent, xls, subid, bolt_port=Config['NEO4J_BOLT_PORT'], web_port=Config['NEO4J_FRONTEND_PORT'], keep_backend=False):
     if xls and subid:
         click.echo("Error: \"-x\" / \"--xls\" and \"-u\" / \"--subid\" are mutually exclusive.")
         exit(1)
@@ -68,7 +69,7 @@ def start_neo4j_server(bolt_port, web_port, neo4j_frontend_url, keep_backend):
         print("[START] neo4j backend is already running")
         return
 
-    neo4j_server_env = ["NEO4J_AUTH=neo4j/password"]
+    neo4j_server_env = [f"NEO4J_AUTH={Config['NEO4J_DB_USERNAME']}/{Config['NEO4J_DB_PASSWORD']}"]
     neo4j_server_ports = {bolt_port: bolt_port, web_port: web_port}
 
     print("[START] starting neo4j backend")
