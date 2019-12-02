@@ -1,5 +1,3 @@
-import os
-
 from py2neo import Graph, Node, Relationship
 from tqdm import tqdm
 
@@ -21,7 +19,7 @@ class fillNeoGraph:
         self.entity_map = self.get_entity_map()
         print('\nUploaded sheet and converted to JSON...\n')
         print(f'working with {Config["NEO4J_DB_URL"]}')
-        
+
         if fresh_start:
             GRAPH.delete_all()
 
@@ -33,7 +31,7 @@ class fillNeoGraph:
     submissionID was moved to beginning of function to avoid calling it many times
     content variable was removed (Not necessary now)
     specificType is defined by a entity value: 'concrete_type'
-    
+
     This function gets the entity types (Biomaterial, project, etc) and fills out the node objects to return to Neo4j
     """
     def fill_nodes(self):
@@ -47,7 +45,7 @@ class fillNeoGraph:
                 specificType = value.concrete_type
 
                 # Ingest does not have consistency between importer internal names and API names!!
-                name_mismatch_buffer = {'process':'processes','file':'files','biomaterial':'biomaterials','protocol':'protocols'}
+                name_mismatch_buffer = {'process': 'processes', 'file': 'files', 'biomaterial': 'biomaterials', 'protocol': 'protocols'}
                 if node_type in name_mismatch_buffer:
                     node_type = name_mismatch_buffer.get(node_type)
 
