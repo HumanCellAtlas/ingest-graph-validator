@@ -12,6 +12,8 @@ import requests
 import time
 import webbrowser
 
+from .graph_import.sheet2neo import fillNeoGraph
+
 
 CONTEXT_SETTINGS = dict(help_option_names=["-h", "--help"])
 
@@ -23,7 +25,7 @@ CONTEXT_SETTINGS = dict(help_option_names=["-h", "--help"])
 @click.option("-b", "--bolt_port", type=click.INT, help="Neo4j backend bolt port.", default=7687, show_default=True)
 @click.option("-w", "--web_port", type=click.INT, help="Neo4j web frontend port.", default=7474, show_default=True)
 @click.option("-k", "--keep_backend", default=False, is_flag=True, help="Do not close the neo4j backend on exit,\
-    useful for keeping the data for further executions")
+    useful for keeping the data for further executions.")
 def main(silent, xls, subid, bolt_port, web_port, keep_backend):
     if xls and subid:
         click.echo("Error: \"-x\" / \"--xls\" and \"-u\" / \"--subid\" are mutually exclusive.")
@@ -37,7 +39,6 @@ def main(silent, xls, subid, bolt_port, web_port, keep_backend):
     start_neo4j_server(bolt_port, web_port, neo4j_frontend_url, keep_backend)
 
     # TODO: CHOOSE BETWEEN XLS AND UUID
-    from .graph_import.sheet2neo import fillNeoGraph
     fillNeoGraph(xls, fresh_start=True)
 
     if not silent:
