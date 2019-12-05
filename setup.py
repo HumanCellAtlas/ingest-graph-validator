@@ -91,7 +91,7 @@ setup(
     description="HCA Ingest Service neo4j graph validator package",
     entry_points={
         'console_scripts': [
-            'ingest_graph_validator=ingest_graph_validator.cli:main',
+            'ingest-graph-validator=ingest_graph_validator.ingest_graph_validator:main',
         ],
     },
     install_requires=requirements,
