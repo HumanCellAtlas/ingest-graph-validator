@@ -4,7 +4,7 @@
 Package entrypoint for use as a standalone application.
 
 Spins up the database backend if needed, and either runs tests or starts up the ui.
-The command line parameter parsing is also performed here.
+The command line parameter parsing is also performed here, as is logging initialization.
 """
 
 import atexit
