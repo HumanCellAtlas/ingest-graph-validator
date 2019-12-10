@@ -8,14 +8,16 @@ other option is to run a docker-compose with the whole architecture (that will o
 instance of Neo4j's bloom).
 
 Spins up the database backend if needed, and either runs tests or starts up the ui.
-The command line parameter parsing is also performed here, as is logging initialization.
+The command line parameter parsing is also performed here, as is logging initialization.HCA
 """
 
 import atexit
 import click
 import docker
 import logging
+import os
 import requests
+import sys
 import time
 import webbrowser
 
@@ -24,24 +26,41 @@ from .config import Config
 from .logger import init_logger
 
 
-@click.command(context_settings={'help_option_names': ["-h", "--help"]})
+source_dir = os.path.join(os.path.dirname(__file__), "graph_import", "import_sources")
+
+
+class GraphImporterSourceCLI(click.MultiCommand):
+
+    def list_commands(self, ctx):
+        source_list = []
+
+        for filename in os.listdir(source_dir):
+            if filename.endswith("_source.py"):
+                source_list.append(filename[:-10])
+
+        source_list.sort()
+        return source_list
+
+    def get_command(self, ctx, name):
+        ns = {}
+        source_filename = os.path.join(source_dir, name + "_source.py")
+
+        with open(source_filename) as source_file:
+            code = compile(source_file.read(), source_filename, 'exec')
+            eval(code, ns, ns)
+
+        return ns['main']
+
+
+@click.command(cls=GraphImporterSourceCLI, context_settings={'help_option_names': ["-h", "--help"]})
 @click.option("-t", "--test", default=False, is_flag=True, help="Run validation tests without starting the user interface.")
-@click.option("-x", "--xls", type=click.Path(exists=True), help="Fetch data from xls spreadsheet.")
-@click.option("-u", "--subid", type=click.UUID, help="Fetch data from ingest using submission id.")
 @click.option("-b", "--bolt_port", type=click.INT, help="Neo4j backend bolt port.", default=Config['NEO4J_BOLT_PORT'], show_default=True)
 @click.option("-w", "--web_port", type=click.INT, help="Neo4j web frontend port.", default=Config['NEO4J_FRONTEND_PORT'], show_default=True)
 @click.option("-k", "--keep_backend", default=False, is_flag=True, help="Do not close the neo4j backend on exit,\
-    useful for keeping the data for further executions.")
-@click.option("-l", "--log_level", default="INFO", help="Log level (INFO, WARNING, ERROR)", show_default=True)
-def main(test,
-         xls,
-         subid,
-         bolt_port=Config['NEO4J_BOLT_PORT'],
-         web_port=Config['NEO4J_FRONTEND_PORT'],
-         keep_backend=False,
-         log_level="INFO"):
+              useful for keeping the data for further executions.")
+@click.option("-l", "--log_level", default="INFO", help="Log level (DEBUG, INFO, WARNING, ERROR)", show_default=True)
+def cli(test, bolt_port, web_port, keep_backend, log_level):
 
-    init_logger(__name__, log_level)
     logger = logging.getLogger(__name__)
 
     # Check params.
@@ -129,6 +148,18 @@ class Neo4jServer:
             if frontend_up == 200:
                 self._logger.info("neo4j server is up")
                 break
+
+
+# Stats logging before Click parses command line.
+def main():
+    log_level = "INFO"
+
+    for index, param in enumerate(sys.argv):
+        if param == "-l" or param == "--log_level":
+            log_level = sys.argv[index + 1]
+
+    init_logger("ingest_graph_validator", log_level)
+    cli()
 
 
 if __name__ == "__main__":

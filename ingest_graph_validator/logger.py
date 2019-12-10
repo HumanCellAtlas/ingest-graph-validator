@@ -10,6 +10,7 @@ from importlib import reload
 
 
 log_levels_map = {
+    "DEBUG": logging.DEBUG,
     "INFO": logging.INFO,
     "WARNING": logging.WARNING,
     "ERROR": logging.ERROR
@@ -17,7 +18,6 @@ log_levels_map = {
 
 
 def init_logger(name, level):
-    # Fix libraries using root logger.
     reload(logging)
 
     effective_level = log_levels_map[level]
@@ -25,9 +25,8 @@ def init_logger(name, level):
     logger = logging.getLogger(name)
     logger.setLevel(effective_level)
 
-    log_format = logging.Formatter("{asctime} [{name}] - {levelname}: {message}",
-                                   "%y-%m-%d %H:%M:%S",
-                                   "{")
+    log_format = logging.Formatter("%(asctime)s [%(name)s] - %(levelname)s: %(message)s",
+                                   "%y-%m-%d %H:%M:%S")
 
     log_handler = logging.StreamHandler(sys.stdout)
     log_handler.setFormatter(log_format)
@@ -35,7 +34,8 @@ def init_logger(name, level):
     logger.addHandler(log_handler)
     log_handler.setLevel(effective_level)
 
-    if effective_level not in [logging.INFO, logging.WARNING, logging.ERROR]:
+    if effective_level not in list(log_levels_map.values()):
         logger.error(f"Wrong log level specified: {effective_level}")
     else:
         logger.setLevel(level)
+        logger.debug(f"log started with level {level}")
