@@ -11,156 +11,134 @@ Spins up the database backend if needed, and either runs tests or starts up the 
 The command line parameter parsing is also performed here, as is logging initialization.HCA
 """
 
-import atexit
 import click
 import docker
 import logging
-import os
-import requests
-import sys
-import time
-import webbrowser
 
-from .graph_import.sheet2neo import fillNeoGraph
 from .config import Config
-from .logger import init_logger
+from .logger import init_logger, log_levels_map
+from .data_store import DataStore
+from .actions import get_actions
+from .hydrators import get_hydrators
 
 
-source_dir = os.path.join(os.path.dirname(__file__), "graph_import", "import_sources")
+@click.group(context_settings={'help_option_names': ["-h", "--help"]})
+@click.option("-l", "--log-level", default=Config['LOG_LEVEL'], type=click.Choice(list(log_levels_map.keys())),
+              help="Log level", show_default=True, show_choices=True)
+@click.option("-b", "--bolt-port", type=click.INT, help="Specify bolt port.", default=Config['NEO4J_BOLT_PORT'],
+              show_default=True)
+@click.option("-f",
+              "--frontend-port", type=click.INT, help="Specify web frontend port.",
+              default=Config['NEO4J_FRONTEND_PORT'], show_default=True)
+@click.pass_context
+def entry_point(ctx, log_level, bolt_port, frontend_port):
+    # TODO: COMPLETE DOC
+    """HCA Ingest graph validation tool."""
+
+    init_logger("ingest_graph_validator", log_level)
+    logger = logging.getLogger(__name__)
+    logger.debug("at entrypoint")
+
+    ctx.obj = DataStore()
+    ctx.obj.backend = Neo4jServer(bolt_port, frontend_port)
+    populate_commands()
 
 
-class GraphImporterSourceCLI(click.MultiCommand):
-
-    def list_commands(self, ctx):
-        source_list = []
-
-        for filename in os.listdir(source_dir):
-            if filename.endswith("_source.py"):
-                source_list.append(filename[:-10])
-
-        source_list.sort()
-        return source_list
-
-    def get_command(self, ctx, name):
-        ns = {}
-        source_filename = os.path.join(source_dir, name + "_source.py")
-
-        with open(source_filename) as source_file:
-            code = compile(source_file.read(), source_filename, 'exec')
-            eval(code, ns, ns)
-
-        return ns['main']
-
-
-@click.command(cls=GraphImporterSourceCLI, context_settings={'help_option_names': ["-h", "--help"]})
-@click.option("-t", "--test", default=False, is_flag=True, help="Run validation tests without starting the user interface.")
-@click.option("-b", "--bolt_port", type=click.INT, help="Neo4j backend bolt port.", default=Config['NEO4J_BOLT_PORT'], show_default=True)
-@click.option("-w", "--web_port", type=click.INT, help="Neo4j web frontend port.", default=Config['NEO4J_FRONTEND_PORT'], show_default=True)
-@click.option("-k", "--keep_backend", default=False, is_flag=True, help="Do not close the neo4j backend on exit,\
-              useful for keeping the data for further executions.")
-@click.option("-l", "--log_level", default="INFO", help="Log level (DEBUG, INFO, WARNING, ERROR)", show_default=True)
-def cli(test, bolt_port, web_port, keep_backend, log_level):
+@entry_point.command()
+@click.pass_context
+def init(ctx):
+    """Start Neo4j backend."""
 
     logger = logging.getLogger(__name__)
+    logger.info("starting graph validator Neo4j backend container")
 
-    # Check params.
-    if xls and subid:
-        click.echo("Error: \"-x\" / \"--xls\" and \"-u\" / \"--subid\" are mutually exclusive.")
-        exit(1)
-
-    if not xls and not subid:
-        click.echo("Error: please specify either \"-x\" / \"--xls\" or \"-u\" / \"--subid\".")
-        exit(1)
-
-    # Start backend.
-    logger.info("starting graph validator application")
-    neo4j_frontend_url = f"http://127.0.0.1:{web_port}"
-    neo4j_server = Neo4jServer(bolt_port, web_port, neo4j_frontend_url, keep_backend)
-    neo4j_server.start()
-
-    if xls:
-        logger.info(f"starting xls import using source [{xls}]")
-        fillNeoGraph(xls, fresh_start=True)
-    elif subid:
-        logger.info(f'starting ingest api import using submission uuid [{subid}]')
-        # TODO: SUBID IMPORT
-
-    if not test:
-        webbrowser.open_new_tab(neo4j_frontend_url)
-        logger.info(f"web interface for neo4j started at {neo4j_frontend_url}")
-        click.echo(f"The web interface is running {neo4j_frontend_url}. Press ctrl+c when you are finished.")
-        while True:
-            input()
+    ctx.obj.backend.start()
 
 
-def cleanup_handler(container, keep_backend):
+@entry_point.command()
+@click.pass_context
+def shutdown(ctx):
+    """Stop Neo4j backend."""
+
     logger = logging.getLogger(__name__)
-    if not keep_backend:
-        logger.info("cleaning up containers")
-        container.stop()
-        container.remove()
-    exit()
+    logger.info("cleaning up containers")
+
+    ctx.obj.backend = Neo4jServer()
+    ctx.obj.backend.stop()
 
 
-# Starts a neo4j docker instance.
+@entry_point.group()
+@click.pass_context
+def hydrate(ctx):
+    """Populate the Neo4j graph database using different sources."""
+    pass
+
+
+@entry_point.group()
+@click.pass_context
+def action(ctx):
+    """Run different actions on the graph database."""
+    pass
+
+
+def populate_commands():
+    logger = logging.getLogger(__name__)
+
+    for hydrator in get_hydrators():
+        hydrate.add_command(hydrator)
+        logger.debug(f"added hydrator {hydrator.name}")
+
+    for action_command in get_actions():
+        action.add_command(action_command)
+        logger.debug(f"added action {action_command.name}")
+
+
+def attach_backend_container(container_name):
+    logger = logging.getLogger(__name__)
+    docker_client = docker.from_env()
+    containers_list = docker_client.containers.list(filters={"name": container_name})
+
+    if len(containers_list):
+        logger.info(f"attached to backend container [{container_name}]")
+        return containers_list[0]
+
+    logger.debug("found no backend container")
+    return None
+
+
 class Neo4jServer:
-    def __init__(self, bolt_port, web_port, neo4j_frontend_url, keep_backend):
+
+    def __init__(self, bolt_port=None, frontend_port=None):
         self._bolt_port = bolt_port
-        self._web_port = web_port
-        self._neo4j_frontend_url = neo4j_frontend_url
-        self._keep_backend = keep_backend
+        self._frontend_port = frontend_port
 
         self._logger = logging.getLogger(__name__)
         self._docker_client = docker.from_env()
-        self.container_name = "neo4j-server"
+        self.container_name = Config['BACKEND_CONTAINER_NAME']
+        self._container = attach_backend_container(self.container_name)
 
     def start(self):
-        # Returns if container exists already (coming from docker-compose).
-        containers_list = self._docker_client.containers.list(filters={"name": self.container_name})
-
-        if len(containers_list):
-            atexit.register(cleanup_handler, containers_list[0], self._keep_backend)
-            self._logger.info("neo4j backend is already running")
-            return
+        if self._container is not None:
+            self._logger.error("a backend container already exists, shut down first")
+            exit(1)
 
         neo4j_server_env = [f"NEO4J_AUTH={Config['NEO4J_DB_USERNAME']}/{Config['NEO4J_DB_PASSWORD']}"]
-        neo4j_server_ports = {self._bolt_port: self._bolt_port, self._web_port: self._web_port}
+        neo4j_server_ports = {self._bolt_port: self._bolt_port, self._frontend_port: self._frontend_port}
 
-        self._logger.info("starting neo4j backend")
-        neo4j_server = self._docker_client.containers.run(
-            "neo4j:latest",
-            name=self.container_name,
-            ports=neo4j_server_ports,
-            environment=neo4j_server_env,
-            detach=True)
+        self._logger.info(f"starting backend container [{self.container_name}]")
+        self._container = self._docker_client.containers.run("neo4j:latest", name=self.container_name,
+                                                             ports=neo4j_server_ports, environment=neo4j_server_env,
+                                                             detach=True)
 
-        # Cleanup of docker containers when the application ends.
-        atexit.register(cleanup_handler, neo4j_server, self._keep_backend)
+    def stop(self):
+        if self._container is None:
+            return
 
-        # Wait for server initialization.
-        while True:
-            frontend_up = 0
-            try:
-                frontend_up = requests.head(self._neo4j_frontend_url).status_code
-            except requests.ConnectionError:
-                time.sleep(2)
-
-            if frontend_up == 200:
-                self._logger.info("neo4j server is up")
-                break
-
-
-# Stats logging before Click parses command line.
-def main():
-    log_level = "INFO"
-
-    for index, param in enumerate(sys.argv):
-        if param == "-l" or param == "--log_level":
-            log_level = sys.argv[index + 1]
-
-    init_logger("ingest_graph_validator", log_level)
-    cli()
+        self._container.stop()
+        self._logger.debug(f"backend container [{self.container_name}] stopped")
+        self._container.remove()
+        self._logger.info(f"backend container [{self.container_name}] removed")
 
 
 if __name__ == "__main__":
-    main()
+    entry_point()
