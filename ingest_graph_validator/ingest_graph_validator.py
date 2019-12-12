@@ -56,8 +56,9 @@ def init(ctx):
 
 
 @entry_point.command()
+@click.option("-r", "--remove", default=False, is_flag=True, help="Remove container (clean up all data).")
 @click.pass_context
-def shutdown(ctx):
+def shutdown(ctx, remove):
     """Stop Neo4j backend."""
 
     logger = logging.getLogger(__name__)
@@ -65,6 +66,9 @@ def shutdown(ctx):
 
     ctx.obj.backend = Neo4jServer()
     ctx.obj.backend.stop()
+
+    if remove:
+        ctx.obj.backend.remove()
 
 
 @entry_point.group()
@@ -132,10 +136,17 @@ class Neo4jServer:
 
     def stop(self):
         if self._container is None:
+            self._logger.debug("stop: no backend container found")
             return
 
         self._container.stop()
-        self._logger.debug(f"backend container [{self.container_name}] stopped")
+        self._logger.info(f"backend container [{self.container_name}] stopped")
+
+    def remove(self):
+        if self._container is None:
+            self._logger.debug("remove: no backend container found")
+            return
+
         self._container.remove()
         self._logger.info(f"backend container [{self.container_name}] removed")
 

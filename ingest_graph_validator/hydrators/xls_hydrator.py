@@ -16,3 +16,5 @@ class XlsHydrator:
 
     def hydrate(self):
         return ("TEST!", {"a": 1, "b": 2})
+
+    # TODO: AMOALLA
