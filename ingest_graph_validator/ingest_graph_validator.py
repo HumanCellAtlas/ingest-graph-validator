@@ -22,13 +22,19 @@ from .actions import get_actions
 from .hydrators import get_hydrators
 
 
+class ForwardingGroup(click.Group):
+    def invoke(self, ctx):
+        ctx.obj.params = ctx.params
+        super(ForwardingGroup, self).invoke(ctx)
+
+
 @click.group(context_settings={'help_option_names': ["-h", "--help"]})
-@click.option("-l", "--log-level", type=click.Choice(list(log_levels_map.keys())), help="Log level", show_default=True,
-              show_choices=True, default=Defaults['LOG_LEVEL'])
-@click.option("-b", "--bolt-port", type=click.INT, help="Specify bolt port.", show_default=True,
-              default=Defaults['NEO4J_BOLT_PORT'])
-@click.option("-f", "--frontend-port", type=click.INT, help="Specify web frontend port.", show_default=True,
-              default=Defaults['NEO4J_FRONTEND_PORT'])
+@click.option("-l", "--log-level", type=click.Choice(list(log_levels_map.keys())), default=Defaults['LOG_LEVEL'],
+              show_default=True, show_choices=True, help="Log level")
+@click.option("-b", "--bolt-port", type=click.INT, default=Defaults['NEO4J_BOLT_PORT'], show_default=True,
+              help="Specify bolt port.")
+@click.option("-f", "--frontend-port", type=click.INT, default=Defaults['NEO4J_FRONTEND_PORT'], show_default=True,
+              help="Specify web frontend port.")
 @click.pass_context
 def entry_point(ctx, log_level, bolt_port, frontend_port):
     # TODO: COMPLETE DOC
@@ -59,7 +65,7 @@ def init(ctx):
 
 
 @entry_point.command()
-@click.option("-r", "--remove", default=False, is_flag=True, help="Remove container (clean up all data).")
+@click.option("-r", "--remove", is_flag=True, default=False, help="Remove container (clean up all data).")
 @click.pass_context
 def shutdown(ctx, remove):
     """Stop Neo4j backend."""
@@ -74,9 +80,10 @@ def shutdown(ctx, remove):
         ctx.obj.backend.remove()
 
 
-@entry_point.group()
+@entry_point.group(cls=ForwardingGroup)
+@click.option("-k", "--keep_contents", is_flag=True, default=False, help="Keep previous contents of the database.")
 @click.pass_context
-def hydrate(ctx):
+def hydrate(ctx, keep_contents):
     """Populate the Neo4j graph database using different sources."""
     pass
 
