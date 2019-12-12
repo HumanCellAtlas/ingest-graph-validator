@@ -15,7 +15,12 @@ def init_graph(ctx):
 
     ctx.obj.graph = Graph(Config['NEO4J_DB_URL'], user=Config['NEO4J_DB_USERNAME'],
                           password=Config['NEO4J_DB_PASSWORD'])
-    logger.debug("started Neo4j graph instance")
+
+    if not ctx.obj.params['keep_contents']:
+        logger.debug("cleaning up graph")
+        ctx.obj.graph.delete_all()
+
+    logger.debug("started neo4j graph instance")
 
 
 def check_backend(ctx):
@@ -33,11 +38,7 @@ def check_backend(ctx):
 def xls(ctx, xls_filename):
     """Import data from an XLS spreadsheet."""
 
-    logger = logging.getLogger(__name__)
-
     check_backend(ctx)
     init_graph(ctx)
 
-    logger.debug("xls hydrator initialized")
-
-    XlsHydrator(xls_filename, ctx.obj.graph).hydrate()
+    XlsHydrator(xls_filename).hydrate()
