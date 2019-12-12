@@ -23,24 +23,27 @@ from .hydrators import get_hydrators
 
 
 @click.group(context_settings={'help_option_names': ["-h", "--help"]})
-@click.option("-l", "--log-level", default=Config['LOG_LEVEL'], type=click.Choice(list(log_levels_map.keys())),
-              help="Log level", show_default=True, show_choices=True)
-@click.option("-b", "--bolt-port", type=click.INT, help="Specify bolt port.", default=Config['NEO4J_BOLT_PORT'],
-              show_default=True)
-@click.option("-f",
-              "--frontend-port", type=click.INT, help="Specify web frontend port.",
-              default=Config['NEO4J_FRONTEND_PORT'], show_default=True)
+@click.option("-l", "--log-level", type=click.Choice(list(log_levels_map.keys())), help="Log level", show_default=True,
+              show_choices=True, default=Config['LOG_LEVEL'])
+@click.option("-b", "--bolt-port", type=click.INT, help="Specify bolt port.", show_default=True,
+              default=Config['NEO4J_BOLT_PORT'])
+@click.option("-f", "--frontend-port", type=click.INT, help="Specify web frontend port.", show_default=True,
+              default=Config['NEO4J_FRONTEND_PORT'])
 @click.pass_context
 def entry_point(ctx, log_level, bolt_port, frontend_port):
     # TODO: COMPLETE DOC
     """HCA Ingest graph validation tool."""
+
+    Config['LOG_LEVEL'] = log_level
+    Config['NEO4J_BOLT_PORT'] = bolt_port
+    Config['NEO4J_FRONTEND_PORT'] = frontend_port
 
     init_logger("ingest_graph_validator", log_level)
     logger = logging.getLogger(__name__)
     logger.debug("at entrypoint")
 
     ctx.obj = DataStore()
-    ctx.obj.backend = Neo4jServer(bolt_port, frontend_port)
+    ctx.obj.backend = Neo4jServer()
     populate_commands()
 
 
@@ -112,7 +115,7 @@ def attach_backend_container(container_name):
 
 class Neo4jServer:
 
-    def __init__(self, bolt_port=None, frontend_port=None):
+    def __init__(self, bolt_port=Config['NEO4J_BOLT_PORT'], frontend_port=Config['NEO4J_FRONTEND_PORT']):
         self._bolt_port = bolt_port
         self._frontend_port = frontend_port
 
