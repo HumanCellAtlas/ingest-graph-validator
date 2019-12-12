@@ -109,7 +109,7 @@ def attach_backend_container(container_name):
         logger.info(f"attached to backend container [{container_name}]")
         return containers_list[0]
 
-    logger.debug("found no backend container")
+    logger.debug("found no backend container to attach")
     return None
 
 
