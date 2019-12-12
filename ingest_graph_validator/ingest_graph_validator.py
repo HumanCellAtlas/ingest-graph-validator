@@ -15,7 +15,7 @@ import click
 import docker
 import logging
 
-from .config import Config
+from .config import Config, Defaults
 from .logger import init_logger, log_levels_map
 from .data_store import DataStore
 from .actions import get_actions
@@ -24,11 +24,11 @@ from .hydrators import get_hydrators
 
 @click.group(context_settings={'help_option_names': ["-h", "--help"]})
 @click.option("-l", "--log-level", type=click.Choice(list(log_levels_map.keys())), help="Log level", show_default=True,
-              show_choices=True, default=Config['LOG_LEVEL'])
+              show_choices=True, default=Defaults['LOG_LEVEL'])
 @click.option("-b", "--bolt-port", type=click.INT, help="Specify bolt port.", show_default=True,
-              default=Config['NEO4J_BOLT_PORT'])
+              default=Defaults['NEO4J_BOLT_PORT'])
 @click.option("-f", "--frontend-port", type=click.INT, help="Specify web frontend port.", show_default=True,
-              default=Config['NEO4J_FRONTEND_PORT'])
+              default=Defaults['NEO4J_FRONTEND_PORT'])
 @click.pass_context
 def entry_point(ctx, log_level, bolt_port, frontend_port):
     # TODO: COMPLETE DOC
