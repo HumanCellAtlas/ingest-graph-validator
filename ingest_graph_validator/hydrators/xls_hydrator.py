@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 """Excel spreadsheet hydrator class."""
 
 import logging
@@ -13,8 +12,14 @@ from ..config import Config
 from .common import flatten
 
 
-
 class XlsHydrator:
+    """
+    Xls Spreadsheet hydrator class.
+
+    Enables importing of HCA Ingest Service Xls Spreadsheets to the graph validator application.
+
+    The fill_nodes and fill_edges methods will be refactored.
+    """
 
     def __init__(self, xls_filename, graph):
         self._xls_filename = xls_filename

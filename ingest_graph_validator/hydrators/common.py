@@ -1,7 +1,15 @@
-import collections
+# -*- coding: utf-8 -*-
+"""Common methods used by different hydrators"""
 
 
 def flatten(d, parent_key=""):
+    """
+    Flattens a dict
+
+    Flattens a dictionary extending the keys to include the whole path separated by periods. Also stringifies any lists
+    inside the dict. Note dict contained inside lists will get stringified without flattening.
+    """
+
     items = []
 
     for key, value in d.items():
