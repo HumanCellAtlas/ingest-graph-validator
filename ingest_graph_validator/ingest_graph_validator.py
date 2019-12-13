@@ -110,7 +110,7 @@ def populate_commands():
 def attach_backend_container(container_name):
     logger = logging.getLogger(__name__)
     docker_client = docker.from_env()
-    containers_list = docker_client.containers.list(filters={"name": container_name})
+    containers_list = docker_client.containers.list(all=True, filters={"name": container_name})
 
     if len(containers_list):
         logger.info(f"attached to backend container [{container_name}]")
@@ -133,8 +133,13 @@ class Neo4jServer:
 
     def start(self):
         if self._container is not None:
-            self._logger.error("a backend container already exists, shut down first")
+            if self._container.status == "exited":
+                self._container.start()
+                self._logger.info("backend container already existed but was stopped, it has been started")
+            else:
+                self._logger.error("backend container is already running")
             exit(1)
+
 
         neo4j_server_env = [f"NEO4J_AUTH={Config['NEO4J_DB_USERNAME']}/{Config['NEO4J_DB_PASSWORD']}"]
         neo4j_server_ports = {self._bolt_port: self._bolt_port, self._frontend_port: self._frontend_port}
