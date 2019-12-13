@@ -41,4 +41,4 @@ def xls(ctx, xls_filename):
     check_backend(ctx)
     init_graph(ctx)
 
-    XlsHydrator(xls_filename).hydrate()
+    XlsHydrator(xls_filename, ctx.obj.graph).hydrate()
