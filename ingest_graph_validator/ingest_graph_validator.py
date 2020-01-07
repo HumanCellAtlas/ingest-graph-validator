@@ -15,7 +15,9 @@ import click
 import docker
 import logging
 
-from .config import Config, Defaults
+from py2neo import Graph
+
+from .config import Config, Defaults, init_config
 from .logger import init_logger, log_levels_map
 from .data_store import DataStore
 from .actions import get_actions
@@ -37,8 +39,9 @@ class ForwardingGroup(click.Group):
               help="Specify web frontend port.")
 @click.pass_context
 def entry_point(ctx, log_level, bolt_port, frontend_port):
-    # TODO: COMPLETE DOC
-    """HCA Ingest graph validation tool."""
+    """HCA Ingest graph validation tool entry point."""
+
+    init_config()
 
     Config['LOG_LEVEL'] = log_level
     Config['NEO4J_BOLT_PORT'] = bolt_port
@@ -50,6 +53,9 @@ def entry_point(ctx, log_level, bolt_port, frontend_port):
 
     ctx.obj = DataStore()
     ctx.obj.backend = Neo4jServer()
+    ctx.obj.graph = Graph(Config['NEO4J_DB_URL'], user=Config['NEO4J_DB_USERNAME'],
+                          password=Config['NEO4J_DB_PASSWORD'])
+
     populate_commands()
 
 
@@ -140,14 +146,12 @@ class Neo4jServer:
                 self._logger.error("backend container is already running")
             exit(1)
 
-
-        neo4j_server_env = [f"NEO4J_AUTH={Config['NEO4J_DB_USERNAME']}/{Config['NEO4J_DB_PASSWORD']}"]
         neo4j_server_ports = {self._bolt_port: self._bolt_port, self._frontend_port: self._frontend_port}
 
         self._logger.info(f"starting backend container [{self.container_name}]")
-        self._container = self._docker_client.containers.run("neo4j:latest", name=self.container_name,
-                                                             ports=neo4j_server_ports, environment=neo4j_server_env,
-                                                             detach=True)
+        self._container = self._docker_client.containers.run(Config['NEO4J_IMAGE'], name=self.container_name,
+                                                             ports=neo4j_server_ports, detach=True,
+                                                             environment=Config['NEO4J_DB_ENV_VARS'])
 
     def stop(self):
         if self._container is None:
