@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 
-"""
-Logging module enabling and configuring a central log for the whole application.
-"""
+"""Logging module enabling and configuring a central log for the whole application."""
 
 import logging
 import sys
