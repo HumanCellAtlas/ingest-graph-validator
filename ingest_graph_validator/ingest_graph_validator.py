@@ -91,14 +91,24 @@ def shutdown(ctx, remove):
 @click.pass_context
 def hydrate(ctx, keep_contents):
     """Populate the Neo4j graph database using different sources."""
-    pass
+
+    logger = logging.getLogger(__name__)
+
+    if not ctx.obj.backend.is_alive():
+        logger.error("no backend container found")
+        exit(1)
 
 
 @entry_point.group()
 @click.pass_context
 def action(ctx):
     """Run different actions on the graph database."""
-    pass
+
+    logger = logging.getLogger(__name__)
+
+    if not ctx.obj.backend.is_alive():
+        logger.error("no backend container found")
+        exit(1)
 
 
 def populate_commands():
@@ -168,6 +178,9 @@ class Neo4jServer:
 
         self._container.remove()
         self._logger.info(f"backend container [{self.container_name}] removed")
+
+    def is_alive(self):
+        return self._container is not None
 
 
 if __name__ == "__main__":
