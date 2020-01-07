@@ -6,6 +6,8 @@ import click
 import logging
 
 from .xls_hydrator import XlsHydrator
+from .ingest_hydrator import IngestHydrator
+from .biomodels_hydrator import BiomodelsHydrator
 
 
 def check_backend(backend):
@@ -20,7 +22,7 @@ def check_backend(backend):
 
 def get_hydrators():
     """ List of available hydrators """
-    return [xls]
+    return [xls, ingest, biomodels]
 
 
 """ XLS Hydrator cli command definition """
@@ -32,3 +34,25 @@ def xls(ctx, xls_filename):
 
     check_backend(ctx.obj.backend)
     XlsHydrator(ctx.obj.graph, ctx.obj.params['keep_contents'], xls_filename).hydrate()
+
+
+""" Ingest Service Hydrator cli command definition """
+@click.command()
+@click.argument("subid", type=click.UUID)
+@click.pass_context
+def ingest(ctx, subid):
+    """Import data from a Ingest Service submission."""
+
+    check_backend(ctx.obj.backend)
+    IngestHydrator(ctx.obj.graph, ctx.obj.params['keep_contents'], subid).hydrate()
+
+
+""" Biomodels hydrator cli command definition """
+@click.command()
+@click.argument("param", type=click.STRING)
+@click.pass_context
+def biomodels(ctx, param):
+    """Import data from BioModels."""
+
+    check_backend(ctx.obj.backend)
+    BiomodelsHydrator(ctx.obj.graph, ctx.obj.params['keep_contents'], param).hydrate()
