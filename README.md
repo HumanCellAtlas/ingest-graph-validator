@@ -8,14 +8,14 @@ The purpose of this suite is double:
 
 ## Usage
 
-At the moment only the interactive visualizer is ready, loading the data from a spreadsheet. It uses Neo4j Bloom web frontend.
+At the moment only the interactive visualizer is ready, loading the data from a spreadsheet. It uses Neo4j web frontend.
 
 ```
 pip install .
 ingest-graph-validator --xls PATH_TO_SPREADSHEET
 ```
 
-This will install the package and start the neo4j server, convert a XLS spreadsheet to a graph and show the bloom web frontend.
+This will install the package and start the neo4j server, convert a XLS spreadsheet to a graph and show the web frontend.
 
 The documentation will be expanded soon.
 
