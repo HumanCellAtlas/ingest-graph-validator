@@ -10,7 +10,7 @@ from ..config import Config
 
 
 def get_actions():
-    return [interactive]
+    return [interactive, test]
 
 
 @click.command()
@@ -25,6 +25,7 @@ def interactive(ctx, web_port):
 
 @click.command()
 @click.pass_context
+@click.argument("test_path", type=click.Path(exists=True))
 def test(ctx, test_path):
     """Runs graph validation tests in the specified folder."""
 
