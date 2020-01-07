@@ -1,23 +1,48 @@
 # -*- coding: utf-8 -*-
 
-"""Biomodels API importer class."""
+"""BioModels API hydrator."""
 
-import click
-import logging
+# from py2neo import Node, Relationship
 
-
-class BiomodelsSource:
-    def __init__(self, url):
-        self.url = url
-        self.logger = logging.getLogger(__name__)
-
-        self.logger.debug(f"started {__name__} source with params {url}")
+from .hydrator import Hydrator
 
 
-@click.command()
-@click.argument("url", type=click.STRING)
-def main(url):
-    """Import data from the BioModels API."""
+class BiomodelsHydrator(Hydrator):
+    """
+    BioModels API hydrator class.
 
-    BiomodelsSource(url)
-    pass
+    Enables importing of data from BioModels API.
+    """
+
+    def __init__(self, graph, keep_constants, param):
+        super().__init__(graph, keep_constants)
+
+        self._param = param
+
+        self._logger.debug(f"started biomodels hydrator [{self._param}]")
+
+        self._entity_map = self.fetch(param)
+        self._nodes = self.get_nodes()
+        self._edges = self.get_edges()
+
+
+    def fetch(self, param):
+        self._logger.info("fetching biomodels data")
+
+        return None
+
+
+    def get_nodes(self):
+        nodes = {}
+
+        self._logger.info("importing nodes")
+
+        return nodes
+
+
+    def get_edges(self):
+        edges = []
+
+        self._logger.info("importing edges")
+
+        return edges
