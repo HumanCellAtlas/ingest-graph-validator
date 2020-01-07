@@ -24,12 +24,10 @@ class XlsHydrator(Hydrator):
     def __init__(self, graph, keep_constants, xls_filename):
         super().__init__(graph, keep_constants)
 
-        self._xls_filename = xls_filename
-        self._entity_map = self.import_spreadsheet(xls_filename)
-
-        self._logger = logging.getLogger(__name__)
         self._logger.debug(f"started xls hydrator for file [{self._xls_filename}]")
 
+        self._xls_filename = xls_filename
+        self._entity_map = self.import_spreadsheet(xls_filename)
         self._nodes = self.get_nodes()
         self._edges = self.get_edges()
 
