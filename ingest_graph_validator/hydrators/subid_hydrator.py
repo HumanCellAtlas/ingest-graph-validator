@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-"""Ingest submission id importer class."""
+"""Ingest API submission id hydrator."""
 
 import click
 import logging
