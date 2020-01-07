@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-"""Common methods used by different hydrators"""
+
+"""Common methods used by different hydrators."""
 
 
 def flatten(d, parent_key=""):
