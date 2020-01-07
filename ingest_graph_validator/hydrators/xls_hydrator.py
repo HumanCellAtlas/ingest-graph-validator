@@ -2,8 +2,6 @@
 
 """Excel spreadsheet hydrator."""
 
-import logging
-
 from py2neo import Node, Relationship
 
 from ingest.api.ingestapi import IngestApi
