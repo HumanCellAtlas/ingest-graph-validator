@@ -1,3 +1,7 @@
+# -*- coding: utf-8 -*-
+
+"""Action modules for the ingest-graph-validator."""
+
 import click
 import logging
 
