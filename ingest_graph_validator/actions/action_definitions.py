@@ -3,9 +3,9 @@
 """Action modules for the ingest-graph-validator."""
 
 import click
-import logging
 
 from .interactive_action import InteractiveAction
+from .test_action import TestAction
 from ..config import Config
 
 
@@ -20,10 +20,12 @@ def get_actions():
 def interactive(ctx, web_port):
     """Launches the Neo4j web frontend."""
 
-    logger = logging.getLogger(__name__)
-
-    if ctx.obj.backend is None:
-        logger.error("no backend container found")
-        exit(1)
-
     InteractiveAction(web_port).run()
+
+
+@click.command()
+@click.pass_context
+def test(ctx, test_path):
+    """Runs graph validation tests in the specified folder."""
+
+    TestAction(test_path).run()
