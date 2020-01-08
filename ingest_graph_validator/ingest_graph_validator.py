@@ -147,6 +147,7 @@ class Neo4jServer:
         self.container_name = Config['BACKEND_CONTAINER_NAME']
         self._container = attach_backend_container(self.container_name)
 
+
     def start(self):
         if self._container is not None:
             if self._container.status == "exited":
@@ -163,6 +164,7 @@ class Neo4jServer:
                                                              ports=neo4j_server_ports, detach=True,
                                                              environment=Config['NEO4J_DB_ENV_VARS'])
 
+
     def stop(self):
         if self._container is None:
             self._logger.debug("stop: no backend container found")
@@ -171,6 +173,7 @@ class Neo4jServer:
         self._container.stop()
         self._logger.info(f"backend container [{self.container_name}] stopped")
 
+
     def remove(self):
         if self._container is None:
             self._logger.debug("remove: no backend container found")
@@ -178,6 +181,7 @@ class Neo4jServer:
 
         self._container.remove()
         self._logger.info(f"backend container [{self.container_name}] removed")
+
 
     def is_alive(self):
         return self._container is not None
