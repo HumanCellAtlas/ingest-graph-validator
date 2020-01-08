@@ -24,9 +24,11 @@ def interactive(ctx, web_port):
 
 
 @click.command()
+@click.option("-f", "--fail", is_flag=True, help="Immediately finish with an error status when a test fails.",
+              default=False, show_default=True)
 @click.pass_context
 @click.argument("test_path", type=click.Path(exists=True))
-def test(ctx, test_path):
+def test(ctx, test_path, fail):
     """Runs graph validation tests in the specified folder."""
 
-    TestAction(test_path).run()
+    TestAction(ctx.obj.graph, test_path, fail).run()

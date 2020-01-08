@@ -18,6 +18,7 @@ class InteractiveAction:
         self._web_port = web_port
         self._logger = logging.getLogger(__name__)
 
+
     def run(self):
         neo4j_frontend_url = f"http://127.0.0.1:{self._web_port}"
 
