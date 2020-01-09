@@ -24,12 +24,6 @@ from .actions import get_actions
 from .hydrators import get_hydrators
 
 
-class ForwardingGroup(click.Group):
-    def invoke(self, ctx):
-        ctx.obj.params = ctx.params
-        super(ForwardingGroup, self).invoke(ctx)
-
-
 @click.group(context_settings={'help_option_names': ["-h", "--help"]})
 @click.option("-l", "--log-level", type=click.Choice(list(log_levels_map.keys())), default=Defaults['LOG_LEVEL'],
               show_default=True, show_choices=True, help="Log level")
@@ -86,7 +80,7 @@ def shutdown(ctx, remove):
         ctx.obj.backend.remove()
 
 
-@entry_point.group(cls=ForwardingGroup)
+@entry_point.group()
 @click.option("-k", "--keep_contents", is_flag=True, default=False, help="Keep previous contents of the database.")
 @click.pass_context
 def hydrate(ctx, keep_contents):
@@ -97,6 +91,10 @@ def hydrate(ctx, keep_contents):
     if not ctx.obj.backend.is_alive():
         logger.error("no backend container found")
         exit(1)
+
+    if not keep_contents:
+        logger.debug("cleaning up graph")
+        ctx.obj.graph.delete_all()
 
 
 @entry_point.group()

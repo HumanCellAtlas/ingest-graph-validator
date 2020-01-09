@@ -19,8 +19,8 @@ class XlsHydrator(Hydrator):
     Enables importing of HCA Ingest Service Xls Spreadsheets to the graph validator application.
     """
 
-    def __init__(self, graph, keep_constants, xls_filename):
-        super().__init__(graph, keep_constants)
+    def __init__(self, graph, xls_filename):
+        super().__init__(graph)
 
         self._xls_filename = xls_filename
 

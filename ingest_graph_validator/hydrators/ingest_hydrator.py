@@ -14,8 +14,8 @@ class IngestHydrator(Hydrator):
     Enables importing of HCA Ingest Service submissions by specifying a Submission ID.
     """
 
-    def __init__(self, graph, keep_constants, subid):
-        super().__init__(graph, keep_constants)
+    def __init__(self, graph, subid):
+        super().__init__(graph)
 
         self._subid = subid
 

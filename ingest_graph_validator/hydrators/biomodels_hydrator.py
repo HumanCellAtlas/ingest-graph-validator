@@ -14,8 +14,8 @@ class BiomodelsHydrator(Hydrator):
     Enables importing of data from BioModels API.
     """
 
-    def __init__(self, graph, keep_constants, param):
-        super().__init__(graph, keep_constants)
+    def __init__(self, graph, param):
+        super().__init__(graph)
 
         self._param = param
 

@@ -21,7 +21,7 @@ def get_hydrators():
 def xls(ctx, xls_filename):
     """Import data from an XLS spreadsheet."""
 
-    XlsHydrator(ctx.obj.graph, ctx.obj.params['keep_contents'], xls_filename).hydrate()
+    XlsHydrator(ctx.obj.graph, xls_filename).hydrate()
 
 
 """ Ingest Service Hydrator cli command definition """
@@ -31,7 +31,7 @@ def xls(ctx, xls_filename):
 def ingest(ctx, subid):
     """Import data from a Ingest Service submission."""
 
-    IngestHydrator(ctx.obj.graph, ctx.obj.params['keep_contents'], subid).hydrate()
+    IngestHydrator(ctx.obj.graph, subid).hydrate()
 
 
 """ Biomodels hydrator cli command definition """
@@ -41,4 +41,4 @@ def ingest(ctx, subid):
 def biomodels(ctx, param):
     """Import data from BioModels."""
 
-    BiomodelsHydrator(ctx.obj.graph, ctx.obj.params['keep_contents'], param).hydrate()
+    BiomodelsHydrator(ctx.obj.graph, param).hydrate()

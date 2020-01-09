@@ -8,7 +8,7 @@ class Hydrator:
     Hydrator main class, any hydrators implemented for the graph validator must implement this interface.
     """
 
-    def __init__(self, graph, keep_contents):
+    def __init__(self, graph):
         self._logger = logging.getLogger(__name__)
         self._graph = graph
 
@@ -17,10 +17,6 @@ class Hydrator:
 
         self._edges = []
         """Edge list of py4neo Relationship objects."""
-
-        if not keep_contents:
-            self._logger.debug("cleaning up graph")
-            self._graph.delete_all()
 
 
     def hydrate(self):
