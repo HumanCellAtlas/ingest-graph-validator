@@ -105,4 +105,4 @@ ENV/
 .mypy_cache/
 
 # refactor folder
-REFACTOR_THIS/
+REFACTOR_THIS
