@@ -8,7 +8,6 @@ import pytest
 from click.testing import CliRunner
 
 from ingest_graph_validator import ingest_graph_validator
-from ingest_graph_validator import cli
 
 
 @pytest.fixture
@@ -29,10 +28,11 @@ def test_content(response):
 
 def test_command_line_interface():
     """Test the CLI."""
+
     runner = CliRunner()
-    result = runner.invoke(cli.main)
+    result = runner.invoke(ingest_graph_validator.entry_point)
     assert result.exit_code == 0
-    assert 'ingest_graph_validator.cli.main' in result.output
-    help_result = runner.invoke(cli.main, ['--help'])
+    assert 'entry-point' in result.output
+    help_result = runner.invoke(ingest_graph_validator.entry_point, ['--help'])
     assert help_result.exit_code == 0
-    assert '--help  Show this message and exit.' in help_result.output
+    assert 'Show this message and exit.' in help_result.output

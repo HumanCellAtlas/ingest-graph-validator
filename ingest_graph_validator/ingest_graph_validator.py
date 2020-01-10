@@ -33,7 +33,7 @@ from .hydrators import get_hydrators
               help="Specify web frontend port.")
 @click.pass_context
 def entry_point(ctx, log_level, bolt_port, frontend_port):
-    """HCA Ingest graph validation tool entry point."""
+    """HCA Ingest graph validation Suite."""
 
     init_config()
 
