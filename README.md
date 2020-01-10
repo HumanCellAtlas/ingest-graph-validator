@@ -1,23 +1,78 @@
-# HCA Ingest Service graph validation suite
+# HCA Ingest Service Graph Validation Suite
 
-The purpose of this suite is double:
+## What is this useful for in the scope of the HCA:
 
 1. Enables data wranglers to visually analyze the relationships inside a submission to look for inconsistencies.
-2. Provides an automated graph validator that runs a series of specified tests and can be run fully containerized.
+2. Provides an automated graph validator for which to create tests using step 1 and can be run fully containerized.
+
+
+## Features
+
+The suite is divided in two separate, extensible parts:
+
+* **hydrators** enable users to import and populate data into a graph database. The reason not to call them importers is `import` is a reserved keyword in Python and `from importers import importer` is a bit confusing. :dizzy_face:
+
+* **actions** provide different tools to work with the generated graph. The first and most important is to run a series of tests to validate the constraints Data Wranglers want to impose on submissions. Another action is generating reports and extracting statistics from the graph to send to the submitters. Any other actions can be implemented to extend the suite.
+
+## Functionality
+
+So far, the functionality planned is as follows (WIP items are still not fully implemented):
+
+* Hydrators:
+    * Ingest Service Spreadsheet.
+    * Ingest Service API Submission. (WIP).
+    * BioSamples API (WIP).
+
+* Actions:
+    * Opening an interactive visualizer to query the graph.
+    * Running tests on the graph.
+    * Generating reports for the graph (WIP).
+
+
+## Installation
+
+### From the git repo
+
+```
+git clone git@github.com:HumanCellAtlas/ingest-graph-validator.git
+cd ingest-graph-validator
+pip install .
+```
+
+### From PyPI
+
+A PyPI package will be published soon.
 
 
 ## Usage
 
-At the moment only the interactive visualizer is ready, loading the data from a spreadsheet. It uses Neo4j web frontend.
+### Basic usage for data wranglers
 
 ```
-pip install .
-ingest-graph-validator --xls PATH_TO_SPREADSHEET
+ingest-graph-validator init
+ingest-graph-validator hydrate xls <spreadsheet filename>
 ```
 
-This will install the package and start the neo4j server, convert a XLS spreadsheet to a graph and show the web frontend.
+After the hydrator is done loading the data, open a browser to `http://localhost:7474` to take a look at the graph.
 
-The documentation will be expanded soon.
+### More help
+
+The Suite uses a CLI similar to git. Running a command without specifying anything else will show help for that command. At each level, the commands have different arguments and options. Running any subcommand with `-h` or `--help` with give you more information about it.
+
+The root level commands are:
+
+* **`ingest-graph-validator init`** starts the database backend and enables a frontend visualizer to query the database, in `http://localhost:7474` by default.
+
+* **`ingest-graph-validator hydrate`** shows the list of available hydrators.
+
+* **`ingest-graph-validator actions`** shows the list of available actions.
+
+* **`ingest-graph-validator shutdown`** stops the backend.
+
+
+## Containerized execution
+
+WIP
 
 
 ## Credits
