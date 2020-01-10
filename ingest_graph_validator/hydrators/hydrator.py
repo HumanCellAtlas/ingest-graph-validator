@@ -28,6 +28,8 @@ class Hydrator:
         self.fill_nodes(self._graph, self._nodes)
         self.fill_edges(self._graph, self._edges)
 
+        self._logger.info("hydration finished")
+
 
     def fill_nodes(self, graph, nodes):
         tx = self._graph.begin()

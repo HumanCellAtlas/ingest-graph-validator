@@ -32,7 +32,7 @@ class XlsHydrator(Hydrator):
 
 
     def import_spreadsheet(self, xls_filename):
-        self._logger.info("importing spreadsheet")
+        self._logger.debug("importing spreadsheet")
 
         ingest_api = IngestApi(url=Config['INGEST_API'])
         importer = XlsImporter(ingest_api)
@@ -43,7 +43,7 @@ class XlsHydrator(Hydrator):
     def get_nodes(self):
         nodes = {}
 
-        self._logger.info("importing nodes")
+        self._logger.debug("importing nodes")
 
         # We need to fetch all node types inside the entity map.
         for node_type in self._entity_map.entities_dict_by_type.keys():
@@ -59,7 +59,7 @@ class XlsHydrator(Hydrator):
     def get_edges(self):
         edges = []
 
-        self._logger.info("importing edges")
+        self._logger.debug("importing edges")
 
         for node_type in self._entity_map.entities_dict_by_type.keys():
             for node_id, node in self._entity_map.entities_dict_by_type.get(node_type).items():

@@ -40,7 +40,7 @@ class JsonSchemaHydrator(Hydrator):
 
 
     def import_schema(self, schema_path):
-        self._logger.info("importing json schema")
+        self._logger.debug("importing json schema")
 
         schema_file_paths = Path(schema_path).rglob("*.json")
         schema_elements = {}
@@ -73,7 +73,7 @@ class JsonSchemaHydrator(Hydrator):
     def get_nodes(self):
         nodes = {}
 
-        self._logger.info("importing nodes")
+        self._logger.debug("importing nodes")
 
         for node_id, node in self._schema_elements.items():
             nodes[node_id] = Node(*node['labels'], **node['properties'], id=node_id)
@@ -84,7 +84,7 @@ class JsonSchemaHydrator(Hydrator):
     def get_edges(self):
         edges = []
 
-        self._logger.info("importing edges")
+        self._logger.debug("importing edges")
 
         for node_id, node in self._schema_elements.items():
             for edge in node['edges']:
