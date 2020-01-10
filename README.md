@@ -53,7 +53,7 @@ ingest-graph-validator init
 ingest-graph-validator hydrate xls <spreadsheet filename>
 ```
 
-After the hydrator is done loading the data, open a browser to `http://localhost:7474` to take a look at the graph.
+After the hydrator is done loading the data, point a browser to <http://localhost:7474> to take a look at the graph.
 
 ### More help
 
