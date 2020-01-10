@@ -59,9 +59,13 @@ class JsonSchemaHydrator(Hydrator):
                 }
 
                 for key, value in schema_element_data['properties'].items():
-                    if "$ref" in value.keys():
+                    if '$ref' in value.keys():
                         ref = value['$ref'].split('/')[-1].split('.')[0]
                         schema_element['edges'].append(ref)
+                    elif 'type' in value.keys() and value['type'] == 'array' and 'items' in value.keys():
+                        if '$ref' in value['items'].keys() and '#' not in value['items']['$ref']:
+                            ref = value['items']['$ref'].split('/')[-1].split('.')[0]
+                            schema_element['edges'].append(ref)
                     else:
                         schema_element['properties'][key] = value['type']
 
@@ -87,6 +91,7 @@ class JsonSchemaHydrator(Hydrator):
         self._logger.debug("importing edges")
 
         for node_id, node in self._schema_elements.items():
+            print(node_id, node)
             for edge in node['edges']:
                 start_node = self._nodes[node_id]
                 end_node = self._nodes[edge]
