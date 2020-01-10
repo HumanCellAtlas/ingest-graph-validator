@@ -47,7 +47,7 @@ def entry_point(ctx, log_level, bolt_port, frontend_port):
 
     ctx.obj = DataStore()
     ctx.obj.backend = Neo4jServer()
-    ctx.obj.graph = Graph(Config['NEO4J_DB_URL'], user=Config['NEO4J_DB_USERNAME'],
+    ctx.obj.graph = Graph(f"{Config['NEO4J_DB_URL']}:{Config['NEO4J_BOLT_PORT']}", user=Config['NEO4J_DB_USERNAME'],
                           password=Config['NEO4J_DB_PASSWORD'])
 
     populate_commands()
@@ -161,6 +161,7 @@ class Neo4jServer:
         self._container = self._docker_client.containers.run(Config['NEO4J_IMAGE'], name=self.container_name,
                                                              ports=neo4j_server_ports, detach=True,
                                                              environment=Config['NEO4J_DB_ENV_VARS'])
+        self._logger.info(f"The web interface is running at http://{Config['NEO4J_DB_URL']}:{self._frontend_port}")
 
 
     def stop(self):
