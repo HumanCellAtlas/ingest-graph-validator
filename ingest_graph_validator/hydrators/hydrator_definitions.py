@@ -7,11 +7,12 @@ import click
 from .xls_hydrator import XlsHydrator
 from .ingest_hydrator import IngestHydrator
 from .biomodels_hydrator import BiomodelsHydrator
+from .json_schema_hydrator import JsonSchemaHydrator
 
 
 def get_hydrators():
     """ List of available hydrators """
-    return [xls, ingest, biomodels]
+    return [xls, ingest, biomodels, jsonschema]
 
 
 """ XLS Hydrator cli command definition """
@@ -42,3 +43,13 @@ def biomodels(ctx, param):
     """Import data from BioModels."""
 
     BiomodelsHydrator(ctx.obj.graph, param).hydrate()
+
+
+""" JSON Schema hydrator command definition """
+@click.command()
+@click.argument("schema_path", type=click.Path(exists=True))
+@click.pass_context
+def jsonschema(ctx, schema_path):
+    """Import data from a JSON Schema."""
+
+    JsonSchemaHydrator(ctx.obj.graph, schema_path).hydrate()
