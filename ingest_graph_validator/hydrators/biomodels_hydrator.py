@@ -25,12 +25,10 @@ class BiomodelsHydrator(Hydrator):
         self._nodes = self.get_nodes()
         self._edges = self.get_edges()
 
-
     def fetch(self, param):
         self._logger.debug("fetching biomodels data")
 
         return None
-
 
     def get_nodes(self):
         nodes = {}
@@ -38,7 +36,6 @@ class BiomodelsHydrator(Hydrator):
         self._logger.debug("importing nodes")
 
         return nodes
-
 
     def get_edges(self):
         edges = []

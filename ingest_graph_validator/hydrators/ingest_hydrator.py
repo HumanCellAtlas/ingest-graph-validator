@@ -25,12 +25,10 @@ class IngestHydrator(Hydrator):
         self._nodes = self.get_nodes()
         self._edges = self.get_edges()
 
-
     def fetch_submission(self, subid):
         self._logger.debug("fetching ingest submission")
 
         return None
-
 
     def get_nodes(self):
         nodes = {}
@@ -38,7 +36,6 @@ class IngestHydrator(Hydrator):
         self._logger.debug("importing nodes")
 
         return nodes
-
 
     def get_edges(self):
         edges = []

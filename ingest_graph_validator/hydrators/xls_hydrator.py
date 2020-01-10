@@ -30,7 +30,6 @@ class XlsHydrator(Hydrator):
         self._nodes = self.get_nodes()
         self._edges = self.get_edges()
 
-
     def import_spreadsheet(self, xls_filename):
         self._logger.debug("importing spreadsheet")
 
@@ -38,7 +37,6 @@ class XlsHydrator(Hydrator):
         importer = XlsImporter(ingest_api)
 
         return importer.dry_run_import_file(file_path=self._xls_filename)
-
 
     def get_nodes(self):
         nodes = {}
@@ -54,7 +52,6 @@ class XlsHydrator(Hydrator):
                 self._logger.debug(f"({node_id})")
 
         return nodes
-
 
     def get_edges(self):
         edges = []

@@ -28,7 +28,6 @@ class JsonSchemaHydrator(Hydrator):
         self._nodes = self.get_nodes()
         self._edges = self.get_edges()
 
-
     def _extract_labels_from_path(self, path):
         def path_strip(path):
             return str(path).strip('.').rstrip('/').lstrip('/').split('/')
@@ -37,7 +36,6 @@ class JsonSchemaHydrator(Hydrator):
         labels = [x for x in path_strip(path) if x not in excluded_labels]
 
         return labels
-
 
     def import_schema(self, schema_path):
         self._logger.debug("importing json schema")
@@ -73,7 +71,6 @@ class JsonSchemaHydrator(Hydrator):
 
         return schema_elements
 
-
     def get_nodes(self):
         nodes = {}
 
@@ -83,7 +80,6 @@ class JsonSchemaHydrator(Hydrator):
             nodes[node_id] = Node(*node['labels'], **node['properties'], id=node_id)
 
         return nodes
-
 
     def get_edges(self):
         edges = []

@@ -18,7 +18,6 @@ class Hydrator:
         self._edges = []
         """Edge list of py4neo Relationship objects."""
 
-
     def hydrate(self):
         """
         This method is called to populate the database. It will use the data contained
@@ -30,7 +29,6 @@ class Hydrator:
 
         self._logger.info("hydration finished")
 
-
     def fill_nodes(self, graph, nodes):
         tx = self._graph.begin()
 
@@ -38,7 +36,6 @@ class Hydrator:
             tx.create(node)
 
         tx.commit()
-
 
     def fill_edges(self, graph, edges):
         tx = self._graph.begin()

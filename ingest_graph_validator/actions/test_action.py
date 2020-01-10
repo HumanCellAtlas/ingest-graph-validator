@@ -25,7 +25,6 @@ class TestAction:
 
         self._logger = logging.getLogger(__name__)
 
-
     def load_test_queries(self):
         test_filenames = [x for x in listdir(self._test_path) if x.endswith(self._test_file_name_pattern)]
 
@@ -40,7 +39,6 @@ class TestAction:
                     self._test_queries[test_filename] = test_query[1]
 
         self._logger.info(f"loaded {len(self._test_queries)} test queries")
-
 
     def run(self):
         self._logger.info("loading tests")
