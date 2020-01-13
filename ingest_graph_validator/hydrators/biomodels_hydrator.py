@@ -35,11 +35,15 @@ class BiomodelsHydrator(Hydrator):
 
         self._logger.debug("importing nodes")
 
+        self._logger.info(f"imported {len(nodes)} nodes")
+
         return nodes
 
     def get_edges(self):
         edges = []
 
         self._logger.debug("importing edges")
+
+        self._logger.info(f"imported {len(edges)} edges")
 
         return edges

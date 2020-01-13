@@ -79,6 +79,8 @@ class JsonSchemaHydrator(Hydrator):
         for node_id, node in self._schema_elements.items():
             nodes[node_id] = Node(*node['labels'], **node['properties'], id=node_id)
 
+        self._logger.info(f"imported {len(nodes)} nodes")
+
         return nodes
 
     def get_edges(self):
@@ -92,5 +94,7 @@ class JsonSchemaHydrator(Hydrator):
                 start_node = self._nodes[node_id]
                 end_node = self._nodes[edge]
                 edges.append(Relationship(start_node, "INCLUDES", end_node))
+
+        self._logger.info(f"imported {len(edges)} edges")
 
         return edges

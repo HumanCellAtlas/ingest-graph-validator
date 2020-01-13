@@ -51,6 +51,8 @@ class XlsHydrator(Hydrator):
 
                 self._logger.debug(f"({node_id})")
 
+        self._logger.info(f"imported {len(nodes)} nodes")
+
         return nodes
 
     def get_edges(self):
@@ -66,5 +68,7 @@ class XlsHydrator(Hydrator):
                     edges.append(Relationship(start_node, edge['relationship'], end_node))
 
                     self._logger.debug(f"({node_id})-[:{edge['relationship']}]->({end_node['id']})")
+
+        self._logger.info(f"imported {len(edges)} edges")
 
         return edges
