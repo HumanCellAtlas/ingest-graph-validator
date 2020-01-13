@@ -19,7 +19,7 @@ class BiomodelsHydrator(Hydrator):
 
         self._param = param
 
-        self._logger.debug(f"started biomodels hydrator [{self._param}]")
+        self._logger.info(f"started biomodels hydrator [{self._param}]")
 
         self._entity_map = self.fetch(param)
         self._nodes = self.get_nodes()

@@ -24,7 +24,7 @@ class XlsHydrator(Hydrator):
 
         self._xls_filename = xls_filename
 
-        self._logger.debug(f"started xls hydrator for file [{self._xls_filename}]")
+        self._logger.info(f"started xls hydrator for file [{self._xls_filename}]")
 
         self._entity_map = self.import_spreadsheet(xls_filename)
         self._nodes = self.get_nodes()
@@ -65,6 +65,6 @@ class XlsHydrator(Hydrator):
                     end_node = self._nodes[edge['id']]
                     edges.append(Relationship(start_node, edge['relationship'], end_node))
 
-                    self._logger.debug(f"({node_id})-[{edge['relationship']}]->({end_node['id']})")
+                    self._logger.debug(f"({node_id})-[:{edge['relationship']}]->({end_node['id']})")
 
         return edges

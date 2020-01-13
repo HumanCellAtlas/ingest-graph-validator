@@ -22,7 +22,7 @@ class JsonSchemaHydrator(Hydrator):
 
         self._schema_path = schema_path
 
-        self._logger.debug(f"started json schema hydrator for path [{self._schema_path}]")
+        self._logger.info(f"started json schema hydrator for path [{self._schema_path}]")
 
         self._schema_elements = self.import_schema(schema_path)
         self._nodes = self.get_nodes()
