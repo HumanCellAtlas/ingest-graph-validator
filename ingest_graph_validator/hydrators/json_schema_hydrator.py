@@ -72,9 +72,9 @@ class JsonSchemaHydrator(Hydrator):
         return schema_elements
 
     def get_nodes(self):
-        nodes = {}
-
         self._logger.debug("importing nodes")
+
+        nodes = {}
 
         for node_id, node in self._schema_elements.items():
             nodes[node_id] = Node(*node['labels'], **node['properties'], id=node_id)
@@ -82,9 +82,9 @@ class JsonSchemaHydrator(Hydrator):
         return nodes
 
     def get_edges(self):
-        edges = []
-
         self._logger.debug("importing edges")
+
+        edges = []
 
         for node_id, node in self._schema_elements.items():
             print(node_id, node)
