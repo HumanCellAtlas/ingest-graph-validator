@@ -95,7 +95,7 @@ setup(
     long_description='placeholder',
     include_package_data=True,
     keywords='ingest_graph_validator',
-    name='ingest_graph_validator',
+    name='ingest-graph-validator',
     packages=find_packages(include=['ingest_graph_validator', 'ingest_graph_validator.*']),
     setup_requires=setup_requirements,
     test_suite='tests',
