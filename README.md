@@ -47,6 +47,8 @@ A Python package has been published in (PyPI)[https://pypi.org/project/ingest-gr
 
 ```pip install ingest-graph-validator```
 
+If you install the Graph Validator Suite this way, you head to the [github repo](https://github.com/HumanCellAtlas/ingest-graph-validator) to get the [graph tests](https://github.com/HumanCellAtlas/ingest-graph-validator/tree/master/graph_test_set) and the [graph reports](https://github.com/HumanCellAtlas/ingest-graph-validator/tree/master/graph_report_set).
+
 
 ## Usage
 
