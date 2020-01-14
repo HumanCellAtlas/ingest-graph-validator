@@ -3,5 +3,5 @@
 """Top-level package for ingest-graph-validator."""
 
 __author__ = """Javier Ferrer"""
-__email__ = 'jferrer@ebi.ac.uk'
-__version__ = '0.2.1'
+__email__ = "jferrer@ebi.ac.uk"
+__version__ = "0.2.1"
