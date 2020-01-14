@@ -68,7 +68,7 @@ coverage: ## check code coverage quickly with the default Python
 release: dist ## package and upload a release
 	twine upload dist/*
 
-dist: tag clean ## builds source and wheel package
+dist: tag ## builds source and wheel package
 	python setup.py sdist
 	python setup.py bdist_wheel
 	ls -l dist
