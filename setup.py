@@ -3,6 +3,7 @@
 
 """The setup script."""
 
+from os import path
 from setuptools import setup, find_packages
 
 requirements = [
@@ -71,6 +72,17 @@ setup_requirements = ['pytest-runner', ]
 
 test_requirements = ['pytest>=3', ]
 
+
+this_directory = path.abspath(path.dirname(__file__))
+with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
+    long_description = f.read()
+
+setup(
+    name='an_example_package',
+    # other arguments omitted
+    long_description=long_description,
+    long_description_content_type='text/markdown'
+
 setup(
     author="Javier Ferrer",
     author_email='jferrer@ebi.ac.uk',
@@ -92,7 +104,8 @@ setup(
     },
     install_requires=requirements,
     license="MIT license",
-    long_description='placeholder',
+    long_description=long_description,
+    long_description_content_type='text/markdown',
     include_package_data=True,
     keywords='ingest_graph_validator',
     name='ingest-graph-validator',
@@ -100,7 +113,7 @@ setup(
     setup_requires=setup_requirements,
     test_suite='tests',
     tests_require=test_requirements,
-    url='https://github.com/javfg/ingest_graph_validator',
+    url='https://github.com/HumanCellAtlas/ingest-graph-validator',
     version='0.1.2',
     zip_safe=False,
 )
