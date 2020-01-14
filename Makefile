@@ -68,10 +68,13 @@ coverage: ## check code coverage quickly with the default Python
 release: dist ## package and upload a release
 	twine upload dist/*
 
-dist: clean ## builds source and wheel package
+dist: tag clean ## builds source and wheel package
 	python setup.py sdist
 	python setup.py bdist_wheel
 	ls -l dist
+
+tag: clean ## publishes a new release on github
+	git push --tags
 
 install: clean ## install the package to the active Python's site-packages
 	python setup.py install
