@@ -73,6 +73,15 @@ dist: tag clean ## builds source and wheel package
 	python setup.py bdist_wheel
 	ls -l dist
 
+major: clean ## bumps version creates a new tag
+	bump2version major
+
+minor: clean ## bumps version creates a new tag
+	bump2version minor
+
+patch: clean ## bumps version creates a new tag
+	bump2version patch
+
 tag: clean ## publishes a new release on github
 	git push --tags
 
