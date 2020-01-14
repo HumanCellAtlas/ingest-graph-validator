@@ -14,6 +14,7 @@ The command line parameter parsing is also performed here, as is logging initial
 import click
 import docker
 import logging
+import requests
 
 from py2neo import Graph
 
@@ -121,18 +122,6 @@ def populate_commands():
         logger.debug(f"added action {action_command.name}")
 
 
-def attach_backend_container(container_name):
-    logger = logging.getLogger(__name__)
-    docker_client = docker.from_env()
-    containers_list = docker_client.containers.list(all=True, filters={"name": container_name})
-
-    if len(containers_list):
-        logger.info(f"attached to backend container [{container_name}]")
-        return containers_list[0]
-
-    logger.debug("found no backend container to attach")
-    return None
-
 
 class Neo4jServer:
 
@@ -141,9 +130,9 @@ class Neo4jServer:
         self._frontend_port = frontend_port
 
         self._logger = logging.getLogger(__name__)
-        self._docker_client = docker.from_env()
+        self._docker_client = self.get_docker_client()
         self.container_name = Config['BACKEND_CONTAINER_NAME']
-        self._container = attach_backend_container(self.container_name)
+        self._container = self.attach_backend_container(self.container_name)
 
     def start(self):
         if self._container is not None:
@@ -180,6 +169,28 @@ class Neo4jServer:
 
     def is_alive(self):
         return self._container is not None
+
+    def attach_backend_container(self, container_name):
+        docker_client = self.get_docker_client()
+        containers_list = docker_client.containers.list(all=True, filters={"name": container_name})
+
+        if len(containers_list):
+            self._logger.info(f"attached to backend container [{container_name}]")
+            return containers_list[0]
+
+        self._logger.debug("found no backend container to attach")
+        return None
+
+    def get_docker_client(self):
+        docker_client = docker.from_env()
+
+        try:
+            docker_client.ping()
+        except requests.exceptions.ConnectionError:
+            self._logger.error("docker is not running or unresponsive, you probably have to install docker")
+            exit(1)
+
+        return docker_client
 
 
 if __name__ == "__main__":
