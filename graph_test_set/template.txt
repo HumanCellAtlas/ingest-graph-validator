@@ -1,22 +1,28 @@
-## Test: NAME
+## Test: <NAME>
 
 #### Test description
 
-Fill here
+<TEST DESCRIPTION>
+
 
 #### The test
 [source,cypher]
 ----
-PASTE CYPHER
+<CYPHER QUERY>
 ----
 
 
-
-.A note about all graph rule violation test
 [NOTE]
-===============================
-* Each cypher snippet in this folder will be executed.
+.Informaton about Graph Validation Tests
+========================================
+* Each cypher snippet in `.adoc` files in the specified folder will run.
+* The cypher snippet should be contained between these specific lines:
+```
+#### The test
+[source,cyper]
+----
+<TEST HERE>
+----
+```
 * The test passes if the cypher query returns no results.
-* `True` is a pass, `False` is a fail.
-* These tests can be renamed and added to as required.
-===============================
+========================================

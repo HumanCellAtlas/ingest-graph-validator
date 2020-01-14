@@ -1,0 +1,33 @@
+
+## Test: Sequencing files are linked to appropriate protocols
+
+#### Test description
+
+The first process upstream of a sequencing file should have two links to protocols and those should be 'library_preparation_protocol' and 'sequencing_protocol'.
+
+
+#### The test
+[source,cypher]
+----
+MATCH (d:Protocol)<-[r:protocols]-(p:Process)<-[:derivedByProcesses]-(f:File)
+WHERE f.describedBy CONTAINS "sequence_file"
+AND NOT size((p)-[:protocols]-()) = 2
+OR NOT (r.describedBy CONTAINS "sequencing_protocol" AND r.describedBy CONTAINS "library_preparation_protocol")
+RETURN p
+----
+
+
+[NOTE]
+.Informaton about Graph Validation Tests
+========================================
+* Each cypher snippet in `.adoc` files in the specified folder will run.
+* The cypher snippet should be contained between these specific lines:
+```
+#### The test
+[source,cyper]
+----
+<TEST HERE>
+----
+```
+* The test passes if the cypher query returns no results.
+========================================
