@@ -31,6 +31,8 @@ So far, the functionality planned is as follows (WIP items are still not fully i
 
 ## Installation
 
+The graph validator suite requires docker running in the host machine.
+
 ### From the git repo
 
 ```
@@ -41,7 +43,9 @@ pip install .
 
 ### From PyPI
 
-A PyPI package will be published soon.
+A Python package has been published in (PyPI)[https://pypi.org/project/ingest-graph-validator].
+
+```pip install ingest-graph-validator```
 
 
 ## Usage
