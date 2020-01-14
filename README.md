@@ -20,7 +20,7 @@ So far, the functionality planned is as follows (WIP items are still not fully i
 
 * Hydrators:
     * Ingest Service Spreadsheet.
-    * Ingest Service API Submission. (WIP).
+    * Ingest Service API Submission.
     * BioSamples API (WIP).
 
 * Actions:
