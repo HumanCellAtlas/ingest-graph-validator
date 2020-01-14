@@ -57,7 +57,7 @@ After the hydrator is done loading the data, point a browser to <http://localhos
 
 ### More help
 
-The Suite uses a CLI similar to git. Running a command without specifying anything else will show help for that command. At each level, the commands have different arguments and options. Running any subcommand with `-h` or `--help` with give you more information about it.
+The Suite uses a CLI similar to [git](https://git-scm.com/). Running a command without specifying anything else will show help for that command. At each level, the commands have different arguments and options. Running any subcommand with `-h` or `--help` with give you more information about it.
 
 The root level commands are:
 
