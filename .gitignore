@@ -1,6 +1,9 @@
 # ides
 .vscode
 
+# real datasets wont be included in the repo
+graph_example_sheets/Wong*
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
