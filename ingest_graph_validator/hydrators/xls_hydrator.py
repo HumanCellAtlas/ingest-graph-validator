@@ -7,9 +7,10 @@ from py2neo import Node, Relationship
 from ingest.api.ingestapi import IngestApi
 from ingest.importer.importer import XlsImporter
 
+from .hydrator import Hydrator
 from .common import flatten
 from ..config import Config
-from .hydrator import Hydrator
+from ..utils import benchmark
 
 
 class XlsHydrator(Hydrator):
@@ -30,6 +31,7 @@ class XlsHydrator(Hydrator):
         self._nodes = self.get_nodes()
         self._edges = self.get_edges()
 
+    @benchmark
     def import_spreadsheet(self, xls_filename):
         self._logger.debug("importing spreadsheet")
 

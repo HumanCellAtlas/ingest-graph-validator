@@ -8,6 +8,7 @@ from ingest.api.ingestapi import IngestApi
 
 from .common import flatten
 from ..config import Config
+from ..utils import benchmark
 from .hydrator import Hydrator
 
 
@@ -60,6 +61,7 @@ class IngestHydrator(Hydrator):
 
         return entities
 
+    @benchmark
     def get_nodes(self):
         self._logger.debug("importing nodes")
 
@@ -75,6 +77,7 @@ class IngestHydrator(Hydrator):
 
         return nodes
 
+    @benchmark
     def get_edges(self):
         self._logger.debug("importing edges")
 
