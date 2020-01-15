@@ -1,4 +1,3 @@
-
 ## Test: Sequencing files are linked to appropriate protocols
 
 #### Test description

@@ -6,7 +6,7 @@ from py2neo import Node, Relationship
 
 from ingest.api.ingestapi import IngestApi
 
-from .common import flatten
+from .common import flatten, convert_to_macrocase
 from ..config import Config
 from ..utils import benchmark
 from .hydrator import Hydrator
@@ -51,13 +51,18 @@ class IngestHydrator(Hydrator):
             for entity in self._ingest_api.get_entities(fetch_url, entity_type):
                 properties = flatten(entity['content'])
 
-                entities[entity['uuid']['uuid']] = {
+                new_entity = {
                     'properties': properties,
-                    'label': entity['type'],
+                    'labels': [entity['type'].lower()],
                     'node_id': properties[id_field_map[entity_type]],
                     'links': entity['_links'],
                     'uuid': entity['uuid']['uuid'],
                 }
+
+                concrete_type = new_entity['properties']['describedBy'].rsplit('/', 1)[1]
+                new_entity['labels'].append(concrete_type)
+
+                entities[entity['uuid']['uuid']] = new_entity
 
         return entities
 
@@ -69,7 +74,7 @@ class IngestHydrator(Hydrator):
 
         for entity_uuid, entity in self._entities.items():
             node_id = entity['node_id']
-            nodes[entity_uuid] = Node(entity['label'], **entity['properties'], id=node_id)
+            nodes[entity_uuid] = Node(*entity['labels'], **entity['properties'], id=node_id)
 
             self._logger.debug(f"({node_id})")
 
@@ -104,13 +109,14 @@ class IngestHydrator(Hydrator):
 
                     for end_entity in relationships:
                         start_node = self._nodes[entity_uuid]
+                        relationship_name = convert_to_macrocase(relationship_type)
                         try:
                             end_node = self._nodes[end_entity['uuid']['uuid']]
-                            edges.append(Relationship(start_node, relationship_type, end_node))
+                            edges.append(Relationship(start_node, relationship_name, end_node))
                         except KeyError:
                             self._logger.debug(f"Missing end node at a {start_node['label']} entity.")
 
-                        self._logger.debug(f"({start_node['id']})-[:{relationship_type}]->({end_node['id']})")
+                        self._logger.debug(f"({start_node['id']})-[:{relationship_name}]->({end_node['id']})")
 
         self._logger.info(f"imported {len(edges)} edges")
 

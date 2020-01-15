@@ -2,6 +2,8 @@
 
 """Common methods used by different hydrators."""
 
+import re
+
 
 def flatten(d, parent_key=""):
     """
@@ -25,3 +27,8 @@ def flatten(d, parent_key=""):
             items.append((new_key, value))
 
     return dict(items)
+
+
+def convert_to_macrocase(var_name):
+    """Converts a variable TO_MACRO_CASE_NAMING_CONVENTION."""
+    return ('_').join([a.upper() for a in re.split("([A-Z][^A-Z]*)", var_name) if a])

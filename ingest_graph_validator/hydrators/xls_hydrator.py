@@ -8,7 +8,7 @@ from ingest.api.ingestapi import IngestApi
 from ingest.importer.importer import XlsImporter
 
 from .hydrator import Hydrator
-from .common import flatten
+from .common import flatten, convert_to_macrocase
 from ..config import Config
 from ..utils import benchmark
 
@@ -48,8 +48,10 @@ class XlsHydrator(Hydrator):
         # We need to fetch all node types inside the entity map.
         for node_type in self._entity_map.entities_dict_by_type.keys():
             for node_id, node in self._entity_map.entities_dict_by_type.get(node_type).items():
-                label = node.concrete_type or node.type
-                nodes[node_id] = Node(label, **flatten(node.content), id=node.id)
+                labels = [node.type]
+                if node.concrete_type is not None:
+                    labels.append(node.concrete_type)
+                nodes[node_id] = Node(*labels, **flatten(node.content), id=node.id)
 
                 self._logger.debug(f"({node_id})")
 
@@ -67,9 +69,10 @@ class XlsHydrator(Hydrator):
                 for edge in node.direct_links:
                     start_node = self._nodes[node_id]
                     end_node = self._nodes[edge['id']]
-                    edges.append(Relationship(start_node, edge['relationship'], end_node))
+                    relationship = convert_to_macrocase(edge['relationship'])
+                    edges.append(Relationship(start_node, relationship, end_node))
 
-                    self._logger.debug(f"({node_id})-[:{edge['relationship']}]->({end_node['id']})")
+                    self._logger.debug(f"({node_id})-[:{relationship}]->({end_node['id']})")
 
         self._logger.info(f"imported {len(edges)} edges")
 

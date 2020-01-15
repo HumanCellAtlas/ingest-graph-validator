@@ -1,0 +1,31 @@
+## Test: All biomaterials connect to a file
+
+#### Test description
+
+Following edges directionally downstream from all biomaterials eventually reaches a data file entity. These are currently 'sequence_file' and 'image_file'.
+
+#### The test
+[source,cypher]
+----
+MATCH path=(a:biomaterials)<-[:DERIVED_FROM *]-(b)
+WHERE a.submissionID = '{submissionID}'
+AND NOT size(()-->(b)) > 0
+AND NOT b.specificType IN ['sequence_file', 'image_file']
+RETURN b
+----
+
+
+[NOTE]
+.Informaton about Graph Validation Tests
+========================================
+* Each cypher snippet in `.adoc` files in the specified folder will run.
+* The cypher snippet should be contained between these specific lines:
+```
+#### The test
+[source,cyper]
+----
+<TEST HERE>
+----
+```
+* The test passes if the cypher query returns no results.
+========================================
