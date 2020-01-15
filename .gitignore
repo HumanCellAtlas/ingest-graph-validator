@@ -4,6 +4,10 @@
 # real datasets wont be included in the repo
 graph_example_sheets/Wong*
 
+# exclude neo4j plugins - for now, we have to find a way to fetch versions
+# that are compatible with our neo4j backend.
+# neo4j_plugins/*.jar
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
