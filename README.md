@@ -54,6 +54,8 @@ If you install the Graph Validator Suite this way, you head to the [github repo]
 
 ### Basic usage for data wranglers
 
+First time executing the `init` command will take longer as it has to pull the neo4j docker image from dockerhub.
+
 ```
 ingest-graph-validator init
 ingest-graph-validator hydrate xls <spreadsheet filename>
