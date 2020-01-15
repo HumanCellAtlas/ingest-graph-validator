@@ -13,7 +13,9 @@ The command line parameter parsing is also performed here, as is logging initial
 
 import click
 import docker
+import glob
 import logging
+import os
 import requests
 
 from py2neo import Graph
@@ -146,9 +148,26 @@ class Neo4jServer:
         neo4j_server_ports = {self._bolt_port: self._bolt_port, self._frontend_port: self._frontend_port}
 
         self._logger.info(f"starting backend container [{self.container_name}]")
-        self._container = self._docker_client.containers.run(Config['NEO4J_IMAGE'], name=self.container_name,
-                                                             ports=neo4j_server_ports, detach=True,
-                                                             environment=Config['NEO4J_DB_ENV_VARS'])
+
+        neo4j_plugins_path = os.path.abspath("./neo4j_plugins")
+        neo4j_plugins_names = [os.path.basename(x) for x in glob.glob(f"{neo4j_plugins_path}/*")]
+
+        self._logger.debug(f"found {len(neo4j_plugins_names)} plugins for neo4j: {neo4j_plugins_names}")
+
+        self._container = self._docker_client.containers.run(
+            image=Config['NEO4J_IMAGE'],
+            name=self.container_name,
+            ports=neo4j_server_ports,
+            detach=True,
+            environment=Config['NEO4J_DB_ENV_VARS'],
+            volumes={
+                neo4j_plugins_path: {
+                    'bind': "/var/lib/neo4j/plugins",
+                    'mode': "rw",
+                }
+            }
+        )
+
         self._logger.info(f"The web interface is running at http://{Config['NEO4J_DB_URL']}:{self._frontend_port}")
 
     def stop(self):

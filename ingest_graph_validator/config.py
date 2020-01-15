@@ -18,7 +18,7 @@ Defaults = {
 Config = {
     'LOG_LEVEL': os.environ.get("INGEST_GRAPH_VALIDATOR_LOG_LEVEL", "ERROR"),
     'INGEST_API': os.environ.get("INGEST_GRAPH_VALIDATOR_INGEST_API_URL", Defaults['INGEST_API']),
-    'NEO4J_IMAGE': "neo4j:3.5.13-enterprise",
+    'NEO4J_IMAGE': "neo4j:3.5.14-enterprise",
     'NEO4J_BOLT_PORT': os.environ.get("INGEST_GRAPH_VALIDATOR_NEO4J_BOLT_PORT", Defaults['NEO4J_BOLT_PORT']),
     'NEO4J_FRONTEND_PORT': os.environ.get("INGEST_GRAPH_VALIDATOR_NEO4J_FRONTEND_PORT", Defaults['NEO4J_FRONTEND_PORT']),
     'NEO4J_DB_URL': os.environ.get("INGEST_GRAPH_VALIDATOR_NEO4J_URL", Defaults['NEO4J_DB_URL']),
@@ -31,5 +31,7 @@ Config = {
 def init_config():
     Config['NEO4J_DB_ENV_VARS'] = [
         "NEO4J_ACCEPT_LICENSE_AGREEMENT=yes",
-        f"NEO4J_AUTH={Config['NEO4J_DB_USERNAME']}/{Config['NEO4J_DB_PASSWORD']}"
+        f"NEO4J_AUTH={Config['NEO4J_DB_USERNAME']}/{Config['NEO4J_DB_PASSWORD']}",
+        "NEO4J_dbms_security_procedures_unrestricted=algo.*",
+        "NEO4J_dbms_security_procedures_unrestricted=apoc.*",
     ]
