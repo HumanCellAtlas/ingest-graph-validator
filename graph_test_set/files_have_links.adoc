@@ -1,0 +1,41 @@
+## Test: All files which are not a supplementary file must have a link
+
+#### Test description
+
+Files must be attached to something, unless they are a supplementary file. Those
+will be covered in other test.
+
+The next query should help show the files which are not supplementary files and
+their first link, for visual checks:
+
+----
+MATCH (n:file)
+WHERE NOT n:supplementary_file
+CALL apoc.path.expand(n, "", "-project|", 0, 1) YIELD path
+RETURN path
+----
+
+
+#### The test
+[source,cypher]
+----
+MATCH (n:file)-[r]-()
+WHERE NOT n:supplementary_file AND size( (n)-[]-() ) = 0
+RETURN n
+----
+
+
+[NOTE]
+.Informaton about Graph Validation Tests
+========================================
+* Each cypher snippet in `.adoc` files in the specified folder will run.
+* The cypher snippet should be contained between these specific lines:
+```
+#### The test
+[source,cyper]
+----
+<TEST HERE>
+----
+```
+* The test passes if the cypher query returns no results.
+========================================
