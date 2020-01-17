@@ -1,0 +1,35 @@
+## Test: If a protocol has a document, a matching supplementary file must exist
+
+#### Test description
+
+If a protocol defines a supplementary file as the document describing it, there must exist a supplementary file that
+is named exactly the same.
+
+If any filenames are returned by this test, that means those files are missing as they are specified in protocols and
+do not exist.
+
+
+#### The test
+[source,cypher]
+----
+MATCH (p:protocol), (n:supplementary_file)
+WITH p, COLLECT (n.`file_core.file_name`) AS filenames
+WHERE NOT p.`protocol_core.document` IN filenames
+RETURN p.`protocol_core.document`
+----
+
+
+[NOTE]
+.Informaton about Graph Validation Tests
+========================================
+* Each cypher snippet in `.adoc` files in the specified folder will run.
+* The cypher snippet should be contained between these specific lines:
+```
+#### The test
+[source,cyper]
+----
+<TEST HERE>
+----
+```
+* The test passes if the cypher query returns no results.
+========================================
