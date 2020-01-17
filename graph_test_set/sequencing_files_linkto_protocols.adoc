@@ -2,7 +2,8 @@
 
 #### Test description
 
-The first process upstream of a sequencing file should have two links to protocols and those should be 'library_preparation_protocol' and 'sequencing_protocol'.
+The first process upstream of a sequencing file should have two links to protocols and those should be
+'library_preparation_protocol' and 'sequencing_protocol'.
 
 
 #### The test

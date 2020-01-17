@@ -2,7 +2,8 @@
 
 #### Test description
 
-Following edges directionally downstream from all biomaterials eventually reaches a data file entity. These are currently 'sequence_file' and 'image_file'.
+Following edges directionally downstream from all biomaterials eventually reaches a data file entity. These are
+currently 'sequence_file' and 'image_file'.
 
 #### The test
 [source,cypher]

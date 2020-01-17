@@ -2,11 +2,9 @@
 
 #### Test description
 
-Files must be attached to something, unless they are a supplementary file. Those
-will be covered in other test.
+Files must be attached to something, unless they are a supplementary file. Those will be covered in other test.
 
-The next query should help show the files which are not supplementary files and
-their first link, for visual checks:
+The next query should help show the files which are not supplementary files and their first link, for visual checks:
 
 ----
 MATCH (n:file)
