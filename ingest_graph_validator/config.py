@@ -31,6 +31,7 @@ Config = {
 def init_config():
     Config['NEO4J_DB_ENV_VARS'] = [
         "NEO4J_ACCEPT_LICENSE_AGREEMENT=yes",
+        "NEO4J_dbms_security_auth__enabled=false",
         f"NEO4J_AUTH={Config['NEO4J_DB_USERNAME']}/{Config['NEO4J_DB_PASSWORD']}",
         "NEO4J_dbms_security_procedures_unrestricted=algo.*",
         "NEO4J_dbms_security_procedures_unrestricted=apoc.*",
