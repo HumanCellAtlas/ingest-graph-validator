@@ -58,7 +58,7 @@ If you install the Graph Validator Suite this way, you should head to the [githu
 
     `ingest-graph-validator init`
 
-        Keep in mind, first time executing the `init` command will take longer as it has to pull the Neo4j Docker image from dockerhub.
+    **Keep in mind**, first time executing the `init` command will take longer as it has to pull the Neo4j Docker image from dockerhub.
 
 2. Import a spreadsheet:
 
