@@ -31,7 +31,7 @@ So far, the functionality planned is as follows (WIP items are still not fully i
 
 ## Installation
 
-The graph validator suite requires docker running in the host machine.
+The Graph Validator Suite requires docker running in the host machine.
 
 ### From the git repo
 
@@ -41,31 +41,50 @@ cd ingest-graph-validator
 pip install .
 ```
 
-### From PyPI
+### <a name="install_pypi"></a>From PyPI
 
 A Python package has been published in (PyPI)[https://pypi.org/project/ingest-graph-validator].
 
 ```pip install ingest-graph-validator```
 
-If you install the Graph Validator Suite this way, you head to the [github repo](https://github.com/HumanCellAtlas/ingest-graph-validator) to get the [graph tests](https://github.com/HumanCellAtlas/ingest-graph-validator/tree/master/graph_test_set) and the [graph reports](https://github.com/HumanCellAtlas/ingest-graph-validator/tree/master/graph_report_set).
+If you install the Graph Validator Suite this way, you should head to the [github repo](https://github.com/HumanCellAtlas/ingest-graph-validator) to get the [graph tests](https://github.com/HumanCellAtlas/ingest-graph-validator/tree/master/graph_test_set) and the [graph reports](https://github.com/HumanCellAtlas/ingest-graph-validator/tree/master/graph_report_set).
 
 
 ## Usage
 
-### Basic usage for data wranglers
+### Step by step usage for data wranglers
 
-First time executing the `init` command will take longer as it has to pull the neo4j docker image from dockerhub.
+1. Once [installed from the Python package](#install_pypi), start the backend by opening a terminal and typing:
 
-```
-ingest-graph-validator init
-ingest-graph-validator hydrate xls <spreadsheet filename>
-```
+    `ingest-graph-validator init`
 
-After the hydrator is done loading the data, point a browser to <http://localhost:7474> to take a look at the graph.
+**Keep in mind**, first time executing the `init` command will take longer as it has to pull the Neo4j Docker image from dockerhub.
+
+2. Import a spreadsheet:
+
+    `ingest-graph-validator hydrate xls <spreadsheet filename>`
+
+3. Go to <http://localhost:7474> in a browser to open the frontend.
+
+4. Connect to the backend (you do not need to change any fields, leave username/password empty):
+
+   ![](.readme/connect_backend.png)
+
+5. You can then start writing [cypher queries](https://neo4j.com/graphacademy/online-training/introduction-to-neo4j/) in the input field on top of the web frontend to visualize the graph. For example:
+
+    ```MATCH p=(n) RETURN p```
+
+    Will show the entire graph. Keep in mind this will crash the browser on huge datasets.
+
+**Note**
+The server backend will continue running in the background, and you only need to open the browser again to continue your work. If you want to shutdown the backend, open a terminal and type:
+
+`ingest-graph-validator shutdown`
+
 
 ### More help
 
-The Suite uses a CLI similar to [git](https://git-scm.com/). Running a command without specifying anything else will show help for that command. At each level, the commands have different arguments and options. Running any subcommand with `-h` or `--help` with give you more information about it.
+The Graph Validator Suite uses a CLI similar to [git](https://git-scm.com/). Running a command without specifying anything else will show help for that command. At each level, the commands have different arguments and options. Running any subcommand with `-h` or `--help` with give you more information about it.
 
 The root level commands are:
 
