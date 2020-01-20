@@ -103,38 +103,8 @@ WIP
 
 
 # List of Ingest submission IDs
+{{SUBIDLIST}}
 
-* KidneySingleCellAtlas: d5410c6e-612d-421a-a66f-2de5e04dd050
-* HumanColonicMesenchymeIBD: c51efa69-a348-46d4-9997-c7a11915d53b
-* scRNAseqSystemicComparison: d1610c4a-76c6-4b69-af63-c74af869fa75
-* TissueStability: fd52efcc-6924-4c8a-b68c-a299aea1d80f
-* demo HPSI human cerebral organoids: 6f33a6c6-170d-460b-bbba-9668e9d77aaf
-* Mouse Melanoma: 4756b97c-3666-4ff0-9c48-611dc06b7740
-* Multiplexed scRNA-seq with barcoded antibodies: 6931d821-9cd2-4ae1-acf7-62cd3b90082e
-* Reprogrammed_Dendritic_Cells: 8c45a848-ab32-4928-8dd6-567b75eaf7e1
-* HPSI human cerebral organoids: fce97270-fce0-4744-8a4e-a93d95521852
-* Tabula Muris: 14df1f92-155c-4da2-97fc-85601dee64da
-* snRNA-seq_for_human_retina: 7d515499-b5b6-4083-95cd-6a393344865e
-* Healthy and type 2 diabetes pancreas: c81f7d54-a27f-4212-a6df-88dde947f7cc
-* Single cell transcriptome analysis of human pancreas: 5cd8b827-e4fa-4ffa-86f5-f0f8302baee9
-* SingleCellLiverLandscape: 1e2601a5-8938-446c-bbb3-1f37a84b11da
-* WongAdultRetina: 668791ed-deec-4470-b23a-9b80fd133e1c
-* Single cell RNAseq characterization of cell types produced over : 0948a727-228f-4cfc-857e-6243c6aed08d
-* Kidney biopsy scRNA-seq: 588281cb-93e2-4888-b75e-5cee5e39fc7f
-* BM_PC: 67abd7a1-644b-48d0-b8b8-251d8195a742
-* Human Hematopoietic Profiling: 7dbcf5ae-f8d7-487c-a3d4-794d8639a1e2
-* Mouse Endoderm Project: 0fb44736-c50f-49ab-bcdc-0985e596b955
-* Drop-seq, DroNc-seq, Fluidigm C1 Comparison: bf3116e5-1af1-46c2-8bbd-44dac49d1e7f
-* 1M Immune Cells: 85e72912-9f91-4489-8169-3b43cc65a16a
-* 1M Neurons: 064d36ca-ea4d-428f-b30f-0cf5e5350a9d
-* MouseGastrulationAtlas: 19c5c89a-7bfb-4b4d-9ff5-3ef009304ba5
-* Fetal/Maternal Interface: 46fe8bd7-329b-4f09-b227-5ee48c109c16
-* Tissue stability: 02e89f20-84c8-4daa-aaeb-80f4a85733ff
-* CD4+ cytotoxic T lymphocytes: 3bb965cb-2a6f-4802-a4f2-52d0423e6ecc
-* Diabetic Nephropathy snRNA-seq: a69c731b-9db7-45e3-938f-daf2e4636a6e
-* HDCA-Sweden-10x: 071fc37f-1a01-4cf7-a6f5-2662c42c12b6
-* HumanTissueTcellActivation: 8b5feb5e-9039-4c54-9e79-053e490c141a
-* HumanMousePancreas: 7b4cd093-bfa5-477e-9c95-69bafc1cb6bf
 
 ## Credits
 
