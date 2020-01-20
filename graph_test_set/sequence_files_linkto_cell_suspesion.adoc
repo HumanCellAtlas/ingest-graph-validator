@@ -1,0 +1,33 @@
+
+## Test: Sequence files link to cell suspension
+
+#### Test description
+
+The biomaterial linked to the process linked to a sequence file must be a cell suspension.
+
+This next query should provide all the subgraphs in the form (file)-(process)-(biomaterial).
+
+----
+MATCH path = (b:biomaterial)-[:INPUT_TO_PROCESSES]->(p:process)<-[:DERIVED_BY_PROCESSES]-(f:file)
+WHERE b:cell_suspension
+RETURN f.`file_core.file_name`, b.`biomaterial_core.biomaterial_id`
+----
+
+#### The test
+[source,cypher]
+----
+MATCH path = (b:biomaterial)-[:INPUT_TO_PROCESSES]->(p:process)<-[:DERIVED_BY_PROCESSES]-(f:file)
+WHERE NOT b:cell_suspension
+RETURN f.`file_core.file_name`, b.`biomaterial_core.biomaterial_id`
+----
+
+
+
+.A note about all graph rule violation test
+[NOTE]
+===============================
+* Each cypher snippet in '_violation.adoc' will be ran.
+* The test passes if the cypher query returns no results.
+* `True` is a pass, `False` is a fail.
+* These tests can be renamed and added to as required.
+===============================
