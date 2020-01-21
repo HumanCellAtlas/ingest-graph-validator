@@ -126,7 +126,13 @@ This one will be shown with an example. The example selects the donor CBTM-376C 
 
 **Note**: You have to be careful not to include nodes that would link your path to another one. For example, `protocol` or `project` are linked to more than one _backbone_.
 
-The first two lines are used to select one single node from which to expand. The third line expands the path. The last parameter, `-1` is used to determine the maximum depth for the path expansion. -1 means no limit. If you would set a 1 here, the result would be the `CBTM-376C` donor and its first level neighbours.
+The first two lines are used to select one single node from which to expand. The third line expands the path using these parameters:
+
+1. `n`, the starting node or nodes (preferably one for your first queries).
+2. `""`, the [relationship filter](http://neo4j-contrib.github.io/neo4j-apoc-procedures/3.5/path-finding/path-expander/#_relationship_filter). We are not filtering by any relations in this query.
+3. `"-project|-protocol"`, the [label filter](http://neo4j-contrib.github.io/neo4j-apoc-procedures/3.5/path-finding/path-expander/#_label_filter). We are excluding (hence the minus sign) any nodes with the labels `project` or (that is represented by the `|`) `protocol`.
+4. `0` is the minimum depth. Normally 0. Otherwise the starting nodes get excluded.
+5. `-1` is used to determine the maximum depth for the path expansion. -1 means no limit. If you would set a 1 here, the result would be the `CBTM-376C` donor and its first level neighbours.
 
 ```
 MATCH (n:donor_organism)
