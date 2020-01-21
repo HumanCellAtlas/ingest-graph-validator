@@ -102,7 +102,41 @@ The root level commands are:
 WIP
 
 
-# List of Ingest submission IDs
+# Extra stuff
+
+## Useful cypher queries
+
+### Show all nodes and relationships
+```
+MATCH p = (n)
+RETURN p
+```
+
+### Show all nodes and relationship excluding some
+```
+MATCH p = (n)
+WHERE NOT n:LABEL AND NOT n:LABEL
+RETURN p
+```
+
+### Expands paths from a node
+This one will be shown with an example. The example selects the donor CBTM-376C from [Meyer's Tissue Stability](https://ui.ingest.data.humancellatlas.org/submissions/detail?uuid=fd52efcc-6924-4c8a-b68c-a299aea1d80f) dataset, and expands the paths to show all biomaterials, processes and files linked to it.
+
+**Note**: Make sure to strictly define **only one node** to use as the source, otherwise it will be confusing.
+
+**Note**: You have to be careful not to include nodes that would link your path to another one. For example, `protocol` or `project` are linked to more than one _backbone_.
+
+The first two lines are used to select one single node from which to expand. The third line expands the path. The last parameter, `-1` is used to determine the maximum depth for the path expansion. -1 means no limit. If you would set a 1 here, the result would be the `CBTM-376C` donor and its first level neighbours.
+
+```
+MATCH (n:donor_organism)
+WHERE n.`biomaterial_core.biomaterial_id` = "CBTM-376C"
+CALL apoc.path.expand(n, "", "-project|-protocol", 0, -1) YIELD path
+RETURN path
+```
+
+
+## List of Ingest submission IDs
 {{SUBIDLIST}}
 
 
