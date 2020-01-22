@@ -28,6 +28,13 @@ Config = {
 }
 
 
+# These are the plugins to download. A way to automate new versions have to be refactored in here.
+NEO4J_PLUGINS = {
+    'algorithms': 'https://s3-eu-west-1.amazonaws.com/com.neo4j.graphalgorithms.dist/neo4j-graph-algorithms-3.5.14.0-standalone.zip',
+    'apoc': 'https://github.com/neo4j-contrib/neo4j-apoc-procedures/releases/download/3.5.0.7/apoc-3.5.0.7-all.jar',
+}
+
+
 def init_config():
     Config['NEO4J_DB_ENV_VARS'] = [
         "NEO4J_ACCEPT_LICENSE_AGREEMENT=yes",
