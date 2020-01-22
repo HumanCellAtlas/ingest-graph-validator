@@ -16,15 +16,18 @@ import docker
 import glob
 import logging
 import os
+from pathlib import Path
 import requests
+import zipfile
 
 from py2neo import Graph
 
-from .config import Config, Defaults, init_config
+from .config import Config, Defaults, init_config, NEO4J_PLUGINS
 from .logger import init_logger, log_levels_map
 from .data_store import DataStore
 from .actions import get_actions
 from .hydrators import get_hydrators
+from .utils import download_file
 
 
 @click.group(context_settings={'help_option_names': ["-h", "--help"]})
@@ -131,12 +134,18 @@ class Neo4jServer:
         self._bolt_port = bolt_port
         self._frontend_port = frontend_port
 
+        self._plugins_full_path = os.path.abspath("./neo4j_plugins")
+        Path(self._plugins_full_path).mkdir(parents=True, exist_ok=True)
+
         self._logger = logging.getLogger(__name__)
         self._docker_client = self.get_docker_client()
         self.container_name = Config['BACKEND_CONTAINER_NAME']
         self._container = self.attach_backend_container(self.container_name)
 
     def start(self):
+        if not self.check_plugins():
+            self.install_plugins()
+
         if self._container is not None:
             if self._container.status == "exited":
                 self._container.start()
@@ -149,8 +158,7 @@ class Neo4jServer:
 
         self._logger.info(f"starting backend container [{self.container_name}]")
 
-        neo4j_plugins_path = os.path.abspath("./neo4j_plugins")
-        neo4j_plugins_names = [os.path.basename(x) for x in glob.glob(f"{neo4j_plugins_path}/*")]
+        neo4j_plugins_names = [os.path.basename(x) for x in glob.glob(f"{self._plugins_full_path}/*")]
 
         self._logger.debug(f"found {len(neo4j_plugins_names)} plugins for neo4j: {neo4j_plugins_names}")
 
@@ -161,7 +169,7 @@ class Neo4jServer:
             detach=True,
             environment=Config['NEO4J_DB_ENV_VARS'],
             volumes={
-                neo4j_plugins_path: {
+                self._plugins_full_path: {
                     'bind': "/var/lib/neo4j/plugins",
                     'mode': "rw",
                 }
@@ -210,6 +218,38 @@ class Neo4jServer:
             exit(1)
 
         return docker_client
+
+    def check_plugins(self):
+        """Checks the amount of plugins existing matches those specified in config."""
+
+        installed_plugin_count = len([name for name in os.listdir(self._plugins_full_path) if os.path.isfile(name)])
+        plugin_count = len(NEO4J_PLUGINS.keys())
+
+        if installed_plugin_count != plugin_count:
+            self._logger.info(f"there are missing neo4j plugins ({installed_plugin_count}/{plugin_count})")
+            return False
+
+        return True
+
+    def install_plugins(self):
+        """Fetches neo4j plugins, and unzips if needed."""
+        self._logger.info(f"installing neo4j plugins to [{self._plugins_full_path}]")
+
+        for plugin_name, plugin_url in NEO4J_PLUGINS.items():
+            self._logger.debug(f"getting plugin {plugin_name}")
+
+            destination_filename = f"{self._plugins_full_path}/{plugin_url.split('/')[-1]}"
+            download_file(plugin_url, f"{destination_filename}")
+
+            if destination_filename.split('.')[-1] == "zip":
+                self._logger.debug(f"uncompresing plugin {plugin_name}")
+
+                with zipfile.ZipFile(destination_filename, 'r') as zipped_plugin_file:
+                    zipped_plugin_file.extractall(self._plugins_full_path)
+
+                os.remove(destination_filename)
+
+        self._logger.debug(f"done installing neo4j plugins")
 
 
 if __name__ == "__main__":
