@@ -222,14 +222,14 @@ class Neo4jServer:
     def check_plugins(self):
         """Checks the amount of plugins existing matches those specified in config."""
 
-        installed_plugin_count = len([name for name in os.listdir(self._plugins_full_path) if os.path.isfile(name)])
+        print(self._plugins_full_path)
+        installed_plugin_count = len([name for name in os.listdir(self._plugins_full_path)
+                                     if os.path.isfile(f"{self._plugins_full_path}/{name}")])
         plugin_count = len(NEO4J_PLUGINS.keys())
 
-        if installed_plugin_count != plugin_count:
-            self._logger.info(f"there are missing neo4j plugins ({installed_plugin_count}/{plugin_count})")
-            return False
+        self._logger.debug(f"{installed_plugin_count}/{plugin_count} neo4j plugins found")
 
-        return True
+        return installed_plugin_count == plugin_count
 
     def install_plugins(self):
         """Fetches neo4j plugins, and unzips if needed."""
