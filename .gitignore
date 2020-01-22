@@ -1,8 +1,8 @@
 # ides
 .vscode
 
-# real datasets wont be included in the repo
-graph_example_sheets/Wong*
+# plugins directory is not needed, as it is downloaded when init is run
+neo4j_plugins
 
 # exclude neo4j plugins - for now, we have to find a way to fetch versions
 # that are compatible with our neo4j backend.
