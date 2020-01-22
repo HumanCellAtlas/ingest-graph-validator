@@ -113,6 +113,6 @@ setup(
     test_suite="tests",
     tests_require=test_requirements,
     url="https://github.com/HumanCellAtlas/ingest-graph-validator",
-    version="0.5.2",
+    version="0.5.3",
     zip_safe=False,
 )
