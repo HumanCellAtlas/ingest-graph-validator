@@ -23,8 +23,7 @@ def init_logger(name, level):
     logger = logging.getLogger(name)
     logger.setLevel(effective_level)
 
-    log_format = logging.Formatter("%(asctime)s [%(name)s] - %(levelname)s: %(message)s",
-                                   "%y-%m-%d %H:%M:%S")
+    log_format = logging.Formatter("%(asctime)s [%(name)s] - %(levelname)s: %(message)s", "%y-%m-%d %H:%M:%S")
 
     log_handler = logging.StreamHandler(sys.stdout)
     log_handler.setFormatter(log_format)
