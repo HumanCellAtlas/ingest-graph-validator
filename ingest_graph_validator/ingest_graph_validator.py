@@ -221,8 +221,6 @@ class Neo4jServer:
 
     def check_plugins(self):
         """Checks the amount of plugins existing matches those specified in config."""
-
-        print(self._plugins_full_path)
         installed_plugin_count = len([name for name in os.listdir(self._plugins_full_path)
                                      if os.path.isfile(f"{self._plugins_full_path}/{name}")])
         plugin_count = len(NEO4J_PLUGINS.keys())
