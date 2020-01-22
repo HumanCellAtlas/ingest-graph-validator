@@ -4,8 +4,11 @@
 """The setup script."""
 
 from os import path
+
 from setuptools import setup, find_packages
 
+
+# Required packages to install.
 requirements = [
     "argcomplete==1.10.3",
     "atomicwrites==1.3.0",
@@ -68,6 +71,7 @@ requirements = [
     "XlsxWriter==1.2.6",
 ]
 
+
 setup_requirements = ["pytest-runner", ]
 
 test_requirements = ["pytest>=3", ]
@@ -76,6 +80,7 @@ test_requirements = ["pytest>=3", ]
 this_directory = path.abspath(path.dirname(__file__))
 with open(path.join(this_directory, "README.md"), encoding="utf-8") as f:
     long_description = f.read()
+
 
 setup(
     author="Javier Ferrer Gómez",
