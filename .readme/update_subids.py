@@ -4,10 +4,6 @@ import dateutil.parser
 import logging
 import requests
 
-from pprint import pprint
-
-from ingest_graph_validator.logger import init_logger
-
 
 def make_subid_list(project_list):
     subid_list = ""
@@ -15,13 +11,11 @@ def make_subid_list(project_list):
     for project in project_list.values():
         subid_list += f"\n* {project['name']}: {project['subid']}"
 
-    print(subid_list)
-
     return subid_list
 
 
 if __name__ == '__main__':
-    init_logger("update_subids", "INFO")
+    logging.basicConfig(format="%(asctime)s [%(name)s] - %(levelname)s: %(message)s", level=logging.INFO)
     logger = logging.getLogger(__name__)
     tracker_api_url = "https://tracker-api.data.humancellatlas.org/v0/projects"
 
