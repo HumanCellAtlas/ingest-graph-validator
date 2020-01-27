@@ -1,0 +1,32 @@
+## Test: Donor to file path must have at least 5 nodes
+
+#### Test description
+
+There should be a minimum of 5 modes from a donor to a data file:
+
+`(donor_organism)->(process)->(biomaterial)->(process)->(file)`
+
+
+#### The test
+[source,cypher]
+----
+MATCH p = (d:donor_organism)-[r:DUMMY_EXPERIMENTAL_DESIGN *]->(f:file)
+WHERE length(p) < 5
+RETURN p
+----
+
+
+[NOTE]
+.Informaton about Graph Validation Tests
+========================================
+* Each cypher snippet in `.adoc` files in the specified folder will run.
+* The cypher snippet should be contained between these specific lines:
+```
+#### The test
+[source,cyper]
+----
+<TEST HERE>
+----
+```
+* The test passes if the cypher query returns no results.
+========================================
