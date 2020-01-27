@@ -2,13 +2,15 @@
 
 #### Test description
 
-Makes sure the indegree of donor_organism nodes is 0. They should be the root of the _experimental design_.
+Makes sure the indegree of donor_organism nodes when excluding INPUT_BIOMATERIALS type is 0. They should be the root
+of the _experimental design_.
 
 
 #### The test
 [source,cypher]
 ----
 MATCH (d:donor_organism)<-[r]-()
+WHERE NOT type(r) = 'INPUT_BIOMATERIALS'
 RETURN d
 ----
 

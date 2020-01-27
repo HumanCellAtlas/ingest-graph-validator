@@ -2,14 +2,14 @@
 
 #### Test description
 
-Checks that file nodes have no inwards relationships.
+Checks that file nodes have no outwards relationships.
 
 
 #### The test
 [source,cypher]
 ----
-MATCH (f:file)<-[r]-()
-WHERE NOT f:supplementary_file
+MATCH (f:file)-[r]->(q)
+WHERE NOT f:supplementary_file AND NOT type(r) = 'DERIVED_BY_PROCESSES'
 RETURN f
 ----
 
