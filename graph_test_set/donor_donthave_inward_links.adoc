@@ -1,0 +1,29 @@
+## Test: Donors are not derived
+
+#### Test description
+
+Makes sure the indegree of donor_organism nodes is 0. They should be the root of the _experimental design_.
+
+
+#### The test
+[source,cypher]
+----
+MATCH (d:donor_organism)<-[r]-()
+RETURN d
+----
+
+
+[NOTE]
+.Informaton about Graph Validation Tests
+========================================
+* Each cypher snippet in `.adoc` files in the specified folder will run.
+* The cypher snippet should be contained between these specific lines:
+```
+#### The test
+[source,cyper]
+----
+<TEST HERE>
+----
+```
+* The test passes if the cypher query returns no results.
+========================================
