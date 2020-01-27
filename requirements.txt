@@ -18,7 +18,7 @@ docutils==0.15.2
 et-xmlfile==1.0.1
 google-auth==1.7.1
 google-auth-oauthlib==0.4.1
-hca==6.5.1
+hca==7.0.0
 hca-ingest==0.6.8
 idna==2.8
 jdcal==1.4.1
