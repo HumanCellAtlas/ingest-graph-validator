@@ -1,0 +1,32 @@
+## Test: No biomaterials are disconnected
+
+#### Test description
+
+This test returns any biomaterial nodes that have degree 0.
+
+The ingest exporter is more likely to skip an entity all together rather than create one with no links. This test may apply to issues with the importer.
+
+
+#### The test
+[source,cypher]
+----
+MATCH (b:biomaterial)
+WHERE NOT ( (b)--() )
+RETURN b.`biomaterial_core.biomaterial_name`
+----
+
+
+[NOTE]
+.Informaton about Graph Validation Tests
+========================================
+* Each cypher snippet in `.adoc` files in the specified folder will run.
+* The cypher snippet should be contained between these specific lines:
+```
+#### The test
+[source,cyper]
+----
+<TEST HERE>
+----
+```
+* The test passes if the cypher query returns no results.
+========================================
