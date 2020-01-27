@@ -7,9 +7,8 @@ Files must be attached to something, unless they are a supplementary file. Those
 The next query should help show the files which are not supplementary files and their first link, for visual checks:
 
 ----
-MATCH (n:file)
-WHERE NOT n:supplementary_file
-CALL apoc.path.expand(n, "", "-project|", 0, 1) YIELD path
+MATCH path = (f:file)-[r]-(n)
+WHERE NOT f:supplementary_file
 RETURN path
 ----
 
