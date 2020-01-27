@@ -1,0 +1,30 @@
+## Test: File nodes terminate experimental design
+
+#### Test description
+
+Checks that file nodes have no inwards relationships.
+
+
+#### The test
+[source,cypher]
+----
+MATCH (f:file)<-[r]-()
+WHERE NOT f:supplementary_file
+RETURN f
+----
+
+
+[NOTE]
+.Informaton about Graph Validation Tests
+========================================
+* Each cypher snippet in `.adoc` files in the specified folder will run.
+* The cypher snippet should be contained between these specific lines:
+```
+#### The test
+[source,cyper]
+----
+<TEST HERE>
+----
+```
+* The test passes if the cypher query returns no results.
+========================================
