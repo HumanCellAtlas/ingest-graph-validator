@@ -72,6 +72,12 @@ class XlsHydrator(Hydrator):
                     relationship = convert_to_macrocase(edge['relationship'])
                     edges.append(Relationship(start_node, relationship, end_node))
 
+                    # Adding additional relationships to the graphs.
+                    if relationship == 'INPUT_TO_PROCESSES':
+                        edges.append(Relationship(start_node, 'DUMMY_EXPERIMENTAL_DESIGN', end_node))
+                    if relationship == 'DERIVED_BY_PROCESSES':
+                        edges.append(Relationship(end_node, 'DUMMY_EXPERIMENTAL_DESIGN', start_node))
+
                     self._logger.debug(f"({node_id})-[:{relationship}]->({end_node['id']})")
 
         self._logger.info(f"imported {len(edges)} edges")

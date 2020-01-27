@@ -113,6 +113,13 @@ class IngestHydrator(Hydrator):
                         try:
                             end_node = self._nodes[end_entity['uuid']['uuid']]
                             edges.append(Relationship(start_node, relationship_name, end_node))
+
+                            # Adding additional relationships to the graphs.
+                            if relationship_name == 'INPUT_TO_PROCESSES':
+                                edges.append(Relationship(start_node, 'DUMMY_EXPERIMENTAL_DESIGN', end_node))
+                            if relationship_name == 'DERIVED_BY_PROCESSES':
+                                edges.append(Relationship(end_node, 'DUMMY_EXPERIMENTAL_DESIGN', start_node))
+
                         except KeyError:
                             self._logger.debug(f"Missing end node at a [{start_node['label']}] entity.")
 
