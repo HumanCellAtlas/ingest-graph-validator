@@ -22,11 +22,11 @@ if __name__ == '__main__':
     try:
         tracker_data = requests.get(tracker_api_url)
     except requests.exceptions.ConnectionError:
-        logger.error(f"Not found: {tracker_api_url}")
+        logger.error(f"Not found: [{tracker_api_url}]")
         exit(1)
 
     if (tracker_data.status_code > 299):
-        logger.error(f"API returned {tracker_data.status_code}")
+        logger.error(f"API returned [{tracker_data.status_code}]")
         exit(1)
 
     project_data = tracker_data.json()

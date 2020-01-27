@@ -114,7 +114,7 @@ class IngestHydrator(Hydrator):
                             end_node = self._nodes[end_entity['uuid']['uuid']]
                             edges.append(Relationship(start_node, relationship_name, end_node))
                         except KeyError:
-                            self._logger.debug(f"Missing end node at a {start_node['label']} entity.")
+                            self._logger.debug(f"Missing end node at a [{start_node['label']}] entity.")
 
                         self._logger.debug(f"({start_node['id']})-[:{relationship_name}]->({end_node['id']})")
 

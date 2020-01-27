@@ -20,7 +20,7 @@ def benchmark(function):
             return function(*args, **kwargs)
         finally:
             end_ = int(round(time() * 1000)) - start
-            logger.info(f"{function.__name__} took {end_} ms")
+            logger.info(f"[{function.__name__}] took [{end_}] ms")
 
     return _time_it
 

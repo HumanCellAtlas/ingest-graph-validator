@@ -32,7 +32,7 @@ def init_logger(name, level):
     log_handler.setLevel(effective_level)
 
     if effective_level not in list(log_levels_map.values()):
-        logger.error(f"Wrong log level specified: {effective_level}")
+        logger.error(f"Wrong log level specified: [{effective_level}]")
     else:
         logger.setLevel(level)
-        logger.debug(f"log started with level {level}")
+        logger.debug(f"log started with level [{level}]")

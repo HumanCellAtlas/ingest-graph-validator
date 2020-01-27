@@ -38,7 +38,7 @@ class TestAction:
                 if test_query is not None:
                     self._test_queries[test_filename] = test_query[1]
 
-        self._logger.info(f"loaded {len(self._test_queries)} test queries")
+        self._logger.info(f"loaded [{len(self._test_queries)}] test queries")
 
     def run(self):
         self._logger.info("loading tests")
@@ -50,14 +50,15 @@ class TestAction:
         bad_tests = 0
 
         for test_name, test_query in self._test_queries.items():
+            self._logger.debug(f"running test [{test_name}]")
             result = self._graph.run(test_query).data()
 
             if len(result) != 0:
-                self._logger.error(f"test {test_name} failed: non-empty result.")
+                self._logger.error(f"test [{test_name}] failed: non-empty result.")
                 self._logger.error(f"result: {result}")
 
                 if self._exit_on_failure is True:
                     self._logger.info("execution terminated")
                     exit(1)
 
-        self._logger.info(f"all tests finished {'({} failed)'.format(bad_tests) if bad_tests > 0 else ''}")
+        self._logger.info(f"all tests finished {'([{}] failed)'.format(bad_tests) if bad_tests > 0 else ''}")

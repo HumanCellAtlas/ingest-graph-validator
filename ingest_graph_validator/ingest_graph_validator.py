@@ -120,11 +120,11 @@ def populate_commands():
 
     for hydrator in get_hydrators():
         hydrate.add_command(hydrator)
-        logger.debug(f"added hydrator {hydrator.name}")
+        logger.debug(f"added hydrator [{hydrator.name}]")
 
     for action_command in get_actions():
         action.add_command(action_command)
-        logger.debug(f"added action {action_command.name}")
+        logger.debug(f"added action [{action_command.name}]")
 
 
 
