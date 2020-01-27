@@ -1,0 +1,29 @@
+## Test: Experimental design is acyclical
+
+#### Test description
+
+This test searches for directed cycles in the experimental design.
+
+
+#### The test
+[source,cypher]
+----
+MATCH (n)-[:DUMMY_EXPERIMENTAL_DESIGN*]->(n)
+RETURN n
+----
+
+
+[NOTE]
+.Informaton about Graph Validation Tests
+========================================
+* Each cypher snippet in `.adoc` files in the specified folder will run.
+* The cypher snippet should be contained between these specific lines:
+```
+#### The test
+[source,cyper]
+----
+<TEST HERE>
+----
+```
+* The test passes if the cypher query returns no results.
+========================================
