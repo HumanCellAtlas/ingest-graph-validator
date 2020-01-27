@@ -124,7 +124,7 @@ This one will be shown with an example. The example selects the donor CBTM-376C 
 
 **Note**: Make sure to strictly define **only one node** to use as the source, otherwise it will be confusing.
 
-**Note**: You have to be careful not to include nodes that would link your path to another one. For example, `protocol` or `project` are linked to more than one _backbone_.
+**Note**: You have to be careful not to include nodes that would link your path to another one. For example, `protocol` or `project` are linked to more than one _experimental design_.
 
 The first two lines are used to select one single node from which to expand. The third line expands the path using these parameters:
 
