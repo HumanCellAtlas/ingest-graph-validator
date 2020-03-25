@@ -33,12 +33,13 @@ from .utils import download_file
 @click.group(context_settings={'help_option_names': ["-h", "--help"]})
 @click.option("-l", "--log-level", type=click.Choice(list(log_levels_map.keys())), default=Defaults['LOG_LEVEL'],
               show_default=True, show_choices=True, help="Log level")
+@click.option("-d", "--db-url", type=click.STRING, help="Connect to an external neo4j instance instead of running one.")
 @click.option("-b", "--bolt-port", type=click.INT, default=Defaults['NEO4J_BOLT_PORT'], show_default=True,
               help="Specify bolt port.")
 @click.option("-f", "--frontend-port", type=click.INT, default=Defaults['NEO4J_FRONTEND_PORT'], show_default=True,
               help="Specify web frontend port.")
 @click.pass_context
-def entry_point(ctx, log_level, bolt_port, frontend_port):
+def entry_point(ctx, log_level, db_url, bolt_port, frontend_port):
     """HCA Ingest graph validation Suite."""
 
     init_config()
@@ -52,7 +53,13 @@ def entry_point(ctx, log_level, bolt_port, frontend_port):
     logger.debug("at entrypoint")
 
     ctx.obj = DataStore()
-    ctx.obj.backend = Neo4jServer()
+    ctx.obj.backend = None
+
+    if db_url:
+        logger.info(f"connecting to neo4j server at {db_url}:{bolt_port}")
+    else:
+        ctx.obj.backend = Neo4jServer()
+
     ctx.obj.graph = Graph(f"{Config['NEO4J_DB_URL']}:{Config['NEO4J_BOLT_PORT']}", user=Config['NEO4J_DB_USERNAME'],
                           password=Config['NEO4J_DB_PASSWORD'])
 
@@ -94,7 +101,7 @@ def hydrate(ctx, keep_contents):
 
     logger = logging.getLogger(__name__)
 
-    if not ctx.obj.backend.is_alive():
+    if ctx.obj.backend is not None and ctx.obj.is_alive():
         logger.error("no backend container found")
         exit(1)
 
@@ -110,7 +117,7 @@ def action(ctx):
 
     logger = logging.getLogger(__name__)
 
-    if not ctx.obj.backend.is_alive():
+    if ctx.obj.backend is not None and ctx.obj.is_alive():
         logger.error("no backend container found")
         exit(1)
 
