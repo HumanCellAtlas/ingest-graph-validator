@@ -56,8 +56,9 @@ def entry_point(ctx, log_level, db_url, bolt_port, frontend_port):
     ctx.obj.backend = None
 
     if db_url:
-        logger.info(f"connecting to neo4j server at {db_url}:{bolt_port}")
+        logger.info(f"using neo4j server at {db_url}:{bolt_port}")
     else:
+        logger.info(f"starting neo4j docker instance")
         ctx.obj.backend = Neo4jServer()
 
     ctx.obj.graph = Graph(f"{Config['NEO4J_DB_URL']}:{Config['NEO4J_BOLT_PORT']}", user=Config['NEO4J_DB_USERNAME'],
@@ -101,7 +102,7 @@ def hydrate(ctx, keep_contents):
 
     logger = logging.getLogger(__name__)
 
-    if ctx.obj.backend is not None and ctx.obj.is_alive():
+    if ctx.obj.backend is not None and ctx.obj.backend.is_alive():
         logger.error("no backend container found")
         exit(1)
 
@@ -117,7 +118,7 @@ def action(ctx):
 
     logger = logging.getLogger(__name__)
 
-    if ctx.obj.backend is not None and ctx.obj.is_alive():
+    if ctx.obj.backend is not None and ctx.obj.backend.is_alive():
         logger.error("no backend container found")
         exit(1)
 
