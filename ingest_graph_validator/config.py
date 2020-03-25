@@ -12,6 +12,10 @@ Defaults = {
     'NEO4J_DB_USERNAME': "neo4j",
     'NEO4J_DB_PASSWORD': "password",
     'INGEST_API': "https://api.ingest.data.humancellatlas.org",
+    'AMQP_CONNECTION': "amqp://localhost:5672",
+    'AMQP_EXCHANGE_NAME': "ingest.validation.exchange",
+    'AMQP_QUEUE_NAME': "ingest.graph.validation.queue",
+    'AMQP_ROUTING_KEY': "ingest.graph.validation.queue",
 }
 
 
@@ -25,6 +29,11 @@ Config = {
     'NEO4J_DB_USERNAME': os.environ.get("INGEST_GRAPH_VALIDATOR_NEO4J_DB_USERNAME", Defaults['NEO4J_DB_USERNAME']),
     'NEO4J_DB_PASSWORD': os.environ.get("INGEST_GRAPH_VALIDATOR_NEO4J_DB_PASSWORD", Defaults['NEO4J_DB_PASSWORD']),
     'BACKEND_CONTAINER_NAME': "neo4j-server",
+    'AMQP_CONNECTION': os.environ.get("AMQP_CONNECTION", Defaults['AMQP_CONNECTION']),
+    'AMQP_EXCHANGE_NAME': os.environ.get("AMQP_EXCHANGE_NAME", Defaults['AMQP_EXCHANGE_NAME']),
+    'AMQP_QUEUE_NAME': os.environ.get("AMQP_QUEUE_NAME", Defaults['AMQP_QUEUE_NAME']),
+    'AMQP_ROUTING_KEY': os.environ.get("AMQP_ROUTING_KEY", Defaults['AMQP_ROUTING_KEY']),
+
 }
 
 
