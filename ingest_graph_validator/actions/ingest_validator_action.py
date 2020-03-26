@@ -3,62 +3,84 @@
 """Runs graph validation tests in the specified folder."""
 
 import logging
-import re
-from os import listdir
+
+from kombu import Connection, Exchange, Queue
+from kombu.mixins import ConsumerMixin
+
+from ..hydrators.ingest_hydrator import IngestHydrator
+from .test_action import TestAction
+
+from .common import load_test_queries
+
+from ..config import Config
+
+
+class ValidationHandler():
+
+    def __init__(self, subid, graph, test_path):
+        self._subid = subid
+        self._graph = graph
+        self._test_path = test_path
+
+    def run(self):
+        IngestHydrator(self._graph, self._subid).hydrate()
+        return TestAction(self._graph, self._test_path, False).run()
+
+
+
+class ValidationListener(ConsumerMixin):
+
+    def __init__(self, connection, validation_queue, graph, test_path):
+        self.connection = connection
+        self.validation_queue = validation_queue
+        self._graph = graph
+        self._test_path = test_path
+
+        self._logger = logging.getLogger(__name__)
+
+    def get_consumers(self, Consumer, channel):
+        return [Consumer(queues=self.validation_queue, accept=["json"], on_message=self.handle_message, prefetch_count=10)]
+
+    def handle_message(self, message):
+        subid = message.payload['submissionEnvelopeUuid']
+        self._logger.info(f"received validation request for {subid}")
+
+        validation_result = ValidationHandler(subid, self._graph, self._test_path).run()
+
+        if validation_result is not None:
+            self._logger.info(f"validation finished for {subid}")
+            self._logger.debug(f"result: {validation_result}")
+
+            message.ack()
 
 
 class IngestValidatorAction:
 
-    def __init__(self, graph, test_path, connection, exchange_name, queue_name, routing_key, exit_on_failure):
+    def __init__(self, graph, test_path, connection, exchange_name, queue_name, routing_key):
         self._graph = graph
         self._test_path = test_path
-        self._exit_on_failure = exit_on_failure
+        self._connection = connection
+        self._exchange_name = exchange_name
+        self._queue_name = queue_name
+        self._routing_key = routing_key
 
         self._test_queries = {}
         """Test query dict. Keys are test file names, values are cypher queries"""
 
-        self._test_file_name_pattern = ".adoc"
-        """Pattern for test file name"""
-
-        self._query_regex = r"\[source,\s?cypher\]\n----(.*?)----"
-        """The regex to extract queries from test files"""
-
         self._logger = logging.getLogger(__name__)
-
-    def load_test_queries(self):
-        test_filenames = [x for x in listdir(self._test_path) if x.endswith(self._test_file_name_pattern)]
-
-        self._logger.info(f"found {len(test_filenames)} test files")
-
-        for test_filename in test_filenames:
-            with open(f"{self._test_path}/{test_filename}") as test_file:
-                test_file_contents = test_file.read()
-                test_query = re.search(self._query_regex, test_file_contents, re.DOTALL) or None
-
-                if test_query is not None:
-                    self._test_queries[test_filename] = test_query[1]
-
-        self._logger.info(f"loaded [{len(self._test_queries)}] test queries")
 
     def run(self):
         self._logger.info("loading tests")
 
-        self.load_test_queries()
+        self._test_queries = load_test_queries(self._test_path)
+        self._logger.info(f"loaded [{len(self._test_queries)}] test queries")
 
-        self._logger.info("running tests")
+        validation_exchange = Exchange(self._exchange_name, type='direct')
+        validation_queue = Queue(self._queue_name, validation_exchange, routing_key=self._routing_key)
 
-        bad_tests = 0
-
-        for test_name, test_query in self._test_queries.items():
-            self._logger.debug(f"running test [{test_name}]")
-            result = self._graph.run(test_query).data()
-
-            if len(result) != 0:
-                self._logger.error(f"test [{test_name}] failed: non-empty result.")
-                self._logger.error(f"result: {result}")
-
-                if self._exit_on_failure is True:
-                    self._logger.info("execution terminated")
-                    exit(1)
-
-        self._logger.info(f"all tests finished {'([{}] failed)'.format(bad_tests) if bad_tests > 0 else ''}")
+        with Connection(Config['AMQP_CONNECTION']) as conn:
+            self._logger.info(f"listening for messages at {conn}")
+            try:
+                ValidationListener(conn, validation_queue, self._graph, self._test_path).run()
+            except KeyboardInterrupt:
+                self._logger.info("AMQP listener stopped")
