@@ -4,7 +4,7 @@
 
 If more than one R1/R2/I1/I2 in a set, then ensure lane indices are specified.
 
-If more than one set of R1/R2/I1/I2 SEQUENCE_FILEs belong to a single sequencing experiment PROCESS, than this snippet returns an error.
+If more than one set of R1/R2/I1/I2 SEQUENCE_FILEs belong to a single  process (sequencing experiment) AND those files lack any lane_index, then this snippet returns an error.
 
 
 #### The test
