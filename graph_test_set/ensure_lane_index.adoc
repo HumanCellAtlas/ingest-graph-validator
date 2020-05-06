@@ -31,7 +31,7 @@ ORDER BY process_id ASC, read_index ASC
 
 
 [NOTE]
-.Informaton about Graph Validation Tests
+.Information about Graph Validation Tests
 ========================================
 * Each cypher snippet in `.adoc` files in the specified folder will run.
 * The cypher snippet should be contained between these specific lines:
