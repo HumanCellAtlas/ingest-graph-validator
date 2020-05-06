@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4ecc35d6-fab7-4ac6-a133-1b61f5ebad1d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/graph_test_set/contains_cell_barcode_info.adoc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/graph_test_set/contains_pairing_info.adoc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/graph_test_set/contains_umi_barcode_info.adoc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/graph_test_set/paired_end_2_files.adoc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/graph_test_set/10x_has_3-4_files.adoc" beforeDir="false" afterPath="$PROJECT_DIR$/graph_test_set/10x_has_more_than_2_files.adoc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/graph_test_set/Readme.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -26,19 +23,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ingest_graph_validator/actions/test_action.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="97">
-              <caret line="9" column="14" selection-start-line="9" selection-start-column="14" selection-end-line="9" selection-end-column="14" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/graph_test_set/10x_has_more_than_2_files.adoc">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="14" column="77" selection-start-line="14" selection-start-column="77" selection-end-line="14" selection-end-column="77" />
+            <state relative-caret-position="157">
+              <caret line="11" selection-start-line="11" selection-end-line="15" selection-end-column="16" />
             </state>
           </provider>
         </entry>
@@ -55,8 +43,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/graph_test_set/contains_pairing_info.adoc">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="14" column="65" selection-start-line="14" selection-start-column="65" selection-end-line="14" selection-end-column="65" />
+            <state relative-caret-position="165">
+              <caret line="11" selection-start-line="11" selection-end-line="15" selection-end-column="64" />
             </state>
           </provider>
         </entry>
@@ -64,8 +52,27 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/graph_test_set/contains_cell_barcode_info.adoc">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="14" column="82" lean-forward="true" selection-start-line="14" selection-start-column="43" selection-end-line="14" selection-end-column="82" />
+            <state relative-caret-position="165">
+              <caret line="11" selection-start-line="11" selection-end-line="17" selection-end-column="59" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/graph_test_set/template.txt">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/graph_test_set/Readme.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="300">
+                <caret line="20" selection-start-line="20" selection-end-line="20" />
+              </first_editor>
+              <second_editor>
+                <markdownNavigatorState />
+              </second_editor>
             </state>
           </provider>
         </entry>
@@ -84,7 +91,7 @@
           <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
             <state split_layout="SPLIT">
               <first_editor relative-caret-position="171">
-                <caret line="152" column="86" lean-forward="true" selection-start-line="152" selection-start-column="50" selection-end-line="152" selection-end-column="86" />
+                <caret line="152" column="86" selection-start-line="152" selection-start-column="50" selection-end-line="152" selection-end-column="86" />
               </first_editor>
               <second_editor>
                 <markdownNavigatorState />
@@ -144,6 +151,7 @@
         <option value="$PROJECT_DIR$/graph_test_set/contains_pairing_info.adoc" />
         <option value="$PROJECT_DIR$/graph_test_set/contains_umi_barcode_info.adoc" />
         <option value="$PROJECT_DIR$/graph_test_set/10x_has_more_than_2_files.adoc" />
+        <option value="$PROJECT_DIR$/graph_test_set/Readme.md" />
       </list>
     </option>
   </component>
@@ -164,6 +172,11 @@
             <path>
               <item name="ingest-graph-validator" type="b2602c69:ProjectViewProjectNode" />
               <item name="ingest-graph-validator" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ingest-graph-validator" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ingest-graph-validator" type="462c0819:PsiDirectoryNode" />
+              <item name="examples" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="ingest-graph-validator" type="b2602c69:ProjectViewProjectNode" />
@@ -389,9 +402,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/graph_test_set/template.txt">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/ingest_graph_validator/data_store.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -467,18 +477,11 @@
       <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
         <state split_layout="SPLIT">
           <first_editor relative-caret-position="171">
-            <caret line="152" column="86" lean-forward="true" selection-start-line="152" selection-start-column="50" selection-end-line="152" selection-end-column="86" />
+            <caret line="152" column="86" selection-start-line="152" selection-start-column="50" selection-end-line="152" selection-end-column="86" />
           </first_editor>
           <second_editor>
             <markdownNavigatorState />
           </second_editor>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/graph_test_set/paired_end_2_files.adoc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret selection-end-line="33" />
         </state>
       </provider>
     </entry>
@@ -496,20 +499,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/graph_test_set/contains_pairing_info.adoc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="65" selection-start-line="14" selection-start-column="65" selection-end-line="14" selection-end-column="65" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/graph_test_set/contains_cell_barcode_info.adoc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="82" lean-forward="true" selection-start-line="14" selection-start-column="43" selection-end-line="14" selection-end-column="82" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/graph_test_set/contains_umi_barcode_info.adoc">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
@@ -517,10 +506,46 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/graph_test_set/paired_end_2_files.adoc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-line="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/graph_test_set/template.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/graph_test_set/contains_pairing_info.adoc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" selection-start-line="11" selection-end-line="15" selection-end-column="64" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/graph_test_set/contains_cell_barcode_info.adoc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" selection-start-line="11" selection-end-line="17" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/graph_test_set/10x_has_more_than_2_files.adoc">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="77" selection-start-line="14" selection-start-column="77" selection-end-line="14" selection-end-column="77" />
+        <state relative-caret-position="157">
+          <caret line="11" selection-start-line="11" selection-end-line="15" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/graph_test_set/Readme.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="300">
+            <caret line="20" selection-start-line="20" selection-end-line="20" />
+          </first_editor>
+          <second_editor>
+            <markdownNavigatorState />
+          </second_editor>
         </state>
       </provider>
     </entry>
