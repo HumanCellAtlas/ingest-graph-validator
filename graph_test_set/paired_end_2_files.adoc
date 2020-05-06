@@ -1,18 +1,18 @@
-## Test: Processes using 10x library preparation protocols have 3 or 4 files linked
+## Test: Paired end experiment has less than 2 files
 
 #### Test description
 
-Processes using 10x library preparation protocols have 3 or 4 files linked.
+When a sequencing protocol is paired-end, test whether it has 2 or more files linked.
 
 
 
 #### The test
 [source,cypher]
 ----
-MATCH (r:library_preparation_protocol)<-[:PROTOCOLS]-(p:process)<-[d]-(f:file)
-WITH r, p, COUNT(d) as num_files
-WHERE r.`library_construction_method.ontology` = "EFO:0009310" // 10x v2
-AND NOT num_files IN [3, 4]
+MATCH (s:sequencing_protocol)<-[:PROTOCOLS]-(p:process)<-[d]-(f:file)
+WITH s, p, COUNT(d) as num_files
+WHERE s.`paired_end` = false
+AND NOT num_files >= 2
 RETURN num_files
 ----
 

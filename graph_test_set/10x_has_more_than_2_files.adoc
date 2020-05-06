@@ -1,0 +1,33 @@
+## Test: Processes using 10x library preparation protocols have 2 or more files linked
+
+#### Test description
+
+Processes using 10x library preparation protocols have 3 or 4 files linked.
+
+
+
+#### The test
+[source,cypher]
+----
+MATCH (r:library_preparation_protocol)<-[:PROTOCOLS]-(p:process)<-[d]-(f:file)
+WITH r, p, COUNT(d) as num_files
+WHERE r.`library_construction_method.ontology_label` =~ "10[xX] ([35]' ){0,1}v[1-3] sequencing" // 10x v2 and v3
+AND NOT 2 <= num_files <= 4 // Number of files is more than 1 and less than 5
+RETURN num_files
+----
+
+
+[NOTE]
+.Informaton about Graph Validation Tests
+========================================
+* Each cypher snippet in `.adoc` files in the specified folder will run.
+* The cypher snippet should be contained between these specific lines:
+```
+#### The test
+[source,cyper]
+----
+<TEST HERE>
+----
+```
+* The test passes if the cypher query returns no results.
+========================================

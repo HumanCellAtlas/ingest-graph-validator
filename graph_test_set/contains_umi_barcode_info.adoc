@@ -1,0 +1,35 @@
+## Test: Non-standard technologies (Non-10x, non-SS2) have information about the UMI barcodes
+
+#### Test description
+
+When a sequencing protocol is non-10x, non-ss2, test whether metadata is complete.
+
+
+
+#### The test
+[source,cypher]
+----
+MATCH (p:library_preparation_protocol)
+WHERE NOT p.`library_construction_method.ontology_label` =~ "10[xX] ([35]' ){0,1}v[1-3] sequencing" // 10x v2 and v3
+AND NOT p.`library_construction_method.ontology_label` = "Smart-seq2"
+AND (p.`umi_barcode.barcode_read` is NULL  // Which read contains the UMI barcode
+OR p.`umi_barcode.barcode_offset` is NULL  // Offset of the UMI barcode
+OR p.`umi_barcode.barcode_length` is NULL) // Length of the UMI barcode
+RETURN p, "Missing information for UMI barcode", labels(p)
+----
+
+
+[NOTE]
+.Informaton about Graph Validation Tests
+========================================
+* Each cypher snippet in `.adoc` files in the specified folder will run.
+* The cypher snippet should be contained between these specific lines:
+```
+#### The test
+[source,cyper]
+----
+<TEST HERE>
+----
+```
+* The test passes if the cypher query returns no results.
+========================================
