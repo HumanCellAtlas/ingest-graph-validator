@@ -13,6 +13,7 @@ If more than one set of R1/R2/I1/I2 SEQUENCE_FILEs belong to a single sequencing
 /////////////////////////////////////////
 // If more than one R1/R2/I1/I2 in a set,
 // ensure lane index is specified.
+// 2020-05-06; Ray Stefancsik
 MATCH (p:process)-[:DERIVED_FILES]->(f:sequence_file)
 WHERE f.read_index IN [ 'read1', 'read2', 'index1', 'index2']
 WITH
@@ -21,9 +22,9 @@ WITH
     , collect(f.`file_core.file_name`) AS file_names
     , collect(f.lane_index) AS lane_indeces
     , count(*) AS fileCount
-WHERE fileCount > 1 // more than one sequence file of any of type [ 'read1', 'read2', 'index1', 'index2'] belonging to a single experiment
-  AND size(lane_indeces) <> fileCount //The totla number of sequence files and the number of sequence files with lane_index in each category must be equal to pass the test.
-RETURN process_id, read_index, file_names, fileCount - size(lane_indeces) AS `FILES WITH ERRORS`, 'Whoops! Required lane_index is missing for some of the sequence files!!' AS message
+WHERE fileCount > 1 // Check that there are multiple sequence files for each type [ 'read1', 'read2', 'index1', 'index2'] belonging to a single process so that lane_index is required.
+  AND size(lane_indeces) <> fileCount //The total number of sequence files and the number of sequence files that have a lane_index in each category must be equal to pass the test.
+RETURN process_id, read_index, fileCount - size(lane_indeces) AS `sequence files missing lane_index`, 'Whoops! Required lane_index is missing for some of the sequence files!!' AS message
 ORDER BY process_id ASC, read_index ASC
 /////////////////////////////////////////
 ----
