@@ -1,0 +1,42 @@
+## Test: no_orphans
+
+#### Test description
+
+Ensure that orphan nodes do not exist in a dataset graph. Orphan nodes with no relationships must not exist in dataset graph.
+Every node must have at least one connection.
+
+
+#### The test
+[source,cypher]
+----
+/////////////////////////////////////////////////
+// Ensure that orphan nodes do not exist
+// in a dataset graph. Orphan nodes with no
+// relationships must not exist in dataset graph.
+// Every node must have at least one connection.
+// 2020-05-07; Ray Stefancsik
+MATCH (orphan)
+OPTIONAL MATCH (orphan)-[rel]-()
+WITH orphan
+    , count(rel) AS links
+    , 'Found an orphan node.' AS message
+WHERE links < 1
+RETURN message, orphan
+/////////////////////////////////////////////////
+----
+
+
+[NOTE]
+.Information about Graph Validation Tests
+========================================
+* Each cypher snippet in `.adoc` files in the specified folder will run.
+* The cypher snippet should be contained between these specific lines:
+```
+#### The test
+[source,cyper]
+----
+<TEST HERE>
+----
+```
+* The test passes if the cypher query returns no results.
+========================================
