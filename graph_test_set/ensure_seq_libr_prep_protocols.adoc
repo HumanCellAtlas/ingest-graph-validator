@@ -1,0 +1,45 @@
+## Test: ensure_seq_libr_prep_protocols
+
+#### Test description
+
+Ensure that exactly one pair of sequencing and library preparation  protocols are linked to each sequence_file.
+
+
+#### The test
+[source,cypher]
+----
+/////////////////////////////////////////
+// Exactly one pair of sequencing and
+// library preparation  protocols are
+// linked to each sequence_file.
+// 2020-05-07; Ray Stefancsik
+/////////////////////////////////////////
+MATCH (f:sequence_file)
+OPTIONAL MATCH
+      (n:process)-[:PROTOCOLS]->(p:sequencing_protocol)
+    , (n)-[:PROTOCOLS]->(q:library_preparation_protocol)
+    , (n)-[:DERIVED_FILES]->(f)
+WITH f
+    , count(n) AS rowCount
+    , 'ERROR: a sequence_file does not have exactly one pair of sequencing and library preparation protocols.' AS message
+WHERE rowCount <> 1 // each file must have exactly one sequencing_protocol
+                    // and one library_preparation_protocol
+RETURN f.`file_core.file_name` AS file_name, message
+/////////////////////////////////////////
+----
+
+
+[NOTE]
+.Information about Graph Validation Tests
+========================================
+* Each cypher snippet in `.adoc` files in the specified folder will run.
+* The cypher snippet should be contained between these specific lines:
+```
+#### The test
+[source,cyper]
+----
+<TEST HERE>
+----
+```
+* The test passes if the cypher query returns no results.
+========================================
