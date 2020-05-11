@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4ecc35d6-fab7-4ac6-a133-1b61f5ebad1d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/graph_test_set/Readme.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.github/ISSUE_TEMPLATE/test_addition.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -14,18 +14,9 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ingest_graph_validator/actions/action_definitions.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="9" column="11" selection-start-line="9" selection-start-column="11" selection-end-line="9" selection-end-column="11" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/graph_test_set/10x_has_more_than_2_files.adoc">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="157">
+            <state relative-caret-position="165">
               <caret line="11" selection-start-line="11" selection-end-line="15" selection-end-column="16" />
             </state>
           </provider>
@@ -63,12 +54,26 @@
           <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/graph_test_set/Readme.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="300">
-                <caret line="20" selection-start-line="20" selection-end-line="20" />
+              <first_editor relative-caret-position="600">
+                <caret line="40" selection-start-line="40" selection-end-line="40" />
+              </first_editor>
+              <second_editor>
+                <markdownNavigatorState />
+              </second_editor>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.github/ISSUE_TEMPLATE/test_addition.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="255">
+                <caret line="17" column="61" selection-start-line="17" selection-start-column="61" selection-end-line="17" selection-end-column="61" />
               </first_editor>
               <second_editor>
                 <markdownNavigatorState />
@@ -90,7 +95,7 @@
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="171">
+              <first_editor relative-caret-position="2280">
                 <caret line="152" column="86" selection-start-line="152" selection-start-column="50" selection-end-line="152" selection-end-column="86" />
               </first_editor>
               <second_editor>
@@ -103,7 +108,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ingest_graph_validator/ingest_graph_validator.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="173">
+            <state relative-caret-position="1620">
               <caret line="124" column="26" selection-start-line="124" selection-start-column="26" selection-end-line="124" selection-end-column="26" />
             </state>
           </provider>
@@ -152,10 +157,11 @@
         <option value="$PROJECT_DIR$/graph_test_set/contains_umi_barcode_info.adoc" />
         <option value="$PROJECT_DIR$/graph_test_set/10x_has_more_than_2_files.adoc" />
         <option value="$PROJECT_DIR$/graph_test_set/Readme.md" />
+        <option value="$PROJECT_DIR$/.github/ISSUE_TEMPLATE/test_addition.md" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="y" value="23" />
     <option name="width" value="1920" />
     <option name="height" value="993" />
@@ -176,34 +182,18 @@
             <path>
               <item name="ingest-graph-validator" type="b2602c69:ProjectViewProjectNode" />
               <item name="ingest-graph-validator" type="462c0819:PsiDirectoryNode" />
+              <item name=".github" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ingest-graph-validator" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ingest-graph-validator" type="462c0819:PsiDirectoryNode" />
+              <item name=".github" type="462c0819:PsiDirectoryNode" />
+              <item name="ISSUE_TEMPLATE" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ingest-graph-validator" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ingest-graph-validator" type="462c0819:PsiDirectoryNode" />
               <item name="examples" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ingest-graph-validator" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ingest-graph-validator" type="462c0819:PsiDirectoryNode" />
-              <item name="graph_test_set" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ingest-graph-validator" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ingest-graph-validator" type="462c0819:PsiDirectoryNode" />
-              <item name="ingest_graph_validator" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ingest-graph-validator" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ingest-graph-validator" type="462c0819:PsiDirectoryNode" />
-              <item name="ingest_graph_validator" type="462c0819:PsiDirectoryNode" />
-              <item name="actions" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ingest-graph-validator" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ingest-graph-validator" type="462c0819:PsiDirectoryNode" />
-              <item name="ingest_graph_validator" type="462c0819:PsiDirectoryNode" />
-              <item name="hydrators" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ingest-graph-validator" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ingest-graph-validator" type="462c0819:PsiDirectoryNode" />
-              <item name="tests" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -259,10 +249,9 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1920" height="993" extended-state="0" />
-    <editor active="true" />
+    <frame x="0" y="23" width="1920" height="993" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.29120588" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.29120588" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -273,7 +262,7 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.3296617" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.32957503" />
-      <window_info anchor="bottom" id="Terminal" order="8" visible="true" weight="0.3018868" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="8" visible="true" weight="0.3018868" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Python Console" order="10" weight="0.30965593" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -293,7 +282,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/graph_validate/seq_file_matches_cell_suspension_violation.adoc" />
     <entry file="file://$PROJECT_DIR$/graph_validate/biomaterials_connect_to_data_file_violation.adoc" />
     <entry file="file://$PROJECT_DIR$/examples/example_run_tests.py" />
     <entry file="file://$PROJECT_DIR$/graph_validate/correct_no_of_files_indev.adoc" />
@@ -321,13 +309,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ingest_graph_validator/REFACTOR_THIS/graph_validate/biomaterials_connect_to_data_file_violation.adoc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" column="12" selection-start-line="10" selection-end-line="14" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/ingest_graph_validator/REFACTOR_THIS/graph_validate/biomaterials_connect_to_data_file_violation.adoc" />
     <entry file="file://$PROJECT_DIR$/MANIFEST.in">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -338,23 +320,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ingest_graph_validator/REFACTOR_THIS/example_run_tests.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="35" selection-start-line="2" selection-start-column="35" selection-end-line="2" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/ingest_graph_validator/REFACTOR_THIS/example_run_tests.py" />
     <entry file="file://$PROJECT_DIR$/.editorconfig">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/ingest_graph_validator/cli.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="394">
-          <caret line="58" column="18" selection-start-line="58" selection-start-column="18" selection-end-line="58" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/ingest_graph_validator/cli.py" />
     <entry file="file:///usr/local/lib/python3.7/site-packages/ingest/importer/conversion/template_manager.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-161">
@@ -395,13 +365,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ingest_graph_validator/graph_import/helper_functions.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="11" selection-start-line="11" selection-end-line="24" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/ingest_graph_validator/graph_import/helper_functions.py" />
     <entry file="file://$PROJECT_DIR$/ingest_graph_validator/data_store.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -466,43 +430,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ingest_graph_validator/ingest_graph_validator.py">
+    <entry file="file://$PROJECT_DIR$/graph_test_set/contains_cell_barcode_offset.adoc" />
+    <entry file="file://$PROJECT_DIR$/graph_test_set/contains_cell_barcode_length.adoc" />
+    <entry file="file://$PROJECT_DIR$/graph_test_set/10x_has_more_than_2_files.adoc">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="173">
-          <caret line="124" column="26" selection-start-line="124" selection-start-column="26" selection-end-line="124" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="171">
-            <caret line="152" column="86" selection-start-line="152" selection-start-column="50" selection-end-line="152" selection-end-column="86" />
-          </first_editor>
-          <second_editor>
-            <markdownNavigatorState />
-          </second_editor>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/graph_test_set/contains_cell_barcode_offset.adoc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" column="6" selection-start-line="15" selection-start-column="6" selection-end-line="15" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/graph_test_set/contains_cell_barcode_length.adoc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" column="6" selection-start-line="15" selection-start-column="6" selection-end-line="15" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/graph_test_set/contains_umi_barcode_info.adoc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" column="71" selection-start-line="16" selection-start-column="71" selection-end-line="16" selection-end-column="71" />
+        <state relative-caret-position="165">
+          <caret line="11" selection-start-line="11" selection-end-line="15" selection-end-column="16" />
         </state>
       </provider>
     </entry>
@@ -512,9 +445,6 @@
           <caret selection-end-line="33" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/graph_test_set/template.txt">
-      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/graph_test_set/contains_pairing_info.adoc">
       <provider selected="true" editor-type-id="text-editor">
@@ -530,18 +460,52 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/graph_test_set/10x_has_more_than_2_files.adoc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="157">
-          <caret line="11" selection-start-line="11" selection-end-line="15" selection-end-column="16" />
-        </state>
-      </provider>
+    <entry file="file://$PROJECT_DIR$/graph_test_set/template.txt">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/graph_test_set/Readme.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="300">
-            <caret line="20" selection-start-line="20" selection-end-line="20" />
+          <first_editor relative-caret-position="600">
+            <caret line="40" selection-start-line="40" selection-end-line="40" />
+          </first_editor>
+          <second_editor>
+            <markdownNavigatorState />
+          </second_editor>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/graph_test_set/contains_umi_barcode_info.adoc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="71" selection-start-line="16" selection-start-column="71" selection-end-line="16" selection-end-column="71" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="2280">
+            <caret line="152" column="86" selection-start-line="152" selection-start-column="50" selection-end-line="152" selection-end-column="86" />
+          </first_editor>
+          <second_editor>
+            <markdownNavigatorState />
+          </second_editor>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ingest_graph_validator/ingest_graph_validator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1620">
+          <caret line="124" column="26" selection-start-line="124" selection-start-column="26" selection-end-line="124" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.github/ISSUE_TEMPLATE/test_addition.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="255">
+            <caret line="17" column="61" selection-start-line="17" selection-start-column="61" selection-end-line="17" selection-end-column="61" />
           </first_editor>
           <second_editor>
             <markdownNavigatorState />
