@@ -23,7 +23,7 @@ requirements = [
     "commonmark==0.9.1",
     "coverage==4.5.4",
     "crc32c==1.7",
-    "cryptography==2.8",
+    "cryptography==3.2",
     "dcplib==2.1.2",
     "docker==4.1.0",
     "docutils==0.15.2",
