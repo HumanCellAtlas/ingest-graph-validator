@@ -34,7 +34,7 @@ requirements = [
     "hca-ingest==0.6.8",
     "idna==2.8",
     "jdcal==1.4.1",
-    "Jinja2==2.10.3",
+    "Jinja2==2.11.3",
     "jmespath==0.9.4",
     "jsonpointer==1.14",
     "jsonref==0.2",
