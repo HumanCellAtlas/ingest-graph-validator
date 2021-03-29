@@ -51,7 +51,7 @@ requirements = [
     "pyasn1==0.4.8",
     "pyasn1-modules==0.2.7",
     "pycparser==2.19",
-    "Pygments==2.3.1",
+    "Pygments==2.7.4",
     "PyJWT==1.7.1",
     "pyOpenSSL==19.1.0",
     "python-dateutil==2.8.0",
