@@ -59,7 +59,7 @@ requirements = [
     "PyYAML==5.1.2",
     "requests==2.22.0",
     "requests-oauthlib==1.3.0",
-    "rsa==4.0",
+    "rsa==4.7",
     "s3transfer==0.2.1",
     "six==1.13.0",
     "tenacity==5.0.4",
