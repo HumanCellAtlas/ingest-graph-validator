@@ -65,7 +65,7 @@ requirements = [
     "tenacity==5.0.4",
     "tqdm==4.39.0",
     "tweak==1.0.3",
-    "urllib3==1.24.3",
+    "urllib3==1.26.5",
     "wcwidth==0.1.7",
     "websocket-client==0.56.0",
     "XlsxWriter==1.2.6",
