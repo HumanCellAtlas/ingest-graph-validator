@@ -15,7 +15,7 @@ requirements = [
     "boto3==1.10.28",
     "botocore==1.13.28",
     "cachetools==3.1.1",
-    "certifi==2019.11.28",
+    "certifi==2022.12.7",
     "cffi==1.13.2",
     "chardet==3.0.4",
     "Click==7.0",
